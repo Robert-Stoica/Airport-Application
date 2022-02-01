@@ -39,6 +39,7 @@
                     <mainClass>org.comp2211.App</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
