@@ -5,19 +5,18 @@ public class Runway {
     private int toda;
     private int asda;
     private int lda;
-    private int dThreshold;
-    private int clearway;
-    private int stopway;
-    private int resa;
-    private int stripEnd;
-    private int bProtection;
-    private int als;
-    private int tocs;
-    private int runStrip;
-    private String runDesignator;
-    private int distanceFromCl;
-    private int distanceFromRun;
-
+  private final int dThreshold;
+  private final int clearway;
+  private final int stopway;
+  private final int resa;
+  private final int stripEnd;
+  private final int bProtection;
+  private final int als;
+  private final int tocs;
+  private final int runStrip;
+  private final String runDesignator;
+  private final int distanceFromCl;
+  private final int distanceFromRun;
 
     public Runway(int tora, int toda, int asda, int lda, int dThreshold, int clearway, int stopway, int resa,
                   int stripEnd, int bProtection, int als, int tocs, int runStrip, String runDesignator, int distanceFromCl,
