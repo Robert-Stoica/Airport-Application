@@ -1,4 +1,3 @@
 package org.comp2211;
 
-public class Airpot {
-}
+public class Airpot {}
