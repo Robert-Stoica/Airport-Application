@@ -12,6 +12,7 @@ import java.io.IOException;
 public class App extends Application {
 
   private static Scene scene;
+  private Stage stage;
 
   static void setRoot(String fxml) throws IOException {
     scene.setRoot(loadFXML(fxml));
@@ -28,8 +29,36 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    scene = new Scene(loadFXML("primary"));
-    stage.setScene(scene);
-    stage.show();
+      this.stage = stage;
+      stage.setTitle("Airport Recalculation");
+      stage.setOnCloseRequest(ev -> {
+          shutdown();
+      });
+
+      runwayInput();
   }
+
+    private void shutdown() {
+        System.exit(0);
+    }
+
+    public void runwayInput() throws IOException {
+
+        scene = new Scene(loadFXML("Input"));
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+    }
+
+    public void openRunwayvisualisation() throws IOException {
+
+        scene = new Scene(loadFXML("primary"));
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+    }
+
+
 }
