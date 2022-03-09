@@ -310,7 +310,6 @@ public class Media {
     xml.writeStartElement(schema, "Obstructions");
     for (Obstruction o : data.obstructions) {
       xml.writeStartElement(schema, "Obstruction");
-      xml.writeStartElement(schema, "name");
       xml.writeStartElement(schema, "distanceFromCl");
       xml.writeCharacters(Integer.toString(o.getDistanceFromCl()));
       xml.writeEndElement();
