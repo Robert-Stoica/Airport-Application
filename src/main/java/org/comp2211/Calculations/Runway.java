@@ -113,8 +113,12 @@ public class Runway {
     return distanceFromCl;
   }
 
-  public void setTora(Integer tora) {
-    this.tora = tora;
+  public int getDistanceFromRun() {
+    return distanceFromRun;
+  }
+
+  public int setTora(Integer tora) {
+    return this.tora = tora;
   }
 
   public void setToda(Integer toda) {

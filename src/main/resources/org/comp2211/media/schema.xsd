@@ -1,0 +1,53 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:element name="Airport">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Runways">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Runway" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:short" name="tora"/>
+                                        <xs:element type="xs:short" name="toda"/>
+                                        <xs:element type="xs:short" name="asda"/>
+                                        <xs:element type="xs:short" name="lda"/>
+                                        <xs:element type="xs:short" name="dThreshold"/>
+                                        <xs:element type="xs:short" name="clearway"/>
+                                        <xs:element type="xs:short" name="stopway"/>
+                                        <xs:element type="xs:short" name="resa"/>
+                                        <xs:element type="xs:short" name="stripEnd"/>
+                                        <xs:element type="xs:short" name="bProtection"/>
+                                        <xs:element type="xs:short" name="als"/>
+                                        <xs:element type="xs:short" name="tocs"/>
+                                        <xs:element type="xs:short" name="runStrip"/>
+                                        <xs:element type="xs:string" name="runDesignator"/>
+                                        <xs:element type="xs:short" name="distanceFromCl"/>
+                                        <xs:element type="xs:short" name="distanceFromRun"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Obstructions">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Obstruction" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="name"/>
+                                        <xs:element type="xs:short" name="distanceFromCl"/>
+                                        <xs:element type="xs:short" name="distanceAlongCl"/>
+                                        <xs:element type="xs:short" name="height"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
