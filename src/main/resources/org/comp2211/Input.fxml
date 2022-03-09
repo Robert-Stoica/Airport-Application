@@ -8,26 +8,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
    <children>
-      <MenuButton layoutX="84.0" layoutY="88.0" mnemonicParsing="false" text="Select Runway">
+      <MenuButton fx:id="menu" layoutX="84.0" layoutY="88.0" mnemonicParsing="false" text="Select Runway">
         <items>
-          <MenuItem mnemonicParsing="false" text="Snagov Runway" />
-          <MenuItem mnemonicParsing="false" text="09R Runway" />
+          <MenuItem fx:id="snagov" mnemonicParsing="false"  text="Snagov Runway" />
+          <MenuItem fx:id="right" mnemonicParsing="false" text="09R Runway" />
         </items>
       </MenuButton>
-      <TextField layoutX="72.0" layoutY="164.0" promptText="Input number" />
-      <TextField layoutX="70.0" layoutY="226.0" promptText="Input number" />
-      <TextField layoutX="70.0" layoutY="286.0" promptText="Input number" />
-      <TextField layoutX="72.0" layoutY="341.0" promptText="Input number" />
+      <TextField fx:id="tora" layoutX="72.0" layoutY="164.0" promptText="Input number" />
+      <TextField fx:id="stopway" layoutX="70.0" layoutY="226.0" promptText="Input number" />
+      <TextField fx:id="clearway" layoutX="70.0" layoutY="286.0" promptText="Input number" />
+      <TextField fx:id="threshold" layoutX="72.0" layoutY="341.0" promptText="Input number" />
       <Label layoutX="247.0" layoutY="181.0" text="Tora" />
       <Label layoutX="247.0" layoutY="243.0" text="Stopway" />
       <Label layoutX="247.0" layoutY="304.0" text="Clearway" />
       <Label layoutX="247.0" layoutY="359.0" text="D Treshold" />
-      <Button layoutX="457.0" layoutY="114.0" mnemonicParsing="false" text="Clear Input" />
+      <Button fx:id="clear" layoutX="457.0" layoutY="114.0" mnemonicParsing="false" onMouseClicked="#clearText" text="Clear Input" />
       <Button layoutX="122.0" layoutY="433.0" mnemonicParsing="false" text="Export XML" />
-      <Button layoutX="457.0" layoutY="433.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="submit" layoutX="457.0" layoutY="433.0" mnemonicParsing="false" onAction="#openObstacle" text="Submit" />
       <Label layoutX="245.0" layoutY="23.0" text="Runway Input" textAlignment="CENTER" underline="true">
          <font>
             <Font size="25.0" />

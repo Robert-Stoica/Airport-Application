@@ -5,9 +5,9 @@ public class Runway {
   private int toda;
   private int asda;
   private int lda;
-  private final int dThreshold;
-  private final int clearway;
-  private final int stopway;
+  private int dThreshold;
+  private int clearway;
+  private int stopway;
   private final int resa;
   private final int stripEnd;
   private final int bProtection;
@@ -128,4 +128,16 @@ public class Runway {
   public int setLda(Integer lda) {
     return this.lda = lda;
   }
+
+  public int setTreshold(Integer tresh) {
+        return this.dThreshold = tresh;
+    }
+
+  public int setClearway(Integer clearway) {
+        return this.clearway = clearway;
+    }
+
+  public int setStopway(Integer stopway) {
+        return this.stopway = stopway;
+    }
 }
