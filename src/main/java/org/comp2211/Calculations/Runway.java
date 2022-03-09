@@ -25,7 +25,7 @@ public class Runway {
     this.originalLda = lda;
     this.tora = tora;
     this.lda = lda;
-    this.setDisplacedThreshold(dThreshold);
+    this.displacedThreshold = dThreshold;
     this.clearway = 0;
     this.stopway = 0;
     this.resa = 240;
@@ -89,7 +89,7 @@ public class Runway {
   public void setToda(Integer toda) {
     this.toda = toda;
   }
-  
+
   public void setAsda(Integer asda) {
     this.asda = asda;
   }
