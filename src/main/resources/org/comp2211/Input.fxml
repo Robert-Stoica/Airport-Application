@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
-   <children>
-      <MenuButton fx:id="menu" layoutX="72.0" layoutY="89.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Select Runway">
-        <items>
-          <MenuItem fx:id="addRunway" mnemonicParsing="false" text="Add Runway" />
-        </items>
-      </MenuButton>
-      <TextField fx:id="originalTora" layoutX="72.0" layoutY="164.0" promptText="Input number" />
-      <TextField fx:id="originalLda" layoutX="72.0" layoutY="226.0" promptText="Input number" />
-      <TextField fx:id="displacedThreshold" layoutX="72.0" layoutY="291.0" promptText="Input number" />
-      <Label layoutX="247.0" layoutY="168.0" text="Original TORA (m)" />
-      <Label layoutX="251.0" layoutY="230.0" text="Original LDA (m)" />
-      <Label layoutX="245.0" layoutY="295.0" text="Displaced Threshold (m)" />
-      <Button fx:id="clear" layoutX="457.0" layoutY="89.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" text="Clear Input" />
-      <Button fx:id="exportXml" layoutX="108.0" layoutY="433.0" mnemonicParsing="false" text="Export XML" />
-      <Button fx:id="submit" layoutX="457.0" layoutY="433.0" mnemonicParsing="false" onAction="#openObstacle" text="Submit" />
-      <Label layoutX="245.0" layoutY="23.0" text="Runway Input" textAlignment="CENTER" underline="true">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-   </children>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0"
+      xmlns="http://javafx.com/javafx/15.0.1" fx:controller="org.comp2211.RunwayInput">
+   <MenuButton fx:id="menu" layoutX="72.0" layoutY="89.0" mnemonicParsing="false" prefHeight="25.0"
+               prefWidth="149.0" text="Select Runway">
+      <items>
+         <MenuItem fx:id="addRunway" mnemonicParsing="false" onAction="#addRunway"
+                   text="Add Runway"/>
+      </items>
+   </MenuButton>
+   <TextField fx:id="originalTora" layoutX="72.0" layoutY="164.0" promptText="Input number"/>
+   <TextField fx:id="originalLda" layoutX="72.0" layoutY="226.0" promptText="Input number"/>
+   <TextField fx:id="displacedThreshold" layoutX="72.0" layoutY="291.0"
+              promptText="Input number"/>
+   <Label layoutX="247.0" layoutY="168.0" text="Original TORA (m)"/>
+   <Label layoutX="251.0" layoutY="230.0" text="Original LDA (m)"/>
+   <Label layoutX="245.0" layoutY="295.0" text="Displaced Threshold (m)"/>
+   <Button fx:id="clear" layoutX="457.0" layoutY="89.0" mnemonicParsing="false"
+           onAction="#clearText" onMouseClicked="#clearText" text="Clear Input"/>
+   <Button fx:id="exportXml" layoutX="108.0" layoutY="433.0" mnemonicParsing="false"
+           onAction="#export" text="Export XML"/>
+   <Button fx:id="submit" layoutX="457.0" layoutY="433.0" mnemonicParsing="false"
+           onAction="#openObstacle" text="Submit"/>
+   <Label layoutX="245.0" layoutY="23.0" text="Runway Input" textAlignment="CENTER"
+          underline="true">
+      <font>
+         <Font size="25.0"/>
+      </font>
+   </Label>
 </Pane>

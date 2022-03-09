@@ -19,14 +19,14 @@ public class Media {
   /**
    * The global filename to be used for {@link #importXML()} and {@link #exportXML(XMLData)}.
    */
-  private static String filename = "out.xml";
+  private static File filename;
 
   /**
    * Gets the global filename {@link #filename}.
    *
    * @return Returns the filename as a String.
    */
-  public static String getFilename() {
+  public static File getFilename() {
     return filename;
   }
 
@@ -35,7 +35,7 @@ public class Media {
    *
    * @param filename The String to assign to the filename. Should be a full path.
    */
-  public static void setFilename(String filename) {
+  public static void setFilename(File filename) {
     Media.filename = filename;
   }
 
@@ -97,7 +97,7 @@ public class Media {
    * Equivalent to <code>Media.importXML(Media.getFilename())</code>.
    *
    * @see XMLData
-   * @see #importXML(String)
+   * @see #importXML(File)
    * @return Returns a filled XMLData class.
    * @throws XMLStreamException Throws when any error occurs in reading.
    */
@@ -115,7 +115,7 @@ public class Media {
    * @return Returns a filled XMLData class.
    * @throws XMLStreamException Throws when any error occurs in reading.
    */
-  public static XMLData importXML(String filename) throws XMLStreamException {
+  public static XMLData importXML(File filename) throws XMLStreamException {
     Reader fileReader;
     try {
       fileReader = new FileReader(filename);
@@ -239,7 +239,7 @@ public class Media {
    * Equivalent to <code>Media.exportXML(data, Media.getFilename())</code>.
    *
    * @see XMLData
-   * @see #exportXML(XMLData, String)
+   * @see #exportXML(XMLData, File)
    * @param data The data to write out to the file.
    * @throws XMLStreamException Throws when any error occurs in writing.
    */
@@ -255,7 +255,7 @@ public class Media {
    * @param filename The filename of the file to export to.
    * @throws XMLStreamException Throws when any error occurs in writing.
    */
-  public static void exportXML(XMLData data, String filename) throws XMLStreamException {
+  public static void exportXML(XMLData data, File filename) throws XMLStreamException {
     Writer fileWriter;
     try {
       fileWriter = new FileWriter(filename);
