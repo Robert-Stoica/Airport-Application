@@ -32,7 +32,8 @@ public class Runway {
 public String getName() {
     return name;
   }
-  public int getOrigianlTora() {
+
+  public int getOriginalTora() {
     return originalTora;
   }
   public int getOriginalLda() {
