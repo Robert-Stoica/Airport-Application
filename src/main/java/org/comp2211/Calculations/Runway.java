@@ -113,31 +113,31 @@ public class Runway {
     return distanceFromCl;
   }
 
-  public int setTora(Integer tora) {
-    return this.tora = tora;
+  public void setTora(Integer tora) {
+    this.tora = tora;
   }
 
-  public int setToda(Integer toda) {
-    return this.toda = toda;
+  public void setToda(Integer toda) {
+    this.toda = toda;
   }
 
-  public int setAsda(Integer asda) {
-    return this.asda = asda;
+  public void setAsda(Integer asda) {
+    this.asda = asda;
   }
 
-  public int setLda(Integer lda) {
-    return this.lda = lda;
+  public void setLda(Integer lda) {
+    this.lda = lda;
   }
 
-  public int setTreshold(Integer tresh) {
-        return this.dThreshold = tresh;
-    }
+  public void setTreshold(Integer tresh) {
+    this.dThreshold = tresh;
+  }
 
-  public int setClearway(Integer clearway) {
-        return this.clearway = clearway;
-    }
+  public void setClearway(Integer clearway) {
+    this.clearway = clearway;
+  }
 
-  public int setStopway(Integer stopway) {
-        return this.stopway = stopway;
-    }
+  public void setStopway(Integer stopway) {
+    this.stopway = stopway;
+  }
 }
