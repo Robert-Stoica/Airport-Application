@@ -46,7 +46,7 @@ public class RunwayInput {
     private void openObstacle() throws IOException {
     	try {
     		//Need to code the Select Runway drop down so it actually selects a menu item
-    	if(!(menu.getText().equals("Select Runway") || originalTora.getText().isBlank() || originalLda.getText().isBlank() || displacedThreshold.getText().isBlank())) {
+    	if(!(menu.getText().equals("S elect Runway") || originalTora.getText().isBlank() || originalLda.getText().isBlank() || displacedThreshold.getText().isBlank())) {
     		runway = new Runway(menu.getText(), Integer.parseInt(originalTora.getText()), Integer.parseInt(originalLda.getText()), Integer.parseInt(displacedThreshold.getText()));
     		/*
     		System.out.println(Integer.parseInt(originalTora.getText()));

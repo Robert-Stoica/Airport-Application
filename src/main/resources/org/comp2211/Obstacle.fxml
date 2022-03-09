@@ -9,28 +9,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
    <children>
       <Label layoutX="244.0" layoutY="42.0" text="Obstacle Input" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="height" layoutX="246.0" layoutY="165.0" />
-      <TextField fx:id="length" layoutX="247.0" layoutY="235.0" />
-      <TextField fx:id="center" layoutX="246.0" layoutY="307.0" />
-      <TextField fx:id="treshold" layoutX="247.0" layoutY="389.0" />
-      <MenuButton layoutX="51.0" layoutY="77.0" mnemonicParsing="false" text="MenuButton">
+      <TextField fx:id="height" layoutX="246.0" layoutY="165.0" promptText="Enter number" />
+      <TextField fx:id="centre" layoutX="247.0" layoutY="254.0" promptText="Enter number" />
+      <MenuButton layoutX="51.0" layoutY="77.0" mnemonicParsing="false" text="Operation Type">
         <items>
           <MenuItem mnemonicParsing="false" text="Take off Away/Over" />
-          <MenuItem mnemonicParsing="false" text="Take off Towards/Towards" />
+          <MenuItem mnemonicParsing="false" text="Take off Towards/Away" />
         </items>
       </MenuButton>
-      <Button fx:id="submit" layoutX="507.0" layoutY="440.0" mnemonicParsing="false" onAction="#openVisual" text="Submit" />
-      <Label layoutX="284.0" layoutY="142.0" text="Object Height" />
-      <Label layoutX="284.0" layoutY="211.0" text="Object Length" />
-      <Label layoutX="256.0" layoutY="276.0" text="Distance from Centerline" />
-      <Label layoutX="251.0" layoutY="363.0" text="Distance from Treshold" />
-      <ToggleButton fx:id="toggle" layoutX="516.0" layoutY="65.0" mnemonicParsing="false" onAction="#openSidebar" text="ToggleButton" />
+      <Button fx:id="submit" layoutX="341.0" layoutY="349.0" mnemonicParsing="false" onAction="#openVisual" text="Submit" />
+      <Label layoutX="273.0" layoutY="142.0" text="Object Height (m)" />
+      <Label layoutX="245.0" layoutY="225.0" text="Distance from Centerline (m)" />
+      <ToggleButton fx:id="toggle" layoutX="533.0" layoutY="65.0" mnemonicParsing="false" onAction="#openSidebar" text="SideBar" />
+      <Button fx:id="clear" layoutX="247.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearText" text="Clear Input" />
    </children>
 </Pane>

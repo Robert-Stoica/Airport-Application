@@ -23,25 +23,25 @@ public class Calculations {
     return runway;
   }
 
-  public Runway RunwayrecalculateTodaTowards(Runway runway, Obstruction obstruction) {
+  public Runway RunwayrecalculateTodaTowards(Runway runway) {
     int toda = runway.getTora();
     runway.setToda(toda);
     return runway;
   }
 
-  public Runway recalculateTodaAwayOver(Runway runway, Obstruction obstruction) {
+  public Runway recalculateTodaAwayOver(Runway runway) {
     int toda = runway.getTora() + runway.getStopway();
     runway.setToda(toda);
     return runway;
   }
 
-  public Runway recalculateAsdaTowards(Runway runway, Obstruction obstruction) {
+  public Runway recalculateAsdaTowards(Runway runway) {
     int asda = runway.getTora() + runway.getClearway();
     runway.setAsda(asda);
     return runway;
   }
 
-  public Runway recalculateAsdaAwayOver(Runway runway, Obstruction obstruction) {
+  public Runway recalculateAsdaAwayOver(Runway runway) {
     int asda = runway.getTora();
     runway.setAsda(asda);
     return runway;

@@ -21,7 +21,7 @@
       <Label layoutX="247.0" layoutY="168.0" text="Original TORA (m)" />
       <Label layoutX="251.0" layoutY="230.0" text="Original LDA (m)" />
       <Label layoutX="245.0" layoutY="295.0" text="Displaced Threshold (m)" />
-      <Button fx:id="clear" layoutX="457.0" layoutY="114.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" text="Clear Input" />
+      <Button fx:id="clear" layoutX="457.0" layoutY="89.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" text="Clear Input" />
       <Button fx:id="exportXml" layoutX="108.0" layoutY="433.0" mnemonicParsing="false" text="Export XML" />
       <Button fx:id="submit" layoutX="457.0" layoutY="433.0" mnemonicParsing="false" onAction="#openObstacle" text="Submit" />
       <Label layoutX="245.0" layoutY="23.0" text="Runway Input" textAlignment="CENTER" underline="true">

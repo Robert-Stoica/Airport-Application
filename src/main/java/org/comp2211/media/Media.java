@@ -148,7 +148,7 @@ public class Media {
                   int als = 0;
                   int tocs = 0;
                   int runStrip = 0;
-                  String runDesignator = "";
+                  String name = "";
                   int distanceFromCl = 0;
                   int distanceFromRun = 0;
                   while (xml.hasNext()) {
@@ -175,14 +175,12 @@ public class Media {
                         case "runStrip" -> runStrip = getInt(xml, "runStrip");
                         case "distanceFromCl" -> distanceFromCl = getInt(xml, "distanceFromCl");
                         case "distanceFromRun" -> distanceFromRun = getInt(xml, "distanceFromRun");
-                        case "runDesignator" -> runDesignator = getString(xml, "runDesignator");
+                        case "name" -> name = getString(xml, "name");
                         default -> { }
                       }
                     }
                   }
-                  data.runways.add(new Runway(tora, toda, asda, lda, dThreshold, clearway, stopway,
-                      resa, stripEnd, bProtection, als, tocs, runStrip, runDesignator,
-                      distanceFromCl, distanceFromRun));
+                  data.runways.add(new Runway(name, tora,lda,dThreshold));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {
@@ -218,8 +216,7 @@ public class Media {
                       }
                     }
                   }
-                  data.obstructions.add(new Obstruction(name,
-                      distanceFromCl, distanceAlongCl, height));
+                  data.obstructions.add(new Obstruction(distanceFromCl, height));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {
@@ -290,7 +287,7 @@ public class Media {
       xml.writeCharacters(Integer.toString(r.getLda()));
       xml.writeEndElement();
       xml.writeStartElement(schema, "dThreshold");
-      xml.writeCharacters(Integer.toString(r.getdThreshold()));
+      xml.writeCharacters(Integer.toString(r.getDisplacedThreshold()));
       xml.writeEndElement();
       xml.writeStartElement(schema, "clearway");
       xml.writeCharacters(Integer.toString(r.getClearway()));
@@ -307,25 +304,6 @@ public class Media {
       xml.writeStartElement(schema, "bProtection");
       xml.writeCharacters(Integer.toString(r.getbProtection()));
       xml.writeEndElement();
-      xml.writeStartElement(schema, "als");
-      xml.writeCharacters(Integer.toString(r.getAls()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "tocs");
-      xml.writeCharacters(Integer.toString(r.getTocs()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "runStrip");
-      xml.writeCharacters(Integer.toString(r.getRunStrip()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "runDesignator");
-      xml.writeCharacters(r.getRunDesignator().replace("&", "&1")
-          .replace("<", "&2").replace(">", "&3"));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "distanceFromCl");
-      xml.writeCharacters(Integer.toString(r.getDistanceFromCl()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "distanceFromRun");
-      xml.writeCharacters(Integer.toString(r.getDistanceFromRun()));
-      xml.writeEndElement();
       xml.writeEndElement();
     }
     xml.writeEndElement();
@@ -333,14 +311,8 @@ public class Media {
     for (Obstruction o : data.obstructions) {
       xml.writeStartElement(schema, "Obstruction");
       xml.writeStartElement(schema, "name");
-      xml.writeCharacters(o.getName().replace("&", "&1")
-          .replace("<", "&2").replace(">", "&3"));
-      xml.writeEndElement();
       xml.writeStartElement(schema, "distanceFromCl");
       xml.writeCharacters(Integer.toString(o.getDistanceFromCl()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "distanceAlongCl");
-      xml.writeCharacters(Integer.toString(o.getDistanceAlongCl()));
       xml.writeEndElement();
       xml.writeStartElement(schema, "height");
       xml.writeCharacters(Integer.toString(o.getHeight()));

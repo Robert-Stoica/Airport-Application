@@ -15,11 +15,7 @@ public class Runway {
   private final int stripEnd;
   private final int bProtection;
 
-  public Runway(
-      String name,
-      int tora,
-      int lda,
-      int dThreshold) {
+  public Runway(String name,int tora,int lda,int dThreshold) {
 	this.name = name;
     this.originalTora = tora;
     this.originalLda = lda;
@@ -33,7 +29,7 @@ public class Runway {
     this.bProtection = 300;
   }
 
-  public String getName() {
+public String getName() {
     return name;
   }
   public int getOrigianlTora() {
