@@ -5,7 +5,7 @@ public class Calculations {
   public Runway recalculateToraTowards(Runway runway, Obstruction obstruction) {
     int tora =
         obstruction.getDistanceFromCl()
-            + runway.getdThreshold()
+            + runway.getDisplacedThreshold()
             - (obstruction.getHeight() * obstruction.getDistanceFromCl())
             - runway.getStripEnd();
     runway.setTora(tora);
@@ -16,7 +16,7 @@ public class Calculations {
     int tora =
         runway.getTora()
             - obstruction.getDistanceFromCl()
-            - runway.getdThreshold()
+            - runway.getDisplacedThreshold()
             - runway.getResa()
             - runway.getStripEnd();
     runway.setTora(tora);
