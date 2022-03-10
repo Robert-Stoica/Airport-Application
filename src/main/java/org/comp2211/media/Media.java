@@ -13,8 +13,8 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import org.comp2211.Calculations.Obstruction;
-import org.comp2211.Calculations.Runway;
+import org.comp2211.calculations.Obstruction;
+import org.comp2211.calculations.Runway;
 
 /**
  * Reads and writes obstructions and runways from XML files.
@@ -190,7 +190,7 @@ public class Media {
                       }
                     }
                   }
-                  data.runways.add(new Runway(name, tora,lda,dThreshold));
+                  data.runways.add(new Runway(name, tora, lda, dThreshold));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {
@@ -205,7 +205,6 @@ public class Media {
               var next = xml.nextTag();
               if (next == XMLStreamConstants.START_ELEMENT) {
                 if (xml.getLocalName().equals("Obstruction")) {
-                  String name = "";
                   int distanceFromCl = 0;
                   int distanceFromThresh = 0;
                   int height = 0;
@@ -218,7 +217,6 @@ public class Media {
                     }
                     if (obstructionNext == XMLStreamConstants.START_ELEMENT) {
                       switch (xml.getLocalName()) {
-                        case "name" -> name = getString(xml, "name");
                         case "distanceFromCl" -> distanceFromCl = getInt(xml, "distanceFromCl");
                         case "distanceFromThresh" -> distanceFromThresh = getInt(xml, "distanceFromThresh");
                         case "height" -> height = getInt(xml, "height");
@@ -280,64 +278,64 @@ public class Media {
     xml.writeStartDocument("utf-8", "1.0");
     xml.setPrefix("airport", schema);
     if (data.runways.size() > 0 || data.obstructions.size() > 0) {
-    xml.writeStartElement("Airport");
-    xml.writeNamespace("airport", schema);
-    if (data.runways.size() > 0) {
-    xml.writeStartElement(schema, "Runways");
-    for (Runway r : data.runways) {
-      xml.writeStartElement(schema, "Runway");
-      xml.writeStartElement(schema, "tora");
-      xml.writeCharacters(Integer.toString(r.getTora()));
+      xml.writeStartElement("Airport");
+      xml.writeNamespace("airport", schema);
+      if (data.runways.size() > 0) {
+        xml.writeStartElement(schema, "Runways");
+        for (Runway r : data.runways) {
+          xml.writeStartElement(schema, "Runway");
+          xml.writeStartElement(schema, "tora");
+          xml.writeCharacters(Integer.toString(r.getTora()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "toda");
+          xml.writeCharacters(Integer.toString(r.getToda()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "asda");
+          xml.writeCharacters(Integer.toString(r.getAsda()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "lda");
+          xml.writeCharacters(Integer.toString(r.getLda()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "dThreshold");
+          xml.writeCharacters(Integer.toString(r.getDisplacedThreshold()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "clearway");
+          xml.writeCharacters(Integer.toString(r.getClearway()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "stopway");
+          xml.writeCharacters(Integer.toString(r.getStopway()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "resa");
+          xml.writeCharacters(Integer.toString(r.getResa()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "stripEnd");
+          xml.writeCharacters(Integer.toString(r.getStripEnd()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "bProtection");
+          xml.writeCharacters(Integer.toString(r.getbProtection()));
+          xml.writeEndElement();
+          xml.writeEndElement();
+        }
+        xml.writeEndElement();
+      }
+      if (data.obstructions.size() > 0) {
+        xml.writeStartElement(schema, "Obstructions");
+        for (Obstruction o : data.obstructions) {
+          xml.writeStartElement(schema, "Obstruction");
+          xml.writeStartElement(schema, "distanceFromCl");
+          xml.writeCharacters(Integer.toString(o.getDistanceFromCl()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "distanceFromThresh");
+          xml.writeCharacters(Integer.toString(o.getDistanceFromThresh()));
+          xml.writeEndElement();
+          xml.writeStartElement(schema, "height");
+          xml.writeCharacters(Integer.toString(o.getHeight()));
+          xml.writeEndElement();
+          xml.writeEndElement();
+        }
+        xml.writeEndElement();
+      }
       xml.writeEndElement();
-      xml.writeStartElement(schema, "toda");
-      xml.writeCharacters(Integer.toString(r.getToda()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "asda");
-      xml.writeCharacters(Integer.toString(r.getAsda()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "lda");
-      xml.writeCharacters(Integer.toString(r.getLda()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "dThreshold");
-      xml.writeCharacters(Integer.toString(r.getDisplacedThreshold()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "clearway");
-      xml.writeCharacters(Integer.toString(r.getClearway()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "stopway");
-      xml.writeCharacters(Integer.toString(r.getStopway()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "resa");
-      xml.writeCharacters(Integer.toString(r.getResa()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "stripEnd");
-      xml.writeCharacters(Integer.toString(r.getStripEnd()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "bProtection");
-      xml.writeCharacters(Integer.toString(r.getbProtection()));
-      xml.writeEndElement();
-      xml.writeEndElement();
-    }
-    xml.writeEndElement();
-    }
-    if (data.obstructions.size() > 0) {
-    xml.writeStartElement(schema, "Obstructions");
-    for (Obstruction o : data.obstructions) {
-      xml.writeStartElement(schema, "Obstruction");
-      xml.writeStartElement(schema, "distanceFromCl");
-      xml.writeCharacters(Integer.toString(o.getDistanceFromCl()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "distanceFromThresh");
-      xml.writeCharacters(Integer.toString(o.getDistanceFromThresh()));
-      xml.writeEndElement();
-      xml.writeStartElement(schema, "height");
-      xml.writeCharacters(Integer.toString(o.getHeight()));
-      xml.writeEndElement();
-      xml.writeEndElement();
-    }
-    xml.writeEndElement();
-    }
-    xml.writeEndElement();
     }
     xml.writeEndDocument();
     xml.flush();

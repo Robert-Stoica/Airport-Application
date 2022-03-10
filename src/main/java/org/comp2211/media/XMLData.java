@@ -1,10 +1,9 @@
 package org.comp2211.media;
 
-import org.comp2211.Calculations.Obstruction;
-import org.comp2211.Calculations.Runway;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.comp2211.calculations.Obstruction;
+import org.comp2211.calculations.Runway;
 
 /**
  * Class to hold data when importing it from or exporting it to XML.

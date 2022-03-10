@@ -1,4 +1,4 @@
-package org.comp2211.Calculations;
+package org.comp2211.calculations;
 
 public class Obstruction {
 
@@ -11,14 +11,16 @@ public class Obstruction {
     this.height = height;
     this.distanceFromThresh = distanceFromThresh;
   }
+
   public int getDistanceFromCl() {
     return distanceFromCl;
   }
+
   public int getDistanceFromThresh() {
-        return distanceFromThresh;
-    }
+    return distanceFromThresh;
+  }
+
   public int getHeight() {
     return height;
   }
-
 }
