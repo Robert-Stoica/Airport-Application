@@ -4,7 +4,7 @@ public class Calculations {
 
     public Runway recalculateToraTowards(Runway runway, Obstruction obstruction) {
         int tora =
-                obstruction.getDistanceFromTresh()
+                obstruction.getDistanceFromThresh()
                         + runway.getDisplacedThreshold()
                         - (obstruction.getHeight() * 50)
                         - runway.getStripEnd();
@@ -15,7 +15,7 @@ public class Calculations {
     public Runway recalculateToraAwayOver(Runway runway, Obstruction obstruction) {
         int tora =
                 runway.getTora()
-                        - obstruction.getDistanceFromTresh()
+                        - obstruction.getDistanceFromThresh()
                         - runway.getDisplacedThreshold()
                         - runway.getResa()
                         - runway.getStripEnd();
@@ -48,7 +48,7 @@ public class Calculations {
     }
 
     public Runway recalculateLdaTowards(Runway runway, Obstruction obstruction) {
-        int lda = obstruction.getDistanceFromTresh() - runway.getResa() - runway.getStripEnd();
+        int lda = obstruction.getDistanceFromThresh() - runway.getResa() - runway.getStripEnd();
         runway.setLda(lda);
         return runway;
     }
@@ -56,7 +56,7 @@ public class Calculations {
     public Runway recalculateLdaAwayOver(Runway runway, Obstruction obstruction) {
         int lda =
                 runway.getLda()
-                        - obstruction.getDistanceFromTresh()
+                        - obstruction.getDistanceFromThresh()
                         - runway.getStripEnd()
                         - (obstruction.getHeight() * 50);
         runway.setLda(lda);

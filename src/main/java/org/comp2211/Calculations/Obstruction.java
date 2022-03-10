@@ -14,7 +14,7 @@ public class Obstruction {
   public int getDistanceFromCl() {
     return distanceFromCl;
   }
-  public int getDistanceFromTresh() {
+  public int getDistanceFromThresh() {
         return distanceFromThresh;
     }
   public int getHeight() {
