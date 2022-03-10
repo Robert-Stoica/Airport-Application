@@ -29,8 +29,16 @@ public class RunwayVisual {
     @FXML
     private Label lda;
 
-    private String format = "TORA = Original TORA - Blast Protection - Distance from Threshold - Displaced Thresold\n" +
-            "\t=%d - %d - %d - %d";
+    private String format = "TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Thresold\n" +
+            "\t = %d - %d - %d - %d\n" +
+            "\t = %d\n" +
+            "ASDA = (R)TORA + STOPWAY\n" +
+            "\t = %d\n" +
+            "TODA = (R)TORA + CLEARWAY\n" +
+            "\t = %d\n" +
+            "LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation\n" +
+            "\t = %d - %d - %d - %d\n" +
+            "\t = %d";
 
     void safeWriteFile(String filename, String data){
         try {
@@ -76,7 +84,7 @@ public class RunwayVisual {
             lda = copyRunway.getLda();
         }
 
-        var calculationsString = String.format(format, oTora, 0, App.obstruction.getDistanceFromThresh(), dThresh);
+        var calculationsString = String.format(format, oTora, copyRunway.getbProtection(), App.obstruction.getDistanceFromThresh(), dThresh, tora, asda, toda, oLda, App.obstruction.getDistanceFromThresh(), copyRunway.getStripEnd(), 0, lda);
 
         try {
             File myObj = new File("filename.txt");
