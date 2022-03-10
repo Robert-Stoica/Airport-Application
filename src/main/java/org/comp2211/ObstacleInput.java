@@ -50,7 +50,7 @@ public class ObstacleInput {
                     System.out.println(App.runway.getTora());
                     System.out.println(App.runway.getbProtection());
                     System.out.println(App.runway.getDisplacedThreshold());
-                    System.out.println(obstacle.getDistanceFromTresh());
+                    System.out.println(obstacle.getDistanceFromThresh());
                     calculator.recalculateToraAwayOver(App.runway,obstacle);
                     calculator.recalculateTodaAwayOver(App.runway);
                     calculator.recalculateAsdaAwayOver(App.runway);

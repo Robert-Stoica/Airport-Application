@@ -29,7 +29,7 @@ public class Runway {
     this.bProtection = 300;
   }
 
-public String getName() {
+  public String getName() {
     return name;
   }
 
