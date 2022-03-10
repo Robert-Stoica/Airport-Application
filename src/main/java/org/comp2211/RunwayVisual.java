@@ -76,7 +76,7 @@ public class RunwayVisual {
             lda = copyRunway.getLda();
         }
 
-        var calculationsString = String.format(format, oTora, 0, App.obstruction.getDistanceFromTresh(), dThresh);
+        var calculationsString = String.format(format, oTora, 0, App.obstruction.getDistanceFromThresh(), dThresh);
 
         try {
             File myObj = new File("filename.txt");
