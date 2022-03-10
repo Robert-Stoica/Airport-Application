@@ -1,10 +1,8 @@
 package org.comp2211;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import org.comp2211.Calculations.Calculations;
 import org.comp2211.Calculations.Runway;
 
@@ -29,7 +27,7 @@ public class RunwayVisual {
     @FXML
     private Label lda;
 
-    private String format = "TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Thresold\n" +
+    private String formatAO = "TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Thresold\n" +
             "\t = %d - %d - %d - %d\n" +
             "\t = %d\n" +
             "ASDA = (R)TORA + STOPWAY\n" +
@@ -38,6 +36,17 @@ public class RunwayVisual {
             "\t = %d\n" +
             "LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation\n" +
             "\t = %d - %d - %d - %d\n" +
+            "\t = %d";
+
+    private String formatTT = "TORA = Obstacle distance from threshold - Slope Calculation - Strip end\n" +
+            "\t = %d - %d - %d\n" +
+            "\t = %d\n" +
+            "ASDA = (R)TORA\n" +
+            "\t = %d\n" +
+            "TODA = (R)TORA\n" +
+            "\t = %d\n" +
+            "LDA  = Obstacle distance from threshold - RESA - Strip end\n" +
+            "\t = %d - %d - %d\n" +
             "\t = %d";
 
     void safeWriteFile(String filename, String data){
@@ -64,6 +73,8 @@ public class RunwayVisual {
         int toda;
         int lda;
 
+        String calculationsString;
+
         if (isAwayOver){
             calc.recalculateToraAwayOver(copyRunway, App.obstruction);
             tora = copyRunway.getTora();
@@ -73,6 +84,7 @@ public class RunwayVisual {
             toda = copyRunway.getToda();
             calc.recalculateLdaAwayOver(copyRunway, App.obstruction);
             lda = copyRunway.getLda();
+            calculationsString = String.format(formatAO, oTora, copyRunway.getbProtection(), App.obstruction.getDistanceFromThresh(), dThresh, tora, asda, toda, oLda, App.obstruction.getDistanceFromThresh(), copyRunway.getStripEnd(), 0, lda);
         } else{
             calc.recalculateToraTowards(copyRunway, App.obstruction);
             tora = copyRunway.getTora();
@@ -82,9 +94,9 @@ public class RunwayVisual {
             toda = copyRunway.getToda();
             calc.recalculateLdaTowards(copyRunway, App.obstruction);
             lda = copyRunway.getLda();
+            calculationsString = String.format(formatTT, App.obstruction.getDistanceFromThresh(), 0, copyRunway.getStripEnd(), tora, asda, toda, App.obstruction.getDistanceFromThresh(), copyRunway.getResa(), copyRunway.getStripEnd(), lda);
         }
 
-        var calculationsString = String.format(format, oTora, copyRunway.getbProtection(), App.obstruction.getDistanceFromThresh(), dThresh, tora, asda, toda, oLda, App.obstruction.getDistanceFromThresh(), copyRunway.getStripEnd(), 0, lda);
 
         try {
             File myObj = new File("filename.txt");
