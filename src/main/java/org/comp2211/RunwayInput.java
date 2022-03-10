@@ -45,7 +45,7 @@ public class RunwayInput {
     	originalLda.clear();
         displacedThreshold.clear();
     }
-
+  
   private boolean createRunway() {
     try {
       // Need to code the Select Runway drop down so it actually selects a menu item
@@ -77,6 +77,7 @@ public class RunwayInput {
   @FXML
   private void openObstacle() throws IOException {
     if (createRunway()) {
+        App.runway = runway;
       App.setRoot("Obstacle");
     }
   }

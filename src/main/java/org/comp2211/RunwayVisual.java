@@ -56,6 +56,15 @@ public class RunwayVisual {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void setLabel() {
+        lda.setText(String.valueOf(App.runway.getLda()));
+        tora.setText(String.valueOf(App.runway.getTora()));
+        asda.setText(String.valueOf(App.runway.getAsda()));
+        toda.setText(String.valueOf(App.runway.getToda()));
+    }
+
     public void newRunway() throws IOException {
         App.setRoot("Input");
     }

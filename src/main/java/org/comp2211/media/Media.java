@@ -216,7 +216,7 @@ public class Media {
                       }
                     }
                   }
-                  data.obstructions.add(new Obstruction(distanceFromCl, height));
+                  data.obstructions.add(new Obstruction(distanceFromCl, height, distanceAlongCl));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {

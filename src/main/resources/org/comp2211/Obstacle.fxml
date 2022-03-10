@@ -16,18 +16,20 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="height" layoutX="246.0" layoutY="165.0" promptText="Enter number" />
-      <TextField fx:id="centre" layoutX="247.0" layoutY="254.0" promptText="Enter number" />
-      <MenuButton layoutX="51.0" layoutY="77.0" mnemonicParsing="false" text="Operation Type">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Take off Away/Over" />
-          <MenuItem mnemonicParsing="false" text="Take off Towards/Away" />
-        </items>
-      </MenuButton>
-      <Button fx:id="submit" layoutX="341.0" layoutY="349.0" mnemonicParsing="false" onAction="#openVisual" text="Submit" />
-      <Label layoutX="273.0" layoutY="142.0" text="Object Height (m)" />
-      <Label layoutX="245.0" layoutY="225.0" text="Distance from Centerline (m)" />
-      <ToggleButton fx:id="toggle" layoutX="533.0" layoutY="65.0" mnemonicParsing="false" onAction="#openSidebar" text="SideBar" />
-      <Button fx:id="clear" layoutX="247.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearText" text="Clear Input" />
+       <TextField fx:id="height" layoutX="246.0" layoutY="165.0" promptText="Enter number" />
+       <TextField fx:id="centre" layoutX="247.0" layoutY="254.0" promptText="Enter number" />
+       <MenuButton fx:id="menu" layoutX="51.0" layoutY="77.0" mnemonicParsing="false" text="Operation Type">
+           <items>
+               <MenuItem fx:id="away" mnemonicParsing="false" onAction="#changeT" text="Take off Away/Over" />
+               <MenuItem fx:id="towards" mnemonicParsing="false" onAction="#changeTe" text="Take off Towards/Away" />
+           </items>
+       </MenuButton>
+       <Button fx:id="submit" layoutX="368.0" layoutY="374.0" mnemonicParsing="false" onAction="#openVisual" text="Submit" />
+       <Label layoutX="273.0" layoutY="142.0" text="Object Height (m)" />
+       <Label layoutX="245.0" layoutY="225.0" text="Distance from Centerline (m)" />
+       <ToggleButton fx:id="toggle" layoutX="533.0" layoutY="65.0" mnemonicParsing="false" onAction="#openSidebar" text="SideBar" />
+       <Button fx:id="clear" layoutX="186.0" layoutY="374.0" mnemonicParsing="false" onAction="#clearText" text="Clear Input" />
+       <TextField fx:id="threshold" layoutX="246.0" layoutY="324.0" promptText="Enter number" />
+       <Label layoutX="244.0" layoutY="299.0" text="Distance from Threshold (m)" />
    </children>
 </Pane>
