@@ -99,13 +99,13 @@ public class RunwayVisual {
 
 
         try {
-            File myObj = new File("filename.txt");
+            File myObj = new File("calculations.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
                 safeWriteFile("filename.txt", calculationsString);
             } else {
                 System.out.println("File already exists.");
-                safeWriteFile("filename.txt", calculationsString);
+                safeWriteFile("calculations.txt", calculationsString);
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
