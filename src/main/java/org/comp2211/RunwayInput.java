@@ -1,16 +1,19 @@
 package org.comp2211;
 
+import java.io.File;
+import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.xml.stream.XMLStreamException;
 import org.comp2211.Calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.File;
-import java.io.IOException;
 
 public class RunwayInput {
 
@@ -108,6 +111,9 @@ public class RunwayInput {
         return;
       }
       runway = data.runways.get(0);
+      originalTora.setText(String.valueOf(runway.getOriginalTora()));
+      originalLda.setText(String.valueOf(runway.getOriginalLda()));
+      displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
     }
   }
 
