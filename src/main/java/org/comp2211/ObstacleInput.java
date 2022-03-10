@@ -63,7 +63,6 @@ public class ObstacleInput {
                     System.out.println(App.runway.getbProtection());
                 }
 
-
                 App.obstruction = obstacle;
 
                 if(menu.getText().equals(away.getText())){
@@ -165,7 +164,7 @@ public class ObstacleInput {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("File empty");
                 alert.setHeaderText("Error on opening file");
-                alert.setContentText("File contained no runways.");
+                alert.setContentText("File contained no obstructions.");
                 alert.showAndWait();
                 return;
             }
