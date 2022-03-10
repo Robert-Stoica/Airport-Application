@@ -1,10 +1,20 @@
 package org.comp2211.media;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 import org.comp2211.Calculations.Obstruction;
 import org.comp2211.Calculations.Runway;
-
-import javax.xml.stream.*;
-import java.io.*;
 
 /**
  * Reads and writes obstructions and runways from XML files.
@@ -197,7 +207,7 @@ public class Media {
                 if (xml.getLocalName().equals("Obstruction")) {
                   String name = "";
                   int distanceFromCl = 0;
-                  int distanceAlongCl = 0;
+                  int distanceFromThresh = 0;
                   int height = 0;
                   while (xml.hasNext()) {
                     var obstructionNext = xml.nextTag();
@@ -210,13 +220,13 @@ public class Media {
                       switch (xml.getLocalName()) {
                         case "name" -> name = getString(xml, "name");
                         case "distanceFromCl" -> distanceFromCl = getInt(xml, "distanceFromCl");
-                        case "distanceAlongCl" -> distanceAlongCl = getInt(xml, "distanceAlongCl");
+                        case "distanceFromThresh" -> distanceFromThresh = getInt(xml, "distanceFromThresh");
                         case "height" -> height = getInt(xml, "height");
                         default -> { }
                       }
                     }
                   }
-                  data.obstructions.add(new Obstruction(distanceFromCl, height, distanceAlongCl));
+                  data.obstructions.add(new Obstruction(distanceFromCl, height, distanceFromThresh));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {
@@ -269,8 +279,10 @@ public class Media {
 
     xml.writeStartDocument("utf-8", "1.0");
     xml.setPrefix("airport", schema);
+    if (data.runways.size() > 0 || data.obstructions.size() > 0) {
     xml.writeStartElement("Airport");
     xml.writeNamespace("airport", schema);
+    if (data.runways.size() > 0) {
     xml.writeStartElement(schema, "Runways");
     for (Runway r : data.runways) {
       xml.writeStartElement(schema, "Runway");
@@ -307,11 +319,16 @@ public class Media {
       xml.writeEndElement();
     }
     xml.writeEndElement();
+    }
+    if (data.obstructions.size() > 0) {
     xml.writeStartElement(schema, "Obstructions");
     for (Obstruction o : data.obstructions) {
       xml.writeStartElement(schema, "Obstruction");
       xml.writeStartElement(schema, "distanceFromCl");
       xml.writeCharacters(Integer.toString(o.getDistanceFromCl()));
+      xml.writeEndElement();
+      xml.writeStartElement(schema, "distanceFromThresh");
+      xml.writeCharacters(Integer.toString(o.getDistanceFromThresh()));
       xml.writeEndElement();
       xml.writeStartElement(schema, "height");
       xml.writeCharacters(Integer.toString(o.getHeight()));
@@ -319,7 +336,9 @@ public class Media {
       xml.writeEndElement();
     }
     xml.writeEndElement();
+    }
     xml.writeEndElement();
+    }
     xml.writeEndDocument();
     xml.flush();
     xml.close();
