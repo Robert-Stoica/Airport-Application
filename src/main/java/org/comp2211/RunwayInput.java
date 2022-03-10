@@ -15,6 +15,7 @@ import org.comp2211.Calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
 
+
 public class RunwayInput {
 
     private Runway runway;
@@ -82,6 +83,7 @@ public class RunwayInput {
     if (createRunway()) {
         App.runway = runway;
       App.setRoot("Obstacle");
+
     }
   }
 

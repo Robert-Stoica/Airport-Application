@@ -13,7 +13,7 @@ public class Runway {
   private int stopway;
   private final int resa;
   private final int stripEnd;
-  private final int bProtection;
+  private int bProtection;
 
   public Runway(String name,int tora,int lda,int dThreshold) {
 	this.name = name;
@@ -106,4 +106,8 @@ public class Runway {
   public void setDisplacedThreshold(int displacedThreshold) {
 	this.displacedThreshold = displacedThreshold;
 }
+
+    public void setbProtection(int bProtection) {
+        this.bProtection = bProtection;
+    }
 }
