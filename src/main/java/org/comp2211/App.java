@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.comp2211.Calculations.Obstruction;
 import org.comp2211.Calculations.Runway;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class App extends Application {
 
 
     public static Runway runway;
+    public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
 

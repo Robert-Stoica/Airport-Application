@@ -52,7 +52,7 @@ public class RunwayInput {
   private boolean createRunway() {
     try {
       // Need to code the Select Runway drop down so it actually selects a menu item
-      if (!(menu.getText().equals("S elect Runway")
+      if (!(menu.getText().equals("Select Runway")
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
           || displacedThreshold.getText().isBlank())) {

@@ -45,7 +45,7 @@ public class ObstacleInput {
                 System.out.println(Integer.parseInt(height.getText()));
                 System.out.println(Integer.parseInt(threshold.getText()));
                 calculator = new Calculations();
-
+                App.obstruction = obstacle;
                 if(menu.getText().equals(away.getText())){
                     System.out.println(App.runway.getTora());
                     System.out.println(App.runway.getbProtection());
@@ -56,6 +56,7 @@ public class ObstacleInput {
                     calculator.recalculateAsdaAwayOver(App.runway);
                     calculator.recalculateLdaAwayOver(App.runway,obstacle);
                     System.out.println(calculator.recalculateToraAwayOver(App.runway,obstacle).getLda());
+                    RunwayVisual.isAwayOver = true;
                 }
                 else if(menu.getText().equals(towards.getText())){
                     calculator.recalculateToraTowards(App.runway,obstacle);
@@ -63,6 +64,7 @@ public class ObstacleInput {
                     calculator.recalculateAsdaTowards(App.runway);
                     calculator.recalculateLdaTowards(App.runway,obstacle);
                     System.out.println(calculator.recalculateToraTowards(App.runway,obstacle).getTora());
+                    RunwayVisual.isAwayOver = false;
                 }
                 App.setRoot("visual");
             }else {

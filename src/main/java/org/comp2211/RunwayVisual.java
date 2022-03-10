@@ -5,12 +5,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.comp2211.Calculations.Calculations;
+import org.comp2211.Calculations.Runway;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class RunwayVisual {
+
+    public static boolean isAwayOver;
 
     @FXML
     private Button calculation;
@@ -25,31 +29,63 @@ public class RunwayVisual {
     @FXML
     private Label lda;
 
+    private String format = "TORA = Original TORA - Blast Protection - Distance from Threshold - Displaced Thresold\n" +
+            "\t=%d - %d - %d - %d";
+
+    void safeWriteFile(String filename, String data){
+        try {
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write(data);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
     public void createFile() {
+        Calculations calc = new Calculations();
+        var copyRunway = new Runway("copy", App.runway.getOriginalTora(), App.runway.getOriginalLda(), App.runway.getDisplacedThreshold());
+        var oTora = copyRunway.getTora();
+        var oLda = copyRunway.getLda();
+        var dThresh = copyRunway.getDisplacedThreshold();
+
+        int tora;
+        int asda;
+        int toda;
+        int lda;
+
+        if (isAwayOver){
+            calc.recalculateToraAwayOver(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaAwayOver(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaAwayOver(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaAwayOver(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+        } else{
+            calc.recalculateToraTowards(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaTowards(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaTowards(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaTowards(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+        }
+
+        var calculationsString = String.format(format, oTora, 0, App.obstruction.getDistanceFromTresh(), dThresh);
+
         try {
             File myObj = new File("filename.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
-                try {
-                    FileWriter myWriter = new FileWriter("filename.txt");
-                    myWriter.write("Files in Java might be tricky, but it is fun enough!");
-                    myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
+                safeWriteFile("filename.txt", calculationsString);
             } else {
                 System.out.println("File already exists.");
-                try {
-                    FileWriter myWriter = new FileWriter("filename.txt");
-                    myWriter.write("asdasdsdasdasda");
-                    myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
+                safeWriteFile("filename.txt", calculationsString);
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
