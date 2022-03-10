@@ -11,48 +11,37 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
-import org.comp2211.Calculations.Runway;
+import org.comp2211.calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
 
-
 public class RunwayInput {
 
-    private Runway runway;
-
   private final FileChooser fileChooser = new FileChooser();
+  private Runway runway;
+  @FXML private Button clear;
+  @FXML private Button submit;
+  @FXML private TextField originalTora;
+  @FXML private TextField originalLda;
+  @FXML private TextField displacedThreshold;
+  @FXML private MenuButton menu;
 
-    @FXML
-    private Button clear;
-    @FXML
-    private Button submit;
-    @FXML
-    private TextField originalTora;
-    @FXML
-    private TextField originalLda;
-    @FXML
-    private TextField displacedThreshold;
-    @FXML
-    private MenuButton menu;
-    
-    //Calls a method where we import XML file
-    @FXML
-    private MenuItem addRunway;
-    
-    //Calls a method where we export XML file
-    @FXML
-    private Button exportXml;
+  // Calls a method where we import XML file
+  @FXML private MenuItem addRunway;
+
+  // Calls a method where we export XML file
+  @FXML private Button exportXml;
 
   @FXML
   private void clearText() {
-    	originalTora.clear();
-    	originalLda.clear();
-        displacedThreshold.clear();
-    }
-  
+    originalTora.clear();
+    originalLda.clear();
+    displacedThreshold.clear();
+  }
+
   private boolean createRunway() {
     try {
-      // Need to code the Select Runway drop down so it actually selects a menu item
+      // Need to code the Select Runway drop-down, so it actually selects a menu item
       if (!(menu.getText().equals("S elect Runway")
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
@@ -63,11 +52,6 @@ public class RunwayInput {
                 Integer.parseInt(originalTora.getText()),
                 Integer.parseInt(originalLda.getText()),
                 Integer.parseInt(displacedThreshold.getText()));
-        /*
-        System.out.println(Integer.parseInt(originalTora.getText()));
-        System.out.println(Integer.parseInt(originalLda.getText()));
-        System.out.println(Integer.parseInt(displacedThreshold.getText()));
-        */
         return true;
       } else {
         System.out.println("One of the fields is empty");
@@ -81,9 +65,8 @@ public class RunwayInput {
   @FXML
   private void openObstacle() throws IOException {
     if (createRunway()) {
-        App.runway = runway;
+      App.runway = runway;
       App.setRoot("Obstacle");
-
     }
   }
 
@@ -142,7 +125,3 @@ public class RunwayInput {
     }
   }
 }
-
-
-
-

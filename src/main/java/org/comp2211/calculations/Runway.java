@@ -1,9 +1,11 @@
-package org.comp2211.Calculations;
+package org.comp2211.calculations;
 
 public class Runway {
   private final String name;
   private final int originalTora;
   private final int originalLda;
+  private final int resa;
+  private final int stripEnd;
   private int tora;
   private int toda;
   private int asda;
@@ -11,12 +13,10 @@ public class Runway {
   private int displacedThreshold;
   private int clearway;
   private int stopway;
-  private final int resa;
-  private final int stripEnd;
   private int bProtection;
 
-  public Runway(String name,int tora,int lda,int dThreshold) {
-	this.name = name;
+  public Runway(String name, int tora, int lda, int dThreshold) {
+    this.name = name;
     this.originalTora = tora;
     this.originalLda = lda;
     this.tora = tora;
@@ -36,39 +36,69 @@ public class Runway {
   public int getOriginalTora() {
     return originalTora;
   }
+
   public int getOriginalLda() {
     return originalLda;
   }
-  
+
   public int getTora() {
     return tora;
+  }
+
+  public void setTora(Integer tora) {
+    this.tora = tora;
   }
 
   public int getToda() {
     return toda;
   }
 
+  public void setToda(Integer toda) {
+    this.toda = toda;
+  }
+
   public int getAsda() {
     return asda;
+  }
+
+  public void setAsda(Integer asda) {
+    this.asda = asda;
   }
 
   public int getLda() {
     return lda;
   }
 
+  public void setLda(Integer lda) {
+    this.lda = lda;
+  }
+
   public int getClearway() {
     return clearway;
+  }
+
+  public void setClearway(Integer clearway) {
+    this.clearway = clearway;
   }
 
   public int getStopway() {
     return stopway;
   }
 
+  public void setStopway(Integer stopway) {
+    this.stopway = stopway;
+  }
+
   public int getResa() {
     return resa;
   }
+
   public int getDisplacedThreshold() {
-	return displacedThreshold;
+    return displacedThreshold;
+  }
+
+  public void setDisplacedThreshold(int displacedThreshold) {
+    this.displacedThreshold = displacedThreshold;
   }
 
   public int getStripEnd() {
@@ -79,35 +109,7 @@ public class Runway {
     return bProtection;
   }
 
-  public void setTora(Integer tora) {
-    this.tora = tora;
+  public void setbProtection(int bProtection) {
+    this.bProtection = bProtection;
   }
-
-  public void setToda(Integer toda) {
-    this.toda = toda;
-  }
-
-  public void setAsda(Integer asda) {
-    this.asda = asda;
-  }
-
-  public void setLda(Integer lda) {
-    this.lda = lda;
-  }
-
-  public void setClearway(Integer clearway) {
-    this.clearway = clearway;
-  }
-
-  public void setStopway(Integer stopway) {
-    this.stopway = stopway;
-  }
-
-  public void setDisplacedThreshold(int displacedThreshold) {
-	this.displacedThreshold = displacedThreshold;
-}
-
-    public void setbProtection(int bProtection) {
-        this.bProtection = bProtection;
-    }
 }

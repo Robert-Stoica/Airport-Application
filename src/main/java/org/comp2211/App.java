@@ -1,21 +1,19 @@
 package org.comp2211;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.comp2211.Calculations.Obstruction;
-import org.comp2211.Calculations.Runway;
+import org.comp2211.calculations.Obstruction;
+import org.comp2211.calculations.Runway;
 
-import java.io.IOException;
-
-/** JavaFX App */
+/** JavaFX App. */
 public class App extends Application {
 
-
-    public static Runway runway;
-    public static Obstruction obstruction;
+  public static Runway runway;
+  public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
 
@@ -34,35 +32,32 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-      this.stage = stage;
-      stage.setTitle("Airport Recalculation");
-      stage.setOnCloseRequest(ev -> {
-          shutdown();
-      });
+    this.stage = stage;
+    stage.setTitle("Airport Recalculation");
+    stage.setOnCloseRequest(ev -> shutdown());
 
-      runwayInput();
+    runwayInput();
   }
 
-    private void shutdown() {
-        System.exit(0);
-    }
+  private void shutdown() {
+    System.exit(0);
+  }
 
-    public void runwayInput() throws IOException {
+  public void runwayInput() throws IOException {
 
-        scene = new Scene(loadFXML("Input"));
+    scene = new Scene(loadFXML("Input"));
 
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
-    }
+    stage.setScene(scene);
+    stage.show();
+    stage.centerOnScreen();
+  }
 
-    public void openRunwayvisualisation() throws IOException {
+  public void openRunwayVisualisation() throws IOException {
 
-        scene = new Scene(loadFXML("primary"));
+    scene = new Scene(loadFXML("primary"));
 
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
-    }
-
+    stage.setScene(scene);
+    stage.show();
+    stage.centerOnScreen();
+  }
 }
