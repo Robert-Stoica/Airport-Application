@@ -57,22 +57,16 @@ public class ObstacleInput {
         App.obstruction = obstacle;
 
         if (menu.getText().equals(away.getText())) {
-          System.out.println(App.runway.getTora());
-          System.out.println(App.runway.getbProtection());
-          System.out.println(App.runway.getDisplacedThreshold());
-          System.out.println(obstacle.getDistanceFromThresh());
           calculator.recalculateToraAwayOver(App.runway, obstacle);
           calculator.recalculateTodaAwayOver(App.runway);
           calculator.recalculateAsdaAwayOver(App.runway);
           calculator.recalculateLdaAwayOver(App.runway, obstacle);
-          System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
           RunwayVisual.isAwayOver = true;
         } else if (menu.getText().equals(towards.getText())) {
           calculator.recalculateToraTowards(App.runway, obstacle);
           calculator.recalculateTodaTowards(App.runway);
           calculator.recalculateAsdaTowards(App.runway);
           calculator.recalculateLdaTowards(App.runway, obstacle);
-          System.out.println(calculator.recalculateToraTowards(App.runway, obstacle).getTora());
           RunwayVisual.isAwayOver = false;
         }
         App.setRoot("visual");
