@@ -3,9 +3,14 @@ package org.comp2211;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 
@@ -42,6 +47,10 @@ public class RunwayVisual {
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
+  @FXML private Canvas canvas;
+
+  Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
+  Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -143,9 +152,28 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
+    drawCanvas();
   }
 
   public void newRunway() throws IOException {
     App.setRoot("Input");
   }
+
+  private void drawCanvas() {
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    // Grass
+    gc.setFill(DarkGreen);
+    gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+    // Purple area
+    var purpleLengthPadding = 20;
+    var purpleWidthPadding = 10;
+    gc.setFill(Purple);
+    gc.fillRect(purpleLengthPadding,purpleWidthPadding,canvas.getWidth()-purpleLengthPadding*2,canvas.getHeight()-purpleWidthPadding*2);
+    // Blue area
+
+
+  }
+
+
+
 }
