@@ -120,8 +120,7 @@ public class ObstacleInput {
 
   @FXML
   public void export() {
-	  if (!(menu.getText().equals("Operation Type")
-              || height.getText().isBlank()
+	  if (!(  height.getText().isBlank()
               || centre.getText().isBlank()
           || threshold.getText().isBlank())) {
     Stage newWindow = new Stage();

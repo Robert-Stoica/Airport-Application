@@ -22,7 +22,7 @@
       <Label fx:id="tora" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="162.0" minWidth="-Infinity" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="259.0" layoutY="161.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="161.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
-      <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="488.0" layoutY="162.0" prefHeight="17.0" prefWidth="20.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
+      <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="162.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
       <ImageView fitHeight="300.0" fitWidth="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
          <image>
