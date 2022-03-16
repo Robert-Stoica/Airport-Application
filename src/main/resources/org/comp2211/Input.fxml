@@ -17,9 +17,9 @@
    <TextField fx:id="originalTora" layoutX="249.0" layoutY="192.0" promptText="Input number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="originalLda" layoutX="249.0" layoutY="249.0" promptText="Input number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="displacedThreshold" layoutX="250.0" layoutY="306.0" promptText="Input number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="427.0" layoutY="197.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
-   <Label layoutX="427.0" layoutY="254.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
-   <Label layoutX="428.0" layoutY="311.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
+   <Label layoutX="81.0" layoutY="196.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
+   <Label layoutX="79.0" layoutY="253.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
+   <Label layoutX="79.0" layoutY="310.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
    <Button fx:id="clear" layoutX="469.0" layoutY="395.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
    <Button fx:id="exportXml" layoutX="79.0" layoutY="395.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export XML" />
    <Button fx:id="submit" layoutX="285.0" layoutY="395.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
