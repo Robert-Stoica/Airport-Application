@@ -105,9 +105,9 @@ public class RunwayInput {
 
   @FXML
   private void export() {
+	  if (!(originalTora.getText().isBlank()|| originalLda.getText().isBlank()|| displacedThreshold.getText().isBlank())) {
     Stage newWindow = new Stage();
     newWindow.setTitle("Save Runway");
-    //createRunway();
     File file = fileChooser.showSaveDialog(newWindow);
     if (file != null) {
       var data = new XMLData();
@@ -124,5 +124,9 @@ public class RunwayInput {
         alert.showAndWait();
       }
     }
+  }else {
+	  System.out.println("One or more fields are empty, cannot export xml file");
   }
+	  }
+  
 }
