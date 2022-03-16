@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
+import org.w3c.dom.Text;
 
 public class RunwayVisual {
 
@@ -42,6 +43,8 @@ public class RunwayVisual {
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
+  @FXML private Label slopeCalculation;
+  @FXML private Label threshold;
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -143,6 +146,8 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
+    //slopeCalculation.setText(String.valueOf(App.runway.get));
+    threshold.setText(String.valueOf(App.runway.getDisplacedThreshold()));
   }
 
   public void newRunway() throws IOException {
