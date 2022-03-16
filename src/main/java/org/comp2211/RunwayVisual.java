@@ -51,6 +51,7 @@ public class RunwayVisual {
 
   Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
   Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
+  Color DarkBlue = Color.color(51/255.0, 51/255.0, 204/255.0);
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -152,14 +153,15 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
-    drawCanvas();
+    drawTopView();
   }
 
   public void newRunway() throws IOException {
     App.setRoot("Input");
   }
 
-  private void drawCanvas() {
+  private void drawTopView() {
+    // Drawing stuff
     GraphicsContext gc = canvas.getGraphicsContext2D();
     // Grass
     gc.setFill(DarkGreen);
@@ -170,8 +172,28 @@ public class RunwayVisual {
     gc.setFill(Purple);
     gc.fillRect(purpleLengthPadding,purpleWidthPadding,canvas.getWidth()-purpleLengthPadding*2,canvas.getHeight()-purpleWidthPadding*2);
     // Blue area
+    gc.setFill(DarkBlue);
+    double dist60 = 40;
+    double distShort150 = 30;
+    double distShort300 = distShort150*2;
+    double dist75 = 50;
 
+    double startPointX = purpleLengthPadding;
+    double startPointY = canvas.getHeight()/2 - dist75;
+    double width = canvas.getWidth();
+    double height = canvas.getHeight();
 
+    gc.fillPolygon(new double[]{
+            startPointX, startPointX+dist60+distShort150, startPointX+dist60+distShort300,
+            width-startPointX-dist60-distShort300, width-startPointX-dist60-distShort150,width-startPointX,
+            width-startPointX,width-startPointX-dist60-distShort150,width-startPointX-dist60-distShort300,
+            startPointX+dist60+distShort300,startPointX+dist60+distShort150,startPointX
+    }, new double[]{
+            startPointY, startPointY, startPointY-distShort150,
+            startPointY-distShort150, startPointY, startPointY,
+            height-startPointY, height-startPointY, height-startPointY+distShort150,
+            height-startPointY+distShort150, height-startPointY, height-startPointY
+    }, 12);
   }
 
 
