@@ -52,6 +52,7 @@ public class RunwayVisual {
   Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
   Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
   Color DarkBlue = Color.color(51/255.0, 51/255.0, 204/255.0);
+  Color AsphaltGrey = Color.color(150/255.0, 150/255.0, 150/255.0);
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -194,8 +195,10 @@ public class RunwayVisual {
             height-startPointY, height-startPointY, height-startPointY+distShort150,
             height-startPointY+distShort150, height-startPointY, height-startPointY
     }, 12);
+
+    //Runway
+    gc.setFill(AsphaltGrey);
+    double runwayWidth = 40;
+    gc.fillRect(startPointX + dist60, startPointY+dist75 - (runwayWidth/2), (width-startPointX - dist60)-(startPointX + dist60), (startPointY+dist75 + (runwayWidth/2))-(startPointY+dist75 - (runwayWidth/2)));
   }
-
-
-
 }
