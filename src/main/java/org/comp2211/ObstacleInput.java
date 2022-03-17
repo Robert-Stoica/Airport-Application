@@ -3,11 +3,9 @@ package org.comp2211;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -16,12 +14,12 @@ import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Obstruction;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ObstacleInput {
 
   private final FileChooser fileChooser = new FileChooser();
-  @FXML private Button submit;
-  @FXML private Button clear;
   @FXML private TextField height;
   @FXML private TextField centre;
   @FXML private TextField threshold;
@@ -33,9 +31,12 @@ public class ObstacleInput {
   private Obstruction obstacle;
   private Calculations calculator;
   private Boolean sideBar = false;
+  private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
+
 
   @FXML
   public void openVisual() {
+      logger.info("We have opened the visualization of the runway");
     try {
       if (!(menu.getText().equals("Operation Type")
               || height.getText().isBlank()
@@ -58,6 +59,7 @@ public class ObstacleInput {
         App.obstruction = obstacle;
 
         if (menu.getText().equals(away.getText())) {
+            logger.info("Doing calculations for the Away and Over landing");
           System.out.println(App.runway.getTora());
           System.out.println(App.runway.getbProtection());
           System.out.println(App.runway.getDisplacedThreshold());
@@ -69,6 +71,7 @@ public class ObstacleInput {
           System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
           RunwayVisual.isAwayOver = true;
         } else if (menu.getText().equals(towards.getText())) {
+            logger.info("Doing calculations for the Towards landing");
           calculator.recalculateToraTowards(App.runway, obstacle);
           calculator.recalculateTodaTowards(App.runway);
           calculator.recalculateAsdaTowards(App.runway);
@@ -87,35 +90,47 @@ public class ObstacleInput {
 
   @FXML
   public void openSidebar() {
+
 	  if(sideBar) {
 		  sideBar = false;
 		  deleteSide();
 	  }
 	  else {
+          logger.info("Show the sidebar");
 		  sideBar = true;
 		  vbox.setVisible(true);
 	  }
+
+
   }
 
   @FXML
   public void changeT() {
-    menu.setText(away.getText());
+      logger.info("Change the menu text");
+      menu.setText(away.getText());
   }
 
   @FXML
   public void changeTe() {
-    menu.setText(towards.getText());
+      logger.info("Change the menu text");
+      menu.setText(towards.getText());
   }
 
   @FXML
   private void clearText() {
+      logger.info("The input has been cleared");
     height.clear();
     centre.clear();
     threshold.clear();
+
   }
 
+  @FXML
   public void deleteSide() {
-    vbox.setVisible(false);
+      logger.info("Hide the sidebar");
+      vbox.setVisible(false);
+      sideText.clear();
+
   }
 
   @FXML
@@ -123,6 +138,7 @@ public class ObstacleInput {
 	  if (!(  height.getText().isBlank()
               || centre.getText().isBlank()
           || threshold.getText().isBlank())) {
+	      logger.info("Creating the new obstacle and creating a xml that contains it");
     Stage newWindow = new Stage();
     newWindow.setTitle("Save Obstacle");
     obstacle =
@@ -153,6 +169,7 @@ public class ObstacleInput {
 
   @FXML
   public void create() {
+      logger.info("Input the xml and autofill the text fields");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Obstacle");
     File file = fileChooser.showOpenDialog(newWindow);
