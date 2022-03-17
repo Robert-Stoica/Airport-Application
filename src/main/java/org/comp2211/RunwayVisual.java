@@ -38,10 +38,12 @@ public class RunwayVisual {
           \t = %d""";
   @FXML private Button calculation;
   @FXML private Button goback;
+  @FXML private Button contrastB;
   @FXML private Label tora;
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
+  private boolean highContrast = false;
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -147,5 +149,22 @@ public class RunwayVisual {
 
   public void newRunway() throws IOException {
     App.setRoot("Input");
+  }
+  public void changeContrast() {
+	  if(highContrast ) {
+		  highContrast = false;
+		  calculation.getStyleClass().clear();
+		  goback.getStyleClass().clear();
+		  contrastB.getStyleClass().clear();
+		  calculation.getStyleClass().add("button");
+		  goback.getStyleClass().add("button");
+		  contrastB.getStyleClass().add("button");
+	  }else {
+		  highContrast = true;
+		  calculation.getStyleClass().add("button2");
+		  goback.getStyleClass().add("button2");
+		  contrastB.getStyleClass().add("button2");
+	  }
+	  
   }
 }

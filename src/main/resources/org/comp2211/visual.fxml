@@ -29,5 +29,6 @@
             <Image url="@Capture.PNG" />
          </image>
       </ImageView>
+      <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
    </children>
 </Pane>

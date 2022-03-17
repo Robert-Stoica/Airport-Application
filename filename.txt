@@ -1,0 +1,10 @@
+TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Threshold
+	 = 1 - 300 - 3 - 3
+	 = -305
+ASDA = (R)TORA + STOPWAY
+	 = -305
+TODA = (R)TORA + CLEARWAY
+	 = -305
+LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation
+	 = 2 - 3 - 60 - 0
+	 = -111

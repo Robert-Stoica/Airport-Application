@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -33,6 +34,11 @@ public class ObstacleInput {
   private Obstruction obstacle;
   private Calculations calculator;
   private Boolean sideBar = false;
+  @FXML private Button contrastB;
+  private Boolean highContrast = false;
+  @FXML private ToggleButton toggle;
+  @FXML private Button importB;
+  @FXML private Button exportB;
 
   @FXML
   public void openVisual() {
@@ -181,5 +187,31 @@ public class ObstacleInput {
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
     }
+  }
+  public void changeContrast() {
+	  if(highContrast) {
+		  highContrast = false;
+		  clear.getStyleClass().clear();
+		  submit.getStyleClass().clear();
+		  contrastB.getStyleClass().clear();
+		  toggle.getStyleClass().clear();
+		  importB.getStyleClass().clear();
+		  exportB.getStyleClass().clear();
+		  clear.getStyleClass().add("button");
+		  submit.getStyleClass().add("button");
+		  contrastB.getStyleClass().add("button");
+		  toggle.getStyleClass().add("button");
+		  importB.getStyleClass().add("button");
+		  exportB.getStyleClass().add("button");
+	  }else {
+		  highContrast = true;
+		  clear.getStyleClass().add("button2");
+		  submit.getStyleClass().add("button2");
+		  contrastB.getStyleClass().add("button2");
+		  toggle.getStyleClass().add("button2");
+		  importB.getStyleClass().add("button2");
+		  exportB.getStyleClass().add("button2");
+	  }
+	  
   }
 }

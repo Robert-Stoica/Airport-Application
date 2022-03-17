@@ -3,13 +3,13 @@ package org.comp2211;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
@@ -33,6 +33,10 @@ public class RunwayInput {
 
   // Calls a method where we export XML file
   @FXML private Button exportXml;
+  
+  @FXML private Button contrastB;
+  private Boolean highContrast = false;
+  
 
   @FXML
   private void clearText() {
@@ -128,5 +132,26 @@ public class RunwayInput {
 	  System.out.println("One or more fields are empty, cannot export xml file");
   }
 	  }
+  
+  public void changeContrast() {
+	  if(highContrast) {
+		  highContrast = false;
+		  clear.getStyleClass().clear();
+		  submit.getStyleClass().clear();
+		  exportXml.getStyleClass().clear();
+		  contrastB.getStyleClass().clear();
+		  clear.getStyleClass().add("button");
+		  submit.getStyleClass().add("button");
+		  exportXml.getStyleClass().add("button");
+		  contrastB.getStyleClass().add("button");
+	  }else {
+		  highContrast = true;
+		  clear.getStyleClass().add("button2");
+		  submit.getStyleClass().add("button2");
+		  exportXml.getStyleClass().add("button2");
+		  contrastB.getStyleClass().add("button2");
+	  }
+	  
+  }
   
 }

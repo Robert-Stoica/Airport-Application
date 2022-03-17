@@ -28,4 +28,5 @@
          <Font size="25.0" />
       </font>
    </Label>
+   <Button fx:id="contrastB" layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
 </Pane>
