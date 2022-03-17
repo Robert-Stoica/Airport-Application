@@ -32,14 +32,15 @@ public class ObstacleInput {
   @FXML private VBox vbox;
   private Obstruction obstacle;
   private Calculations calculator;
+  private Boolean sideBar = false;
 
   @FXML
   public void openVisual() {
     try {
       if (!(menu.getText().equals("Operation Type")
               || height.getText().isBlank()
-              || centre.getText().isBlank())
-          || threshold.getText().isBlank()) {
+              || centre.getText().isBlank()
+          || threshold.getText().isBlank())) {
         obstacle =
             new Obstruction(
                 Integer.parseInt(centre.getText()),
@@ -86,7 +87,14 @@ public class ObstacleInput {
 
   @FXML
   public void openSidebar() {
-    vbox.setVisible(true);
+	  if(sideBar) {
+		  sideBar = false;
+		  deleteSide();
+	  }
+	  else {
+		  sideBar = true;
+		  vbox.setVisible(true);
+	  }
   }
 
   @FXML
@@ -103,15 +111,18 @@ public class ObstacleInput {
   private void clearText() {
     height.clear();
     centre.clear();
+    threshold.clear();
   }
 
-  @FXML
-  public void deleteSide(MouseEvent ignoredEvent) {
+  public void deleteSide() {
     vbox.setVisible(false);
   }
 
   @FXML
   public void export() {
+	  if (!(  height.getText().isBlank()
+              || centre.getText().isBlank()
+          || threshold.getText().isBlank())) {
     Stage newWindow = new Stage();
     newWindow.setTitle("Save Obstacle");
     obstacle =
@@ -135,6 +146,9 @@ public class ObstacleInput {
         alert.showAndWait();
       }
     }
+  }else {
+	  System.out.println("One or more fields are empty, cannot export xml file");
+  }
   }
 
   @FXML

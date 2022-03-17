@@ -2,6 +2,8 @@ package org.comp2211;
 
 import java.io.File;
 import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -41,7 +43,6 @@ public class RunwayInput {
 
   private boolean createRunway() {
     try {
-      // Need to code the Select Runway drop-down, so it actually selects a menu item
       if (!(menu.getText().equals("S elect Runway")
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
@@ -104,9 +105,9 @@ public class RunwayInput {
 
   @FXML
   private void export() {
+	  if (!(originalTora.getText().isBlank()|| originalLda.getText().isBlank()|| displacedThreshold.getText().isBlank())) {
     Stage newWindow = new Stage();
     newWindow.setTitle("Save Runway");
-    createRunway();
     File file = fileChooser.showSaveDialog(newWindow);
     if (file != null) {
       var data = new XMLData();
@@ -123,5 +124,9 @@ public class RunwayInput {
         alert.showAndWait();
       }
     }
+  }else {
+	  System.out.println("One or more fields are empty, cannot export xml file");
   }
+	  }
+  
 }
