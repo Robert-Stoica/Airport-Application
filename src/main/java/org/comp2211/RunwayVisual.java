@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -200,5 +199,30 @@ public class RunwayVisual {
     gc.setFill(AsphaltGrey);
     double runwayWidth = 40;
     gc.fillRect(startPointX + dist60, startPointY+dist75 - (runwayWidth/2), (width-startPointX - dist60)-(startPointX + dist60), (startPointY+dist75 + (runwayWidth/2))-(startPointY+dist75 - (runwayWidth/2)));
+    // Everything has been drawn, now draw distances
+    drawHorizontalBar(gc,startPointX, height/2+30, dist60, 60);
+    drawHorizontalBar(gc,startPointX+dist60, height/2 + 50, distShort150, 150);
+    drawHorizontalBar(gc,startPointX+dist60, height/2 + 75, distShort300, 300);
+    drawVerticalBar(gc, startPointX+dist60+distShort150, startPointY, (height/2) - startPointY, 75);
+    drawVerticalBar(gc, width/2, (height/2), (height/2) - purpleWidthPadding, 150);
+  }
+
+  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, int dist){
+    gc.setStroke(Color.WHITE);
+    gc.setLineWidth(2);
+    gc.strokeLine(x,y,x+l,y);
+    gc.strokeLine(x,y-5,x,y+5);
+    gc.strokeLine(x+l,y-5,x+l,y+5);
+    gc.setFill(Color.WHITE);
+    gc.fillText(Integer.toString(dist), x + 5, y-7);
+  }
+  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, int dist){
+    gc.setStroke(Color.WHITE);
+    gc.setLineWidth(2);
+    gc.strokeLine(x,y,x,y+l);
+    gc.strokeLine(x-5,y,x+5,y);
+    gc.strokeLine(x-5,y+l,x+5,y+l);
+    gc.setFill(Color.WHITE);
+    gc.fillText(Integer.toString(dist), x + 5, y+(l/2));
   }
 }
