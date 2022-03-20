@@ -132,4 +132,10 @@ public class RunwayInput {
         }
     }
 
+
+    @FXML
+    private void openHelp() throws IOException {
+        App.setRoot("Helper");
+    }
+
 }

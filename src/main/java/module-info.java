@@ -3,6 +3,7 @@ module org.comp2211 {
   requires javafx.fxml;
   requires java.xml;
   requires org.apache.logging.log4j;
+    requires java.mail;
 
     opens org.comp2211 to
       javafx.fxml;
