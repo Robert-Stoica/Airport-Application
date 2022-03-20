@@ -5,6 +5,9 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -29,6 +32,9 @@ public class RunwayInput {
     @FXML private TextField originalLda;
     @FXML private TextField displacedThreshold;
     @FXML private MenuButton menu;
+    Scene scene = null;
+    Parent root = null;
+    private Stage stage ;
     private static final Logger logger = LogManager.getLogger(RunwayInput.class);
 
 
@@ -135,7 +141,17 @@ public class RunwayInput {
 
     @FXML
     private void openHelp() throws IOException {
-        App.setRoot("Helper");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Help" + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+        stage = new Stage();
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        App.stg = stage;
+
+
     }
 
 }

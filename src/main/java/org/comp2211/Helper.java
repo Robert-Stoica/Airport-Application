@@ -1,12 +1,9 @@
 package org.comp2211;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,13 +23,13 @@ public class Helper {
     private Button sender;
     @FXML
     private TextArea area;
-    private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
+    private static final Logger logger = LogManager.getLogger(Helper.class);
 
     @FXML
     public void sendEmail() {
-        final String from = "vabbit81@gmail.com";
+        final String send = "vabbit81@gmail.com";
         final String username = "vabbit81@gmail.com";
-        final String password = "TaTasiMaMa123";
+        final String password = "funswkoxjfhidjla";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.starttls.enable", true);
@@ -45,41 +42,33 @@ public class Helper {
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
+                logger.info("Checked the email");
                 return new PasswordAuthentication(username, password);
             }
         });
 
-        sender.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        sender.setOnAction(event -> {
+            String text = receiver.getText();
+            String text1 = subject.getText();
+            String text2 = area.getText();
 
-                String text = receiver.getText();
-                String text1 = subject.getText();
-                String text2 = area.getText();
+            try {
+                Message msg = new MimeMessage(session);
 
-                try {
-                    // Create a default MimeMessage object.
-                    Message message = new MimeMessage(session);
+                msg.setFrom(new InternetAddress(send));
 
-                    // Set From: header field of the header.
-                    message.setFrom(new InternetAddress(from));
+                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(text));
 
-                    // Set To: header field of the header.
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(text));
+                msg.setSubject(text1);
 
-                    // Set Subject: header field
-                    message.setSubject(text1);
+                msg.setText(text2);
 
-                    // Now set the actual message
-                    message.setText(text2);
-
-                    // Send message
-                    Transport.send(message);
-                    System.out.println("Sent message successfully.");
-                } catch (MessagingException e) {
-                    System.out.println("Sent message failed.");
-                    e.printStackTrace();
-                }
+                Transport.send(msg);
+                logger.info("Sent message successfully.");
+                App.stg.close();
+            } catch (MessagingException e) {
+                logger.warn("Sent message failed.");
+                e.printStackTrace();
             }
         });
     }
