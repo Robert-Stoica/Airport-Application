@@ -60,17 +60,14 @@ public class RunwayInput {
     } catch (Exception e) {
       System.out.println("Invalid Input");
     }
-    return false;
-  }
 
-  @FXML
-  private void openObstacle() throws IOException {
-    if (createRunway()) {
-      App.runway = runway;
-      App.setRoot("Obstacle");
+    @FXML
+    private void openObstacle() throws IOException {
+        if (createRunway()) {
+            App.runway = runway;
+            App.setRoot("Obstacle");
+        }
     }
-  }
-
   @FXML
   private void addRunway() {
       logger.info("Import the xml");
@@ -103,7 +100,6 @@ public class RunwayInput {
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
     }
-  }
 
   @FXML
   private void export() {
@@ -127,9 +123,5 @@ public class RunwayInput {
         alert.showAndWait();
       }
     }
-  }else {
-	  System.out.println("One or more fields are empty, cannot export xml file");
-  }
-	  }
-  
+
 }

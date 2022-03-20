@@ -35,58 +35,58 @@ public class ObstacleInput {
 
 
   @FXML
-  public void openVisual() {
-      logger.info("We have opened the visualization of the runway");
-    try {
-      if (!(menu.getText().equals("Operation Type")
-              || height.getText().isBlank()
-              || centre.getText().isBlank()
-          || threshold.getText().isBlank())) {
-        obstacle =
-            new Obstruction(
-                Integer.parseInt(centre.getText()),
-                Integer.parseInt(height.getText()),
-                Integer.parseInt(threshold.getText()));
-        System.out.println(Integer.parseInt(centre.getText()));
-        System.out.println(Integer.parseInt(height.getText()));
-        System.out.println(Integer.parseInt(threshold.getText()));
-        calculator = new Calculations();
-        if (!sideText.getText().isBlank()) {
-          App.runway.setbProtection(Integer.parseInt(sideText.getText()));
-          System.out.println(App.runway.getbProtection());
-        }
+    public void openVisual() {
+        logger.info("We have opened the visualization of the runway");
+        try {
+            if (!(menu.getText().equals("Operation Type")
+                    || height.getText().isBlank()
+                    || centre.getText().isBlank()
+                    || threshold.getText().isBlank())) {
+                obstacle =
+                        new Obstruction(
+                                Integer.parseInt(centre.getText()),
+                                Integer.parseInt(height.getText()),
+                                Integer.parseInt(threshold.getText()));
+                System.out.println(Integer.parseInt(centre.getText()));
+                System.out.println(Integer.parseInt(height.getText()));
+                System.out.println(Integer.parseInt(threshold.getText()));
+                calculator = new Calculations();
+                if (!sideText.getText().isBlank()) {
+                    App.runway.setbProtection(Integer.parseInt(sideText.getText()));
+                    System.out.println(App.runway.getbProtection());
+                }
 
-        App.obstruction = obstacle;
+                App.obstruction = obstacle;
 
-        if (menu.getText().equals(away.getText())) {
-            logger.info("Doing calculations for the Away and Over landing");
-          System.out.println(App.runway.getTora());
-          System.out.println(App.runway.getbProtection());
-          System.out.println(App.runway.getDisplacedThreshold());
-          System.out.println(obstacle.getDistanceFromThresh());
-          calculator.recalculateToraAwayOver(App.runway, obstacle);
-          calculator.recalculateTodaAwayOver(App.runway);
-          calculator.recalculateAsdaAwayOver(App.runway);
-          calculator.recalculateLdaAwayOver(App.runway, obstacle);
-          System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
-          RunwayVisual.isAwayOver = true;
-        } else if (menu.getText().equals(towards.getText())) {
-            logger.info("Doing calculations for the Towards landing");
-          calculator.recalculateToraTowards(App.runway, obstacle);
-          calculator.recalculateTodaTowards(App.runway);
-          calculator.recalculateAsdaTowards(App.runway);
-          calculator.recalculateLdaTowards(App.runway, obstacle);
-          System.out.println(calculator.recalculateToraTowards(App.runway, obstacle).getTora());
-          RunwayVisual.isAwayOver = false;
+                if (menu.getText().equals(away.getText())) {
+                    logger.info("Doing calculations for the Away and Over landing");
+                    System.out.println(App.runway.getTora());
+                    System.out.println(App.runway.getbProtection());
+                    System.out.println(App.runway.getDisplacedThreshold());
+                    System.out.println(obstacle.getDistanceFromThresh());
+                    calculator.recalculateToraAwayOver(App.runway, obstacle);
+                    calculator.recalculateTodaAwayOver(App.runway);
+                    calculator.recalculateAsdaAwayOver(App.runway);
+                    calculator.recalculateLdaAwayOver(App.runway, obstacle);
+                    System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
+                    RunwayVisual.isAwayOver = true;
+                } else if (menu.getText().equals(towards.getText())) {
+                    logger.info("Doing calculations for the Towards landing");
+                    calculator.recalculateToraTowards(App.runway, obstacle);
+                    calculator.recalculateTodaTowards(App.runway);
+                    calculator.recalculateAsdaTowards(App.runway);
+                    calculator.recalculateLdaTowards(App.runway, obstacle);
+                    System.out.println(calculator.recalculateToraTowards(App.runway, obstacle).getTora());
+                    RunwayVisual.isAwayOver = false;
+                }
+                App.setRoot("visual");
+            } else {
+                System.out.println("One of the fields is empty");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        App.setRoot("visual");
-      } else {
-        System.out.println("One of the fields is empty");
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
     }
-  }
 
   @FXML
   public void openSidebar() {
@@ -198,5 +198,4 @@ public class ObstacleInput {
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
     }
-  }
 }
