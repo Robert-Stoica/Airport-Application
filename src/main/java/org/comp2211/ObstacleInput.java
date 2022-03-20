@@ -19,22 +19,30 @@ import org.apache.logging.log4j.Logger;
 
 public class ObstacleInput {
 
-  private final FileChooser fileChooser = new FileChooser();
-  @FXML private TextField height;
-  @FXML private TextField centre;
-  @FXML private TextField threshold;
-  @FXML private TextField sideText;
-  @FXML private MenuButton menu;
-  @FXML private MenuItem away;
-  @FXML private MenuItem towards;
-  @FXML private VBox vbox;
-  private Obstruction obstacle;
-  private Calculations calculator;
-  private Boolean sideBar = false;
-  private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
+    private final FileChooser fileChooser = new FileChooser();
+    @FXML
+    private TextField height;
+    @FXML
+    private TextField centre;
+    @FXML
+    private TextField threshold;
+    @FXML
+    private TextField sideText;
+    @FXML
+    private MenuButton menu;
+    @FXML
+    private MenuItem away;
+    @FXML
+    private MenuItem towards;
+    @FXML
+    private VBox vbox;
+    private Obstruction obstacle;
+    private Calculations calculator;
+    private Boolean sideBar = false;
+    private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
 
 
-  @FXML
+    @FXML
     public void openVisual() {
         logger.info("We have opened the visualization of the runway");
         try {
@@ -88,114 +96,114 @@ public class ObstacleInput {
         }
     }
 
-  @FXML
-  public void openSidebar() {
+    @FXML
+    public void openSidebar() {
 
-	  if(sideBar) {
-		  sideBar = false;
-		  deleteSide();
-	  }
-	  else {
-          logger.info("Show the sidebar");
-		  sideBar = true;
-		  vbox.setVisible(true);
-	  }
+        if (sideBar) {
+            sideBar = false;
+            deleteSide();
+        } else {
+            logger.info("Show the sidebar");
+            sideBar = true;
+            vbox.setVisible(true);
+        }
 
 
-  }
-
-  @FXML
-  public void changeT() {
-      logger.info("Change the menu text");
-      menu.setText(away.getText());
-  }
-
-  @FXML
-  public void changeTe() {
-      logger.info("Change the menu text");
-      menu.setText(towards.getText());
-  }
-
-  @FXML
-  private void clearText() {
-      logger.info("The input has been cleared");
-    height.clear();
-    centre.clear();
-    threshold.clear();
-
-  }
-
-  @FXML
-  public void deleteSide() {
-      logger.info("Hide the sidebar");
-      vbox.setVisible(false);
-      sideText.clear();
-
-  }
-
-  @FXML
-  public void export() {
-	  if (!(  height.getText().isBlank()
-              || centre.getText().isBlank()
-          || threshold.getText().isBlank())) {
-	      logger.info("Creating the new obstacle and creating a xml that contains it");
-    Stage newWindow = new Stage();
-    newWindow.setTitle("Save Obstacle");
-    obstacle =
-        new Obstruction(
-            Integer.parseInt(centre.getText()),
-            Integer.parseInt(height.getText()),
-            Integer.parseInt(threshold.getText()));
-    File file = fileChooser.showSaveDialog(newWindow);
-    if (file != null) {
-      var data = new XMLData();
-      if (obstacle != null) {
-        data.obstructions.add(obstacle);
-      }
-      try {
-        Media.exportXML(data, file);
-      } catch (XMLStreamException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("XML error");
-        alert.setHeaderText("Error on writing file");
-        alert.setContentText("File could not be written");
-        alert.showAndWait();
-      }
     }
-  }else {
-	  System.out.println("One or more fields are empty, cannot export xml file");
-  }
-  }
 
-  @FXML
-  public void create() {
-      logger.info("Input the xml and autofill the text fields");
-    Stage newWindow = new Stage();
-    newWindow.setTitle("Open Obstacle");
-    File file = fileChooser.showOpenDialog(newWindow);
-    if (file != null) {
-      XMLData data;
-      try {
-        data = Media.importXML(file);
-      } catch (XMLStreamException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("XML error");
-        alert.setHeaderText("Error on opening file");
-        alert.setContentText("File could not be opened");
-        alert.showAndWait();
-        return;
-      }
-      if (data.obstructions.size() == 0) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("File empty");
-        alert.setHeaderText("Error on opening file");
-        alert.setContentText("File contained no obstructions.");
-        alert.showAndWait();
-        return;
-      }
-      obstacle = data.obstructions.get(0);
-      height.setText(String.valueOf(obstacle.getHeight()));
-      centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
-      threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
+    @FXML
+    public void changeT() {
+        logger.info("Change the menu text");
+        menu.setText(away.getText());
+    }
+
+    @FXML
+    public void changeTe() {
+        logger.info("Change the menu text");
+        menu.setText(towards.getText());
+    }
+
+    @FXML
+    private void clearText() {
+        logger.info("The input has been cleared");
+        height.clear();
+        centre.clear();
+        threshold.clear();
+
+    }
+
+    @FXML
+    public void deleteSide() {
+        logger.info("Hide the sidebar");
+        vbox.setVisible(false);
+        sideText.clear();
+
+    }
+
+    @FXML
+    public void export() {
+        if (!(height.getText().isBlank()
+                || centre.getText().isBlank()
+                || threshold.getText().isBlank())) {
+            logger.info("Creating the new obstacle and creating a xml that contains it");
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Save Obstacle");
+            obstacle =
+                    new Obstruction(
+                            Integer.parseInt(centre.getText()),
+                            Integer.parseInt(height.getText()),
+                            Integer.parseInt(threshold.getText()));
+            File file = fileChooser.showSaveDialog(newWindow);
+            if (file != null) {
+                var data = new XMLData();
+                if (obstacle != null) {
+                    data.obstructions.add(obstacle);
+                }
+                try {
+                    Media.exportXML(data, file);
+                } catch (XMLStreamException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("XML error");
+                    alert.setHeaderText("Error on writing file");
+                    alert.setContentText("File could not be written");
+                    alert.showAndWait();
+                }
+            }
+        } else {
+            System.out.println("One or more fields are empty, cannot export xml file");
+        }
+    }
+
+    @FXML
+    public void create() {
+        logger.info("Input the xml and autofill the text fields");
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Open Obstacle");
+        File file = fileChooser.showOpenDialog(newWindow);
+        if (file != null) {
+            XMLData data;
+            try {
+                data = Media.importXML(file);
+            } catch (XMLStreamException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("XML error");
+                alert.setHeaderText("Error on opening file");
+                alert.setContentText("File could not be opened");
+                alert.showAndWait();
+                return;
+            }
+            if (data.obstructions.size() == 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("File empty");
+                alert.setHeaderText("Error on opening file");
+                alert.setContentText("File contained no obstructions.");
+                alert.showAndWait();
+                return;
+            }
+            obstacle = data.obstructions.get(0);
+            height.setText(String.valueOf(obstacle.getHeight()));
+            centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
+            threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
+        }
     }
 }
