@@ -8,17 +8,16 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Obstruction;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ObstacleInput {
 
@@ -132,6 +131,11 @@ public class ObstacleInput {
         logger.info("Change the menu text");
         menu.setText(towards.getText());
     }
+
+  @FXML
+  public void changeBp() {
+    logger.info("Blast Protection set to {}", sideText.getText());
+  }
 
     @FXML
     private void clearText() {
