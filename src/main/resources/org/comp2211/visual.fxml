@@ -15,19 +15,20 @@
          </font>
       </Label>
       <Button fx:id="calculation" layoutX="471.0" layoutY="27.0" mnemonicParsing="false" onAction="#createFile" stylesheets="@style/runway.css" text="View Calculation" />
-      <Label layoutX="123.0" layoutY="127.0" styleClass="text" stylesheets="@style/runway.css" text="Tora" />
-      <Label layoutX="249.0" layoutY="127.0" styleClass="text" stylesheets="@style/runway.css" text="Toda" />
-      <Label layoutX="370.0" layoutY="127.0" styleClass="text" stylesheets="@style/runway.css" text="Asda" />
-      <Label layoutX="488.0" layoutY="127.0" styleClass="text" stylesheets="@style/runway.css" text="Lda" />
-      <Label fx:id="tora" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="162.0" minWidth="-Infinity" styleClass="text" stylesheets="@style/runway.css" text="0" />
-      <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="259.0" layoutY="161.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
-      <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="161.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
-      <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="162.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
+      <Label layoutX="144.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Tora" />
+      <Label layoutX="142.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="Toda" />
+      <Label layoutX="404.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Asda" />
+      <Label layoutX="407.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="Lda" />
+      <Label fx:id="tora" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="119.0" minWidth="-Infinity" styleClass="text" stylesheets="@style/runway.css" text="0" />
+      <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
+      <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
+      <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
       <ImageView fitHeight="300.0" fitWidth="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Capture.PNG" />
          </image>
       </ImageView>
+      <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
    </children>
 </Pane>
