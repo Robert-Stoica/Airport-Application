@@ -51,6 +51,7 @@ public class RunwayVisual {
   Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
   Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
   Color DarkBlue = Color.color(51/255.0, 51/255.0, 204/255.0);
+  Color SkyBlue = Color.color(85/255.0, 216/255.0, 255/255.0);
   Color AsphaltGrey = Color.color(150/255.0, 150/255.0, 150/255.0);
 
   void safeWriteFile(String filename, String data) {
@@ -153,7 +154,7 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
-    drawTopView();
+    drawSideView();
   }
 
   public void newRunway() throws IOException {
@@ -205,24 +206,106 @@ public class RunwayVisual {
     drawHorizontalBar(gc,startPointX+dist60, height/2 + 75, distShort300, 300);
     drawVerticalBar(gc, startPointX+dist60+distShort150, startPointY, (height/2) - startPointY, 75);
     drawVerticalBar(gc, width/2, (height/2), (height/2) - purpleWidthPadding, 150);
+    gc.setFill(Color.WHITE);
+    gc.fillText("Not to scale", 5, 9);
+  }
+
+  private void drawSideView(){
+    // Drawing stuff
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    double width = canvas.getWidth();
+    double height = canvas.getHeight();
+
+    double runwayYTop = height/1.5;
+    double runwayDepth = 10;
+
+    double runwayPadding = 30;
+
+    double runwayStartX = runwayPadding;
+    double runwayEndX = width - runwayPadding;
+    double originalRunwayLength = App.runway.getOriginalTora() + 60;
+    double scaleFactor = (runwayEndX-runwayStartX)/originalRunwayLength;
+
+    double verticalExtraScaleFactor = 10;
+    double obstacleHeight = App.obstruction.getHeight()*scaleFactor*verticalExtraScaleFactor;
+    // Grass
+    gc.setFill(DarkGreen);
+    gc.fillRect(0,runwayYTop, width, height-runwayYTop);
+
+    // Sky
+    gc.setFill(SkyBlue);
+    gc.fillRect(0,0, width, runwayYTop);
+
+    // Runway
+    gc.setFill(AsphaltGrey);
+    gc.fillRect(runwayPadding,runwayYTop, width-(runwayPadding*2), runwayDepth);
+
+    // Obstacle
+    gc.setFill(Color.RED);
+    var oStartX = runwayStartX+(App.obstruction.getDistanceFromThresh()*scaleFactor);
+    gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
+    drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
+
+    var mode = "TOT";
+
+    var labelYPos = runwayYTop + runwayDepth + 20;
+
+    var resa = App.runway.getResa();
+    var h50 = App.obstruction.getHeight() * 50;
+    switch (mode){
+      case "TOT":
+        var tora = App.runway.getTora();
+        var toda = App.runway.getAsda();
+        var asda = App.runway.getAsda();
+        if (tora == toda && tora == asda){
+          drawHorizontalBar(gc, runwayStartX, labelYPos, tora*scaleFactor, Integer.toString(tora)+"m (TORA,TODA,ASDA)");
+        } else{
+          drawHorizontalBar(gc, runwayStartX, labelYPos, tora*scaleFactor, Integer.toString(tora)+"m (TORA)");
+          drawHorizontalBar(gc, runwayStartX, labelYPos+20, toda*scaleFactor, Integer.toString(toda)+"m (TODA)");
+          drawHorizontalBar(gc, runwayStartX, labelYPos+40, asda*scaleFactor, Integer.toString(asda)+"m (ASDA)");
+        }
+        drawHorizontalBar(gc, runwayStartX+tora*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
+        drawHorizontalBar(gc, runwayStartX+(tora+60)*scaleFactor, labelYPos, resa*scaleFactor, Integer.toString(resa)+"m (RESA)");
+        drawHorizontalBar(gc, runwayStartX+(tora+60)*scaleFactor, labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
+        gc.strokeLine(runwayStartX+(tora+60)*scaleFactor, runwayYTop, oStartX, runwayYTop-obstacleHeight);
+        gc.strokeLine(runwayStartX+(tora)*scaleFactor, runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
+        break;
+      case "LT":
+        var lda = App.runway.getLda();
+
+        drawHorizontalBar(gc, runwayStartX, labelYPos, lda*scaleFactor, Integer.toString(lda)+"m (LDA)");
+        drawHorizontalBar(gc, runwayStartX+lda*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
+        drawHorizontalBar(gc, runwayStartX+(lda+60)*scaleFactor, labelYPos, resa*scaleFactor, Integer.toString(resa)+"m (RESA)");
+        break;
+      case "TOA":
+        break;
+      case "LO":
+        break;
+    }
   }
 
   private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, int dist){
+    drawHorizontalBar(gc, x,  y, l, Integer.toString(dist));
+  }
+  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label){
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
     gc.strokeLine(x,y,x+l,y);
     gc.strokeLine(x,y-5,x,y+5);
     gc.strokeLine(x+l,y-5,x+l,y+5);
     gc.setFill(Color.WHITE);
-    gc.fillText(Integer.toString(dist), x + 5, y-7);
+    gc.fillText(label, x + (l/2) - (label.length()/2*5), y-7);
   }
   private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, int dist){
+    drawVerticalBar(gc, x, y, l, Integer.toString(dist));
+  }
+  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label){
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
     gc.strokeLine(x,y,x,y+l);
     gc.strokeLine(x-5,y,x+5,y);
     gc.strokeLine(x-5,y+l,x+5,y+l);
     gc.setFill(Color.WHITE);
-    gc.fillText(Integer.toString(dist), x + 5, y+(l/2));
+    gc.fillText(label, x + 5, y+(l/2));
   }
 }
