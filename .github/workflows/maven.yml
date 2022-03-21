@@ -13,6 +13,7 @@ jobs:
   build_ubuntu:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -28,6 +29,7 @@ jobs:
   build_windows:
 
     runs-on: windows-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -42,6 +44,7 @@ jobs:
 
   checkstyle_job:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     name: Checkstyle job
     steps:
       - uses: actions/checkout@v2
@@ -56,6 +59,7 @@ jobs:
 
   run_tests_linux:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -70,6 +74,7 @@ jobs:
 
   run_tests_windows:
     runs-on: windows-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
