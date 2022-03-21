@@ -240,23 +240,26 @@ public class RunwayVisual {
     gc.setFill(AsphaltGrey);
     gc.fillRect(runwayPadding,runwayYTop, width-(runwayPadding*2), runwayDepth);
 
-    // Obstacle
-    gc.setFill(Color.RED);
-    var oStartX = runwayStartX+(App.obstruction.getDistanceFromThresh()*scaleFactor);
-    gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
-    drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
-
-    var mode = "TOT";
+    var mode = "LO";
 
     var labelYPos = runwayYTop + runwayDepth + 20;
 
     var resa = App.runway.getResa();
+    var tora = App.runway.getTora();
+    var toda = App.runway.getAsda();
+    var asda = App.runway.getAsda();
+    var lda = App.runway.getLda();
+
     var h50 = App.obstruction.getHeight() * 50;
+    double oStartX;
     switch (mode){
       case "TOT":
-        var tora = App.runway.getTora();
-        var toda = App.runway.getAsda();
-        var asda = App.runway.getAsda();
+        // Obstacle
+        gc.setFill(Color.RED);
+        oStartX = runwayStartX+(App.obstruction.getDistanceFromThresh()*scaleFactor);
+        gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
+        drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
+        // Labels
         if (tora == toda && tora == asda){
           drawHorizontalBar(gc, runwayStartX, labelYPos, tora*scaleFactor, Integer.toString(tora)+"m (TORA,TODA,ASDA)");
         } else{
@@ -266,12 +269,18 @@ public class RunwayVisual {
         }
         drawHorizontalBar(gc, runwayStartX+tora*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
         drawHorizontalBar(gc, runwayStartX+(tora+60)*scaleFactor, labelYPos, resa*scaleFactor, Integer.toString(resa)+"m (RESA)");
-        drawHorizontalBar(gc, runwayStartX+(tora+60)*scaleFactor, labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
-        gc.strokeLine(runwayStartX+(tora+60)*scaleFactor, runwayYTop, oStartX, runwayYTop-obstacleHeight);
-        gc.strokeLine(runwayStartX+(tora)*scaleFactor, runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
+        drawHorizontalBar(gc, oStartX-(h50*scaleFactor), labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
+        gc.strokeLine(oStartX-(h50*scaleFactor), runwayYTop, oStartX, runwayYTop-obstacleHeight);
+        gc.strokeLine(oStartX-(h50*scaleFactor-60*scaleFactor), runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
         break;
       case "LT":
-        var lda = App.runway.getLda();
+        // Obstacle
+        gc.setFill(Color.RED);
+        oStartX = runwayStartX+(App.obstruction.getDistanceFromThresh()*scaleFactor);
+        gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
+        drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
+        // Labels
+
 
         drawHorizontalBar(gc, runwayStartX, labelYPos, lda*scaleFactor, Integer.toString(lda)+"m (LDA)");
         drawHorizontalBar(gc, runwayStartX+lda*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
@@ -280,6 +289,18 @@ public class RunwayVisual {
       case "TOA":
         break;
       case "LO":
+        // Obstacle
+        gc.setFill(Color.RED);
+        oStartX = runwayEndX-(App.obstruction.getDistanceFromThresh()*scaleFactor);
+        gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
+        drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
+        // Labels
+        drawHorizontalBar(gc, runwayStartX, labelYPos, lda*scaleFactor, Integer.toString(lda)+"m (LDA)");
+        drawHorizontalBar(gc, runwayStartX+lda*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
+        drawHorizontalBar(gc, runwayStartX+(lda+60)*scaleFactor, labelYPos, resa*scaleFactor, Integer.toString(resa)+"m (RESA)");
+        drawHorizontalBar(gc, oStartX-(h50*scaleFactor), labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
+        gc.strokeLine(oStartX-(h50*scaleFactor), runwayYTop, oStartX, runwayYTop-obstacleHeight);
+        gc.strokeLine(oStartX-(h50*scaleFactor-60*scaleFactor), runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
         break;
     }
   }
