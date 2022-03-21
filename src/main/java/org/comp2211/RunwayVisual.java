@@ -38,11 +38,17 @@ public class RunwayVisual {
           LDA  = Obstacle distance from threshold - RESA - Strip end
           \t = %d - %d - %d
           \t = %d""";
+
+  @FXML private Button calculation;
+  @FXML private Button goback;
+  @FXML private Button contrastB;
   @FXML private Label tora;
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
-    private static final Logger logger = LogManager.getLogger(Calculations.class);
+  private boolean highContrast = false;
+  private static final Logger logger = LogManager.getLogger(Calculations.class);
+
 
   void safeWriteFile(String filename, String data) {
       logger.info("Write to a file");
@@ -129,11 +135,10 @@ public class RunwayVisual {
       File myObj = new File("calculations.txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
-        safeWriteFile("filename.txt", calculationsString);
       } else {
         System.out.println("File already exists.");
-        safeWriteFile("calculations.txt", calculationsString);
       }
+      safeWriteFile("calculations.txt", calculationsString);
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
@@ -151,5 +156,22 @@ public class RunwayVisual {
 
   public void newRunway() throws IOException {
     App.setRoot("Input");
+  }
+  public void changeContrast() {
+	  if(highContrast ) {
+		  highContrast = false;
+		  calculation.getStyleClass().clear();
+		  goback.getStyleClass().clear();
+		  contrastB.getStyleClass().clear();
+		  calculation.getStyleClass().add("button");
+		  goback.getStyleClass().add("button");
+		  contrastB.getStyleClass().add("button");
+	  }else {
+		  highContrast = true;
+		  calculation.getStyleClass().add("button2");
+		  goback.getStyleClass().add("button2");
+		  contrastB.getStyleClass().add("button2");
+	  }
+	  
   }
 }
