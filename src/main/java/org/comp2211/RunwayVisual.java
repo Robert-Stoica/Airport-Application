@@ -272,6 +272,7 @@ public class RunwayVisual {
         drawHorizontalBar(gc, oStartX-(h50*scaleFactor), labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
         gc.strokeLine(oStartX-(h50*scaleFactor), runwayYTop, oStartX, runwayYTop-obstacleHeight);
         gc.strokeLine(oStartX-(h50*scaleFactor-60*scaleFactor), runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
+        gc.fillText("Takeoff from left to right", 30,30);
         break;
       case "LT":
         // Obstacle
@@ -280,13 +281,20 @@ public class RunwayVisual {
         gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
         drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
         // Labels
-
-
         drawHorizontalBar(gc, runwayStartX, labelYPos, lda*scaleFactor, Integer.toString(lda)+"m (LDA)");
         drawHorizontalBar(gc, runwayStartX+lda*scaleFactor, labelYPos, 60*scaleFactor, "\n\n"+Integer.toString(60)+"m (60)");
         drawHorizontalBar(gc, runwayStartX+(lda+60)*scaleFactor, labelYPos, resa*scaleFactor, Integer.toString(resa)+"m (RESA)");
+        gc.fillText("Landing from left to right", 30,30);
         break;
       case "TOA":
+        // Obstacle
+        gc.setFill(Color.RED);
+        oStartX = runwayEndX-(App.obstruction.getDistanceFromThresh()*scaleFactor);
+        gc.fillRect(oStartX, runwayYTop-obstacleHeight, 5, obstacleHeight);
+        drawVerticalBar(gc, oStartX+15, runwayYTop-obstacleHeight, obstacleHeight, " "+Integer.toString(App.obstruction.getHeight()) + "m");
+        // Labels
+
+        gc.fillText("Takeoff from right to left", 30,30);
         break;
       case "LO":
         // Obstacle
@@ -301,6 +309,7 @@ public class RunwayVisual {
         drawHorizontalBar(gc, oStartX-(h50*scaleFactor), labelYPos+43, h50*scaleFactor, Integer.toString(h50)+"m (hx50)");
         gc.strokeLine(oStartX-(h50*scaleFactor), runwayYTop, oStartX, runwayYTop-obstacleHeight);
         gc.strokeLine(oStartX-(h50*scaleFactor-60*scaleFactor), runwayYTop, oStartX-60*scaleFactor, runwayYTop-obstacleHeight);
+        gc.fillText("Landing from right to left", 30,30);
         break;
     }
   }
