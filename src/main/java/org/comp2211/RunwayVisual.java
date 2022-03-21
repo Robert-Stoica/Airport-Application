@@ -6,6 +6,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 
@@ -36,6 +38,7 @@ public class RunwayVisual {
           LDA  = Obstacle distance from threshold - RESA - Strip end
           \t = %d - %d - %d
           \t = %d""";
+
   @FXML private Button calculation;
   @FXML private Button goback;
   @FXML private Button contrastB;
@@ -44,8 +47,11 @@ public class RunwayVisual {
   @FXML private Label asda;
   @FXML private Label lda;
   private boolean highContrast = false;
+  private static final Logger logger = LogManager.getLogger(Calculations.class);
+
 
   void safeWriteFile(String filename, String data) {
+      logger.info("Write to a file");
     try {
       FileWriter myWriter = new FileWriter(filename);
       myWriter.write(data);
@@ -125,6 +131,7 @@ public class RunwayVisual {
     }
 
     try {
+        logger.info("Saving the calculations to the file");
       File myObj = new File("calculations.txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
@@ -141,6 +148,7 @@ public class RunwayVisual {
 
   @FXML
   public void setLabel() {
+      logger.info("Set the new values of the Runway");
     lda.setText(String.valueOf(App.runway.getLda()));
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));

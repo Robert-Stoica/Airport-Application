@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 import org.comp2211.calculations.Obstruction;
 import org.comp2211.calculations.Runway;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /** JavaFX App. */
 public class App extends Application {
 
@@ -16,8 +19,10 @@ public class App extends Application {
   public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
+  private static final Logger logger = LogManager.getLogger(App.class);
 
   static void setRoot(String fxml) throws IOException {
+      logger.info("We have loaded a new Scene");
     scene.setRoot(loadFXML(fxml));
   }
 
@@ -27,7 +32,8 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
-    launch();
+      logger.info("The app has launched");
+      launch();
   }
 
   @Override
@@ -40,7 +46,8 @@ public class App extends Application {
   }
 
   private void shutdown() {
-    System.exit(0);
+      logger.info("The app has closed");
+      System.exit(0);
   }
 
   public void runwayInput() throws IOException {
@@ -52,12 +59,5 @@ public class App extends Application {
     stage.centerOnScreen();
   }
 
-  public void openRunwayVisualisation() throws IOException {
 
-    scene = new Scene(loadFXML("primary"));
-
-    stage.setScene(scene);
-    stage.show();
-    stage.centerOnScreen();
-  }
 }
