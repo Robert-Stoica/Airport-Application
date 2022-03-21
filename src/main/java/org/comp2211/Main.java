@@ -1,4 +1,5 @@
 package org.comp2211;
+import org.comp2211.*;
 
 // This is the Main used by the shade plugin.
 public class Main {
