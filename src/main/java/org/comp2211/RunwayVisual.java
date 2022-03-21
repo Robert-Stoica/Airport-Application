@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -135,11 +134,10 @@ public class RunwayVisual {
       File myObj = new File("calculations.txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
-        safeWriteFile("filename.txt", calculationsString);
       } else {
         System.out.println("File already exists.");
-        safeWriteFile("calculations.txt", calculationsString);
       }
+      safeWriteFile("calculations.txt", calculationsString);
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
