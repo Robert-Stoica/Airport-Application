@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,6 +31,11 @@ public class RunwayInput {
     @FXML private TextField displacedThreshold;
     @FXML private MenuButton menu;
     private static final Logger logger = LogManager.getLogger(RunwayInput.class);
+    @FXML private Button submit;
+    @FXML private Button clear;
+    @FXML private ToggleButton toggle;
+    @FXML private Button importB;
+    @FXML private Button exportB;
 
   // Calls a method where we export XML file
   @FXML private Button exportXml;
@@ -137,10 +143,7 @@ public class RunwayInput {
             System.out.println("One or more fields are empty, cannot export xml file");
         }
     }
-  }else {
-	  System.out.println("One or more fields are empty, cannot export xml file");
-  }
-	  }
+
   
   public void changeContrast() {
 	  if(highContrast) {

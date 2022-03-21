@@ -3,6 +3,7 @@ package org.comp2211;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -215,7 +216,7 @@ public class ObstacleInput {
             threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
         }
     }
-  }
+  
   public void changeContrast() {
 	  if(highContrast) {
 		  highContrast = false;
