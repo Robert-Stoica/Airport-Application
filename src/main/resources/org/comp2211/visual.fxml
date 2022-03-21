@@ -8,6 +8,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.canvas.Canvas?>
 
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#setLabel" prefHeight="561.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
    <children>
       <Label layoutX="234.0" layoutY="29.0" text="Runway Visual">
@@ -24,6 +26,12 @@
       <Label fx:id="toda" layoutX="216.0" layoutY="162.0" text="0" />
       <Label fx:id="asda" layoutX="330.0" layoutY="162.0" text="0" />
       <Label fx:id="lda" layoutX="444.0" layoutY="154.0" text="0" />
+      <MenuButton fx:id="menu" layoutX="256" layoutY="180" mnemonicParsing="false" text="Landing/Takeoff">
+         <items>
+            <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
+            <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
+         </items>
+      </MenuButton>
       <Button fx:id="goback" layoutX="450.0" layoutY="484.0" mnemonicParsing="false" onAction="#newRunway" text="Return to Runway Input" />
       <Canvas fx:id="canvas" height="250.0" width="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" />
    </children>

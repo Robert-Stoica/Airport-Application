@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
@@ -47,12 +50,17 @@ public class RunwayVisual {
   @FXML private Label asda;
   @FXML private Label lda;
   @FXML private Canvas canvas;
+  @FXML private MenuButton menu;
+  @FXML private MenuItem landing;
+  @FXML private MenuItem takeoff;
 
   Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
   Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
   Color DarkBlue = Color.color(51/255.0, 51/255.0, 204/255.0);
   Color SkyBlue = Color.color(85/255.0, 216/255.0, 255/255.0);
   Color AsphaltGrey = Color.color(150/255.0, 150/255.0, 150/255.0);
+
+  boolean isTakeoff;
 
   void safeWriteFile(String filename, String data) {
     try {
@@ -154,7 +162,7 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
-    drawSideView();
+    //drawSideView();
   }
 
   public void newRunway() throws IOException {
@@ -240,7 +248,16 @@ public class RunwayVisual {
     gc.setFill(AsphaltGrey);
     gc.fillRect(runwayPadding,runwayYTop, width-(runwayPadding*2), runwayDepth);
 
-    var mode = "LO";
+    String mode= "";
+    if (isTakeoff && isAwayOver){
+      mode = "TOA";
+    } else if (isTakeoff){
+      mode = "TOT";
+    } else if (isAwayOver){
+      mode = "LO";
+    } else{
+      mode = "LT";
+    }
 
     var labelYPos = runwayYTop + runwayDepth + 20;
 
@@ -337,5 +354,18 @@ public class RunwayVisual {
     gc.strokeLine(x-5,y+l,x+5,y+l);
     gc.setFill(Color.WHITE);
     gc.fillText(label, x + 5, y+(l/2));
+  }
+
+
+  public void setTO(ActionEvent actionEvent) {
+    isTakeoff = true;
+    menu.setText(takeoff.getText());
+    drawSideView();
+  }
+
+  public void setL(ActionEvent actionEvent) {
+    isTakeoff = false;
+    menu.setText(landing.getText());
+    drawSideView();
   }
 }
