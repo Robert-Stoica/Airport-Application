@@ -57,7 +57,6 @@ public class RunwayVisual {
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
-  @FXML private Label slopeCalculation;
   @FXML private Label threshold;
   private boolean highContrast = false;
   private static final Logger logger = LogManager.getLogger(Calculations.class);
@@ -74,7 +73,6 @@ public class RunwayVisual {
 
   boolean isTakeoff;
 
-  private static final Logger logger = LogManager.getLogger(Calculations.class);
 
 
   void safeWriteFile(String filename, String data) {
@@ -179,8 +177,10 @@ public class RunwayVisual {
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
     toda.setText(String.valueOf(App.runway.getToda()));
-    //slopeCalculation.setText(String.valueOf(App.runway.get));
     threshold.setText(String.valueOf(App.runway.getDisplacedThreshold()));
+    //slopeCalculation.setText(String.valueOf(App.runway.get));
+    //threshold.setText("FxML");
+    //String.valueOf(App.runway.getDisplacedThreshold())
     //drawSideView();
   }
 
