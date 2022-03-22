@@ -27,9 +27,9 @@ public class Helper {
 
     @FXML
     public void sendEmail() {
-        final String send = "vabbit81@gmail.com";
-        final String username = "vabbit81@gmail.com";
-        final String password = "funswkoxjfhidjla";
+        final String send = "andreiesteban54@gmail.com";
+        final String username = "andreiesteban54@gmail.com";
+        final String password = "Comp2211-Seg";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.starttls.enable", true);
