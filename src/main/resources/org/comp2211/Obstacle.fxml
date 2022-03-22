@@ -39,9 +39,9 @@
                   <Insets left="50.0" top="50.0" />
                </VBox.margin>
             </Label>
-            <TextField onAction="#changeBp" prefHeight="25.0" prefWidth="264.0"
-              promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css"
-              translateY="-3.0" fx:id="sideText"/>
+            <TextField prefHeight="25.0" prefWidth="264.0" promptText="Enter number"
+              styleClass="textbox" stylesheets="@style/runway.css" translateY="-3.0"
+              fx:id="sideText"/>
             <Button fx:id="exportB" mnemonicParsing="false" onAction="#export" prefHeight="45.0" prefWidth="275.0" text="Export Obstacle" translateY="-5.0" />
             <Button fx:id="importB" mnemonicParsing="false" onAction="#create" prefHeight="43.0" prefWidth="274.0" text="Import Obstacle" translateY="-10.0" VBox.vgrow="ALWAYS" />
          </children>
