@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -30,6 +33,9 @@ public class RunwayInput {
     @FXML private TextField originalLda;
     @FXML private TextField displacedThreshold;
     @FXML private MenuButton menu;
+    Scene scene = null;
+    Parent root = null;
+    private Stage stage ;
     private static final Logger logger = LogManager.getLogger(RunwayInput.class);
     @FXML private Button submit;
     @FXML private Button clear;
@@ -142,6 +148,22 @@ public class RunwayInput {
         }else {
             System.out.println("One or more fields are empty, cannot export xml file");
         }
+    }
+
+
+    @FXML
+    private void openHelp() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Help" + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+        stage = new Stage();
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        App.stg = stage;
+
+
     }
 
   
