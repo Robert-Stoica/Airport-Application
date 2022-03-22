@@ -28,6 +28,6 @@
          <Font size="25.0" />
       </font>
    </Label>
-   <Button layoutX="531.0" layoutY="40.0" mnemonicParsing="false" onAction="#openHelp" text="Help" />
+   <Button layoutX="483.0" layoutY="120.0" mnemonicParsing="false" onAction="#openHelp" text="Help" />
    <Button fx:id="contrastB" layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
 </Pane>
