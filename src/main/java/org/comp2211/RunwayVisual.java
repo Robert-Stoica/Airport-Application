@@ -6,6 +6,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 import org.w3c.dom.Text;
@@ -37,16 +39,22 @@ public class RunwayVisual {
           LDA  = Obstacle distance from threshold - RESA - Strip end
           \t = %d - %d - %d
           \t = %d""";
+
   @FXML private Button calculation;
   @FXML private Button goback;
+  @FXML private Button contrastB;
   @FXML private Label tora;
   @FXML private Label toda;
   @FXML private Label asda;
   @FXML private Label lda;
   @FXML private Label slopeCalculation;
   @FXML private Label threshold;
+  private boolean highContrast = false;
+  private static final Logger logger = LogManager.getLogger(Calculations.class);
+
 
   void safeWriteFile(String filename, String data) {
+      logger.info("Write to a file");
     try {
       FileWriter myWriter = new FileWriter(filename);
       myWriter.write(data);
@@ -126,14 +134,14 @@ public class RunwayVisual {
     }
 
     try {
+        logger.info("Saving the calculations to the file");
       File myObj = new File("calculations.txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
-        safeWriteFile("filename.txt", calculationsString);
       } else {
         System.out.println("File already exists.");
-        safeWriteFile("calculations.txt", calculationsString);
       }
+      safeWriteFile("calculations.txt", calculationsString);
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
@@ -142,6 +150,7 @@ public class RunwayVisual {
 
   @FXML
   public void setLabel() {
+      logger.info("Set the new values of the Runway");
     lda.setText(String.valueOf(App.runway.getLda()));
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
@@ -152,5 +161,22 @@ public class RunwayVisual {
 
   public void newRunway() throws IOException {
     App.setRoot("Input");
+  }
+  public void changeContrast() {
+	  if(highContrast ) {
+		  highContrast = false;
+		  calculation.getStyleClass().clear();
+		  goback.getStyleClass().clear();
+		  contrastB.getStyleClass().clear();
+		  calculation.getStyleClass().add("button");
+		  goback.getStyleClass().add("button");
+		  contrastB.getStyleClass().add("button");
+	  }else {
+		  highContrast = true;
+		  calculation.getStyleClass().add("button2");
+		  goback.getStyleClass().add("button2");
+		  contrastB.getStyleClass().add("button2");
+	  }
+
   }
 }
