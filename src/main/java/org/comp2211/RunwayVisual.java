@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,9 +21,9 @@ import org.apache.logging.log4j.Logger;
 
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
+import org.w3c.dom.Text;
 
 public class RunwayVisual {
-
     public static boolean isAwayOver;
     private final String formatAO =
             """
@@ -71,6 +72,8 @@ public class RunwayVisual {
     private MenuItem landing;
     @FXML
     private MenuItem takeoff;
+   @FXML 
+    private HBox manual;
 
     Color DarkGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
     Color Purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
@@ -483,4 +486,63 @@ public class RunwayVisual {
         }
 
     }
+  private void drawTopView() {
+    // Drawing stuff
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    // Grass
+    gc.setFill(DarkGreen);
+    gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+    // Purple area
+    var purpleLengthPadding = 20;
+    var purpleWidthPadding = 10;
+    gc.setFill(Purple);
+    gc.fillRect(purpleLengthPadding,purpleWidthPadding,canvas.getWidth()-purpleLengthPadding*2,canvas.getHeight()-purpleWidthPadding*2);
+    // Blue area
+    gc.setFill(DarkBlue);
+    double dist60 = 40;
+    double distShort150 = 30;
+    double distShort300 = distShort150*2;
+    double dist75 = 50;
+
+    double startPointX = purpleLengthPadding;
+    double startPointY = canvas.getHeight()/2 - dist75;
+    double width = canvas.getWidth();
+    double height = canvas.getHeight();
+
+    gc.fillPolygon(new double[]{
+            startPointX, startPointX+dist60+distShort150, startPointX+dist60+distShort300,
+            width-startPointX-dist60-distShort300, width-startPointX-dist60-distShort150,width-startPointX,
+            width-startPointX,width-startPointX-dist60-distShort150,width-startPointX-dist60-distShort300,
+            startPointX+dist60+distShort300,startPointX+dist60+distShort150,startPointX
+    }, new double[]{
+            startPointY, startPointY, startPointY-distShort150,
+            startPointY-distShort150, startPointY, startPointY,
+            height-startPointY, height-startPointY, height-startPointY+distShort150,
+            height-startPointY+distShort150, height-startPointY, height-startPointY
+    }, 12);
+
+    //Runway
+    gc.setFill(AsphaltGrey);
+    double runwayWidth = 40;
+    gc.fillRect(startPointX + dist60, startPointY+dist75 - (runwayWidth/2), (width-startPointX - dist60)-(startPointX + dist60), (startPointY+dist75 + (runwayWidth/2))-(startPointY+dist75 - (runwayWidth/2)));
+    // Everything has been drawn, now draw distances
+    drawHorizontalBar(gc,startPointX, height/2+30, dist60, 60);
+    drawHorizontalBar(gc,startPointX+dist60, height/2 + 50, distShort150, 150);
+    drawHorizontalBar(gc,startPointX+dist60, height/2 + 75, distShort300, 300);
+    drawVerticalBar(gc, startPointX+dist60+distShort150, startPointY, (height/2) - startPointY, 75);
+    drawVerticalBar(gc, width/2, (height/2), (height/2) - purpleWidthPadding, 150);
+    gc.setFill(Color.WHITE);
+    gc.fillText("Not to scale", 5, 9);
+  }
+
+   @FXML
+    public void showManual(){
+        manual.setVisible(true);
+    }
+
+    @FXML
+    public void hideManual(){
+        manual.setVisible(false);
+    }
 }
+
