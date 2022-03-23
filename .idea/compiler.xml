@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="comp2211-project" />
         <module name="airport" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="comp2211-project" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>
