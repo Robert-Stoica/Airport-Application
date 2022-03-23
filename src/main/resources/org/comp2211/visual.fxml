@@ -3,8 +3,6 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -25,18 +23,12 @@
       <Label fx:id="toda" layoutX="216.0" layoutY="162.0" text="0" />
       <Label fx:id="asda" layoutX="330.0" layoutY="162.0" text="0" />
       <Label fx:id="lda" layoutX="444.0" layoutY="154.0" text="0" />
-      <MenuButton fx:id="menu" layoutX="256" layoutY="180" mnemonicParsing="false" text="Landing/Takeoff">
-         <items>
-            <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
-            <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
-         </items>
-      </MenuButton>
        <Button fx:id="goback" layoutX="428.0" layoutY="484.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
       <Canvas fx:id="canvas" height="250.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" width="600.0" />
-      <Label layoutX="16.0" layoutY="484.0" text="Displaced Threshold:" />
-      <Label fx:id="threshold" layoutX="139.0" layoutY="484.0" text="text" />
-      <Label layoutX="23.0" layoutY="514.0" text="Slope Calculation:" />
-      <Label layoutX="139.0" layoutY="514.0" text="1:50 or something" />
+      <Label layoutX="73.0" layoutY="190.0" text="Displaced Threshold:" />
+      <Label fx:id="threshold" layoutX="196.0" layoutY="190.0" text="text" />
+      <Label layoutX="297.0" layoutY="190.0" text="Slope Calculation:" />
+      <Label layoutX="407.0" layoutY="190.0" text="1:50 or something" />
       <Button layoutX="38.0" layoutY="64.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
       <HBox fx:id="manual" layoutX="-2.0" layoutY="468.0" prefHeight="96.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
          <children>
