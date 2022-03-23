@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.canvas.Canvas?>
+
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
@@ -25,6 +30,7 @@
       <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
        <MenuButton fx:id="menu" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" text="Landing/Takeoff">
+       <MenuButton fx:id="menu" layoutX="247.0" layoutY="179.0" mnemonicParsing="false" text="Landing/Takeoff">
            <items>
                <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
@@ -33,5 +39,20 @@
       <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
        <Canvas fx:id="canvas" height="150.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" width="600.0" />
       <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
+     <Label layoutX="73.0" layoutY="190.0" text="Displaced Threshold:" />
+      <Label fx:id="threshold" layoutX="196.0" layoutY="190.0" text="text" />
+      <Label layoutX="297.0" layoutY="190.0" text="Slope Calculation:" />
+      <Label layoutX="407.0" layoutY="190.0" text="1:50 or something" />
+      <Button layoutX="38.0" layoutY="64.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
+      <HBox fx:id="manual" layoutX="-2.0" layoutY="468.0" prefHeight="96.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+         <children>
+            <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 15px;" text="The numbers displayed are the results of the calculation... Press 'View Calculation' to see the calculation steps in a text file" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
+         </children>
+        </HBox>
    </children>
 </Pane>
