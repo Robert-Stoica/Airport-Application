@@ -29,7 +29,6 @@
          <Font size="25.0" />
       </font>
    </Label>
-   <Button fx:id="helpButton" layoutX="483.0" layoutY="120.0" mnemonicParsing="false" onAction="#openHelp" text="Help" />
    <Button fx:id="contrastB" layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
    <HBox fx:id="manual" layoutY="438.0" prefHeight="66.0" prefWidth="641.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
       <children>

@@ -1,7 +1,6 @@
 package org.comp2211;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +17,6 @@ public class App extends Application {
 
   public static Runway runway;
   public static Obstruction obstruction;
-  public static Stage stg;
   private static Scene scene;
   private Stage stage;
   private static final Logger logger = LogManager.getLogger(App.class);
@@ -60,8 +58,6 @@ public class App extends Application {
     stage.show();
     stage.centerOnScreen();
   }
-
-
 
 
 }
