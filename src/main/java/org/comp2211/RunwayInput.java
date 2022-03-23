@@ -42,10 +42,9 @@ public class RunwayInput {
     @FXML private ToggleButton toggle;
     @FXML private Button importB;
     @FXML private Button exportB;
-
-  // Calls a method where we export XML file
+    @FXML private Button helpButton;
+// Calls a method where we export XML file
   @FXML private Button exportXml;
-  
   @FXML private Button contrastB;
   private Boolean highContrast = false;
 
@@ -174,16 +173,19 @@ public class RunwayInput {
 		  submit.getStyleClass().clear();
 		  exportXml.getStyleClass().clear();
 		  contrastB.getStyleClass().clear();
+		  helpButton.getStyleClass().clear();
 		  clear.getStyleClass().add("button");
 		  submit.getStyleClass().add("button");
 		  exportXml.getStyleClass().add("button");
 		  contrastB.getStyleClass().add("button");
+		  helpButton.getStyleClass().add("button");
 	  }else {
 		  highContrast = true;
 		  clear.getStyleClass().add("button2");
 		  submit.getStyleClass().add("button2");
 		  exportXml.getStyleClass().add("button2");
 		  contrastB.getStyleClass().add("button2");
+		  helpButton.getStyleClass().add("button2");
 	  }
 	  
   }
