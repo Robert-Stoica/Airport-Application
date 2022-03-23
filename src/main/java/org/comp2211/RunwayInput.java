@@ -10,6 +10,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,12 +37,23 @@ public class RunwayInput {
     @FXML private ToggleButton toggle;
     @FXML private Button importB;
     @FXML private Button exportB;
+    @FXML private HBox manual;
 
   // Calls a method where we export XML file
   @FXML private Button exportXml;
   
   @FXML private Button contrastB;
   private Boolean highContrast = false;
+
+    @FXML
+    public void showManual(){
+        manual.setVisible(true);
+    }
+
+    @FXML
+    public void hideManual(){
+        manual.setVisible(false);
+    }
 
 
     @FXML

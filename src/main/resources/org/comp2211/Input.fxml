@@ -5,6 +5,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -29,4 +30,15 @@
       </font>
    </Label>
    <Button fx:id="contrastB" layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
+   <HBox fx:id="manual" layoutY="438.0" prefHeight="66.0" prefWidth="641.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+      <children>
+         <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 11px;" text="Runway Input: Type details about the runway into the boxes above then press submit... Alternatively you can choose a preset XML file using the 'choose preset' menu " textOverrun="CLIP" wrapText="true">
+            <font>
+               <Font name="System Bold" size="23.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
+      </children>
+   </HBox>
+   <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
 </Pane>
