@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.mail.*;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -26,7 +27,7 @@ public class Helper {
     private static final Logger logger = LogManager.getLogger(Helper.class);
 
     @FXML
-    public void sendEmail() {
+    public void sendEmail() throws MessagingException {
         final String send = "andreiesteban54@gmail.com";
         final String username = "andreiesteban54@gmail.com";
         final String password = "Comp2211-Seg";
@@ -46,31 +47,25 @@ public class Helper {
                 return new PasswordAuthentication(username, password);
             }
         });
-
-        sender.setOnAction(event -> {
             String text = receiver.getText();
             String text1 = subject.getText();
             String text2 = area.getText();
 
-            try {
-                Message msg = new MimeMessage(session);
+            Message msg = new MimeMessage(session);
 
-                msg.setFrom(new InternetAddress(send));
+            msg.setFrom(new InternetAddress(send));
 
-                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(text));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(text));
 
-                msg.setSubject(text1);
+            msg.setSubject(text1);
 
-                msg.setText(text2);
+            msg.setText(text2);
 
-                Transport.send(msg);
-                logger.info("Sent message successfully.");
-                App.stg.close();
-            } catch (MessagingException e) {
-                logger.warn("Sent message failed.");
-                e.printStackTrace();
-            }
-        });
+            Transport.send(msg);
+            logger.info("Sent message successfully.");
+            App.stg.close();
+
+
     }
 
 

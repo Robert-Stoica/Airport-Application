@@ -152,6 +152,7 @@ public class RunwayInput {
 
     @FXML
     private void openHelp() throws IOException {
+        logger.info("Opened the Help Page");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Help" + ".fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
