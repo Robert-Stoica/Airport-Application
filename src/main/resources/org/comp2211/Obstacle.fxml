@@ -60,6 +60,6 @@
             <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="202.0" text="Close" textOverrun="CLIP" />
          </children>
       </HBox>
-      <Button layoutX="496.0" layoutY="110.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: Yellow; -fx-border-color: black; -fx-border-width: 2px;" text="HELP" />
+      <Button layoutX="90.0" layoutY="51.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: Yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
    </children>
 </Pane>
