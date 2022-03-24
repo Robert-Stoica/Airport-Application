@@ -234,6 +234,8 @@ public class RunwayVisual {
         double threshold = 0;
         double displacedThreshold = threshold + App.runway.getDisplacedThreshold();
         double originalRunwayLength = App.runway.getOriginalTora() + App.runway.getStripEnd();
+        double obstacleX = displacedThreshold + App.obstruction.getDistanceFromThresh();
+        double obstacleY = App.obstruction.getDistanceFromCl();
 
         double runwayPadding = 20;
         double runwayWidth = 30;
@@ -263,6 +265,10 @@ public class RunwayVisual {
             gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayWidth);
         }
 
+        // Obstacle
+        gc.setFill(Color.RED);
+        gc.fillOval(pcc.conv(obstacleX)-2.5, obstacleY*scaleFactor+(height/2)-2.5, 5.0, 5.0);
+
         String mode = "";
         if (isTakeoff && isAwayOver) {
             mode = "TOA";
@@ -274,7 +280,8 @@ public class RunwayVisual {
             mode = "LT";
         }
 
-        var labelYPos = runwayYTop + runwayWidth;
+        var labelYPos = runwayYTop - 15;
+        var labelOppositeYPos = runwayYTop + runwayWidth+15;
         String toraString = Integer.toString(App.runway.getTora());
         String todaString = Integer.toString(App.runway.getToda());
         String asdaString = Integer.toString(App.runway.getAsda());
@@ -284,6 +291,28 @@ public class RunwayVisual {
         String ebaString = "300";
         String seString = Integer.toString(App.runway.getStripEnd());
 
+        if (mode.equals("TOA")){
+            // Positions
+            var ebaEnd = displacedThreshold + 300; // TODO: FIGURE OUT HOW TO GET EBA
+            var toraEnd = ebaEnd + App.runway.getTora();
+            var todaEnd = ebaEnd + App.runway.getToda();
+            var asdaEnd = ebaEnd + App.runway.getAsda();
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+
+            drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelOppositeYPos, pcc.conv(displacedThreshold), "\n\n"+ebaString+"m (EBA)");
+            if (toraEnd == todaEnd && todaEnd == asdaEnd) {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA,TODA,ASDA)");
+            } else {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA)");
+                drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)");
+                drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
+            }
+        }
+
+
+        gc.translate(width/2, height/2);
+        gc.rotate(-degrees);
+        gc.translate(-width/2, -height/2);
     }
 
     // Long and thin canvas
