@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 public class App extends Application {
 
   public static Runway runway;
+  public static Stage stg;
   public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
