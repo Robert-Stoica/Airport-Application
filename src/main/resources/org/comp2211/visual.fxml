@@ -5,33 +5,49 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#setLabel" prefHeight="561.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#setLabel" prefHeight="530.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
    <children>
       <Label layoutX="234.0" layoutY="29.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Visual">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="calculation" layoutX="242.0" layoutY="437.0" mnemonicParsing="false" onAction="#createFile" stylesheets="@style/runway.css" text="View Calculation" />
-      <Label layoutX="144.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Tora" />
+      <Button fx:id="calculation" layoutX="238.0" layoutY="388.0" mnemonicParsing="false" onAction="#createFile" stylesheets="@style/runway.css" text="View Calculation" />
+      <Label layoutX="143.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Tora" />
       <Label layoutX="142.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="Toda" />
-      <Label layoutX="404.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Asda" />
+      <Label layoutX="403.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Asda" />
       <Label layoutX="407.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="Lda" />
       <Label fx:id="tora" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="119.0" minWidth="-Infinity" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
-       <MenuButton fx:id="menu" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" text="Landing/Takeoff">
+       <MenuButton fx:id="menu" layoutX="253.0" layoutY="142.0" mnemonicParsing="false" text="Landing/Takeoff">
            <items>
                <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
            </items>
        </MenuButton>
-      <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
+      <Button fx:id="goback" layoutX="424.0" layoutY="388.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
        <Canvas fx:id="canvas" height="150.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" width="600.0" />
-      <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
+      <Button fx:id="contrastB" layoutX="30.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
+     <Label layoutX="141.0" layoutY="190.0" text="Displaced Threshold:" />
+      <Label fx:id="threshold" layoutX="264.0" layoutY="190.0" text="text" />
+      <Label layoutX="407.0" layoutY="190.0" text="Slope Calculation:" />
+      <Label layoutX="517.0" layoutY="190.0" text="1:50" />
+      <Button layoutX="510.0" layoutY="26.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
+      <HBox fx:id="manual" layoutY="445.0" prefHeight="77.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2">
+         <children>
+            <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 15px;" text="The numbers displayed are the results of the calculation... Press 'View Calculation' to see the calculation steps in a text file" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
+         </children>
+      </HBox>
    </children>
 </Pane>

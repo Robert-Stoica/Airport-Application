@@ -26,7 +26,8 @@ public class Obstruction {
    * @param distanceFromThresh Distance of the obstruction perpendicular to the runway, in metres.
    */
   public Obstruction(int distanceFromCl, int height, int distanceFromThresh) {
-      logger.info("Created a new Obstruction");
+
+    logger.info("Created a new Obstruction");
     this.distanceFromCl = distanceFromCl;
     this.height = height;
     this.distanceFromThresh = distanceFromThresh;
@@ -58,4 +59,5 @@ public class Obstruction {
   public int getHeight() {
     return height;
   }
+
 }

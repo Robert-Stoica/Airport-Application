@@ -8,6 +8,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -60,6 +61,7 @@ public class ObstacleInput {
   private Boolean sideBar = false;
 
     private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
+    @FXML private HBox manual;
 
   /**
    * Switches to the visualisation screen. This function also checks that the user gave valid input,
@@ -78,28 +80,30 @@ public class ObstacleInput {
                                 Integer.parseInt(centre.getText()),
                                 Integer.parseInt(height.getText()),
                                 Integer.parseInt(threshold.getText()));
-                System.out.println(Integer.parseInt(centre.getText()));
-                System.out.println(Integer.parseInt(height.getText()));
-                System.out.println(Integer.parseInt(threshold.getText()));
+        logger.info("Centre: {}", centre.getText());
+        logger.info("Height: {}", height.getText());
+        logger.info("Threshold: {}", threshold.getText());
                 calculator = new Calculations();
-                if (!sideText.getText().isBlank()) {
+        try {
                     App.runway.setbProtection(Integer.parseInt(sideText.getText()));
-                    System.out.println(App.runway.getbProtection());
-                }
+          logger.info("Blast Protection set to {}", sideText.getText());
+        } catch (NumberFormatException ignored) {
+        }
 
                 App.obstruction = obstacle;
 
                 if (menu.getText().equals(away.getText())) {
                     logger.info("Doing calculations for the Away and Over landing");
-                    System.out.println(App.runway.getTora());
-                    System.out.println(App.runway.getbProtection());
-                    System.out.println(App.runway.getDisplacedThreshold());
-                    System.out.println(obstacle.getDistanceFromThresh());
+          logger.info("TORA: {}", App.runway.getTora());
+          logger.info("Blast protection: {}", App.runway.getbProtection());
+          logger.info("Displaced threshold: {}", App.runway.getDisplacedThreshold());
+          logger.info("Distance from threshold: {}", App.obstruction.getDistanceFromThresh());
                     calculator.recalculateToraAwayOver(App.runway, obstacle);
                     calculator.recalculateTodaAwayOver(App.runway);
                     calculator.recalculateAsdaAwayOver(App.runway);
                     calculator.recalculateLdaAwayOver(App.runway, obstacle);
-                    System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
+          logger.info(
+              "New TORA: {}", calculator.recalculateToraAwayOver(App.runway, obstacle).getTora());
                     RunwayVisual.isAwayOver = true;
                 } else if (menu.getText().equals(towards.getText())) {
                     logger.info("Doing calculations for the Towards landing");
@@ -107,12 +111,13 @@ public class ObstacleInput {
                     calculator.recalculateTodaTowards(App.runway);
                     calculator.recalculateAsdaTowards(App.runway);
                     calculator.recalculateLdaTowards(App.runway, obstacle);
-                    System.out.println(calculator.recalculateToraTowards(App.runway, obstacle).getTora());
+          logger.info(
+              "New TORA: {}", calculator.recalculateToraTowards(App.runway, obstacle).getTora());
                     RunwayVisual.isAwayOver = false;
                 }
                 App.setRoot("visual");
             } else {
-                System.out.println("One of the fields is empty");
+        logger.error("One of the fields is empty");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,6 +158,16 @@ public class ObstacleInput {
         }
 
 
+    }
+
+   @FXML
+   public void showManual(){
+       manual.setVisible(true);
+   }
+
+   @FXML
+   public void hideManual(){
+        manual.setVisible(false);
     }
 
   /** Changes the menu text. */
@@ -221,7 +236,7 @@ public class ObstacleInput {
                 }
             }
         } else {
-            System.out.println("One or more fields are empty, cannot export xml file");
+      logger.error("One or more fields are empty, cannot export xml file");
         }
     }
 

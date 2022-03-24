@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -49,5 +50,16 @@
          </padding>
       </VBox>
       <Button fx:id="contrastB" layoutX="245.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#changeContrast" prefHeight="39.0" prefWidth="159.0" text="Change Contrast" />
+      <HBox fx:id="manual" layoutY="454.0" prefHeight="66.0" prefWidth="642.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+         <children>
+            <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 11px;" text="Obstacle Input: Type details about the runway into the boxes above then press submit...             You can edit additional variables and import an XML obstacle in the sidebar menu " textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="202.0" text="Close" textOverrun="CLIP" />
+         </children>
+      </HBox>
+      <Button layoutX="496.0" layoutY="110.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: Yellow; -fx-border-color: black; -fx-border-width: 2px;" text="HELP" />
    </children>
 </Pane>

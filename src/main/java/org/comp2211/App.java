@@ -15,8 +15,8 @@ import org.comp2211.calculations.Runway;
 public class App extends Application {
 
   public static Runway runway;
-  public static Obstruction obstruction;
   public static Stage stg;
+  public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
   private static final Logger logger = LogManager.getLogger(App.class);
@@ -63,8 +63,6 @@ public class App extends Application {
     stage.show();
     stage.centerOnScreen();
   }
-
-
 
 
 }

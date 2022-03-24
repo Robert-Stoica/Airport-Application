@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
@@ -43,11 +45,11 @@ public class RunwayInput {
     @FXML private Button importB;
     @FXML private Button exportB;
     @FXML private Button helpButton;
-  /** Calls a method where we export the XML file. */
-  @FXML private Button exportXml;
-
-  @FXML private Button contrastB;
-  private Boolean highContrast = false;
+    /** Calls a method where we export the XML file. */
+    @FXML private Button exportXml;
+    @FXML private Button contrastB;
+    private Boolean highContrast = false;
+    @FXML private HBox manual;
 
   /** Clears all the text inputs. */
   @FXML
@@ -180,34 +182,46 @@ public class RunwayInput {
         stage.show();
         stage.centerOnScreen();
         App.stg = stage;
+
+
     }
 
-  /**
-   * Toggles high contrast mode.
-   *
-   * @author snow6701
-   */
-  public void changeContrast() {
-	  if(highContrast) {
-		  highContrast = false;
-		  clear.getStyleClass().clear();
-		  submit.getStyleClass().clear();
-		  exportXml.getStyleClass().clear();
-		  contrastB.getStyleClass().clear();
-		  helpButton.getStyleClass().clear();
-		  clear.getStyleClass().add("button");
-		  submit.getStyleClass().add("button");
-		  exportXml.getStyleClass().add("button");
-		  contrastB.getStyleClass().add("button");
-		  helpButton.getStyleClass().add("button");
-	  }else {
-		  highContrast = true;
-		  clear.getStyleClass().add("button2");
-		  submit.getStyleClass().add("button2");
-		  exportXml.getStyleClass().add("button2");
-		  contrastB.getStyleClass().add("button2");
-		  helpButton.getStyleClass().add("button2");
-	  }
-	  
-  }
+    @FXML
+    public void showManual(){
+        manual.setVisible(true);
+    }
+
+    @FXML
+    public void hideManual(){
+        manual.setVisible(false);
+    }
+
+    /**
+     * Toggles high contrast mode.
+     *
+     * @author snow6701
+     */
+    public void changeContrast() {
+        if(highContrast) {
+            highContrast = false;
+            clear.getStyleClass().clear();
+            submit.getStyleClass().clear();
+            exportXml.getStyleClass().clear();
+            contrastB.getStyleClass().clear();
+            helpButton.getStyleClass().clear();
+            clear.getStyleClass().add("button");
+            submit.getStyleClass().add("button");
+            exportXml.getStyleClass().add("button");
+            contrastB.getStyleClass().add("button");
+            helpButton.getStyleClass().add("button");
+        }else {
+            highContrast = true;
+            clear.getStyleClass().add("button2");
+            submit.getStyleClass().add("button2");
+            exportXml.getStyleClass().add("button2");
+            contrastB.getStyleClass().add("button2");
+            helpButton.getStyleClass().add("button2");
+        }
+
+    }
 }

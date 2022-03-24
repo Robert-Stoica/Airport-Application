@@ -34,6 +34,10 @@ public class Runway {
    * @param dThreshold the displaced threshold of the runway.
    */
   public Runway(String name, int tora, int lda, int dThreshold) {
+
+    if (name == null || name.equals("") || tora <= 0 || lda <= 0)
+      throw new IllegalArgumentException();
+
     logger.info("Created a new Runway");
     this.name = name;
     this.originalTora = tora;
