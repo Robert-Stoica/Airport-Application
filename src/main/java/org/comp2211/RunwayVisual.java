@@ -64,7 +64,9 @@ public class RunwayVisual {
     @FXML
     private Label lda;
     @FXML
-    private Canvas canvas;
+    private Canvas sideViewCanvas;
+    @FXML
+    private Canvas topViewCanvas;
     @FXML
     private MenuButton menu;
     @FXML
@@ -72,7 +74,7 @@ public class RunwayVisual {
     @FXML
     private MenuItem takeoff;
 
-    Color DarkGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
+    Color GrassGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
     Color Purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
     Color DarkBlue = Color.color(51 / 255.0, 51 / 255.0, 204 / 255.0);
     Color SkyBlue = Color.color(85 / 255.0, 216 / 255.0, 255 / 255.0);
@@ -187,7 +189,7 @@ public class RunwayVisual {
         asda.setText(String.valueOf(App.runway.getAsda()));
         toda.setText(String.valueOf(App.runway.getToda()));
         if (menu.getText().equals("Landing/Takeoff")) {
-            drawBlankCanvas();
+            drawBlankCanvases();
         }
     }
 
@@ -195,39 +197,80 @@ public class RunwayVisual {
         App.setRoot("Input");
     }
 
-    private void drawBlankCanvas() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+    private void drawBlankCanvases() {
+        GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
         gc.setFill(SkyBlue);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.fillRect(0, 0, sideViewCanvas.getWidth(), sideViewCanvas.getHeight());
         gc.setFill(Color.WHITE);
-        gc.fillText("Select either landing or takeoff to continue", canvas.getWidth() / 2 - 150, canvas.getHeight() / 2);
+        gc.fillText("Select either landing or takeoff to continue", sideViewCanvas.getWidth() / 2 - 150, sideViewCanvas.getHeight() / 2);
+
+        gc = topViewCanvas.getGraphicsContext2D();
+        gc.setFill(GrassGreen);
+        gc.fillRect(0, 0, topViewCanvas.getWidth(), topViewCanvas.getHeight());
+        gc.setFill(Color.WHITE);
+        gc.fillText("Select either landing or takeoff to continue", topViewCanvas.getWidth() / 2 - 150, topViewCanvas.getHeight() / 2);
+    }
+
+    private void drawBothViews(){
+        drawTopView(45);
+        drawSideView();
     }
 
     // Square canvas
     private void drawTopView(double degrees){
         // Drawing stuff
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
+        GraphicsContext gc = topViewCanvas.getGraphicsContext2D();
+        double width = topViewCanvas.getWidth();
+        double height = topViewCanvas.getHeight();
         gc.translate(width/2, height/2);
         gc.rotate(degrees);
         gc.translate(-width/2, -height/2);
 
         // Grass
-        gc.setFill(DarkGreen);
+        gc.setFill(GrassGreen);
         gc.fillRect(0, 0, width, height);
+
+        // Some positions
+        double threshold = 0;
+        double displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+        double originalRunwayLength = App.runway.getOriginalTora() + App.runway.getStripEnd();
+
+        double runwayPadding = 20;
+        double runwayWidth = 30;
+        double runwayStartX = runwayPadding;
+        double runwayEndX = width - runwayPadding;
+        double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
+        double runwayYTop = height/2-runwayWidth/2;
+        var pcc = new PixelCoordinateConverter(scaleFactor, runwayPadding);
 
         // Runway
         gc.setFill(AsphaltGrey);
-        //gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayDepth);
+        gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayWidth);
+        gc.setStroke(Color.WHITE);
+        gc.setLineDashes(7);
+        gc.strokeLine(runwayPadding, height/2, width - runwayPadding, height/2);
+        gc.setLineDashes(null);
+
+
+        // Thresholds
+        if (threshold == displacedThreshold) {
+            gc.setFill(Color.BLACK);
+            gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayWidth);
+        } else {
+            gc.setFill(Color.WHITE);
+            gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayWidth);
+            gc.setFill(Color.BLACK);
+            gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayWidth);
+        }
+
     }
 
     // Long and thin canvas
     private void drawSideView() {
         // Drawing stuff
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
+        GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
+        double width = sideViewCanvas.getWidth();
+        double height = sideViewCanvas.getHeight();
 
         double runwayYTop = height / 2.5;
         double runwayDepth = 10;
@@ -236,13 +279,13 @@ public class RunwayVisual {
 
         double runwayStartX = runwayPadding;
         double runwayEndX = width - runwayPadding;
-        double originalRunwayLength = App.runway.getOriginalTora() + 60;
+        double originalRunwayLength = App.runway.getOriginalTora() + App.runway.getStripEnd();
         double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
 
         double verticalExtraScaleFactor = 10;
         double obstaclePixelHeight = App.obstruction.getHeight() * scaleFactor * verticalExtraScaleFactor;
         // Grass
-        gc.setFill(DarkGreen);
+        gc.setFill(GrassGreen);
         gc.fillRect(0, runwayYTop, width, height - runwayYTop);
 
         // Sky
@@ -459,17 +502,16 @@ public class RunwayVisual {
         gc.fillText(label, x + 5, y + (l / 2));
     }
 
-
     public void setTO(ActionEvent actionEvent) {
         isTakeoff = true;
         menu.setText(takeoff.getText());
-        drawSideView();
+        drawBothViews();
     }
 
     public void setL(ActionEvent actionEvent) {
         isTakeoff = false;
         menu.setText(landing.getText());
-        drawSideView();
+        drawBothViews();
     }
 
     private class PixelCoordinateConverter {

@@ -32,8 +32,9 @@
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
            </items>
        </MenuButton>
-      <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
-       <Canvas fx:id="canvas" height="150.0" width="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" />
-      <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
+       <Canvas fx:id="sideViewCanvas" height="150.0" width="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" />
+       <Canvas fx:id="topViewCanvas" height="300" width="300" layoutX="160.0" layoutY="400" pickOnBounds="true" />
+      <Button fx:id="goback" layoutX="428.0" layoutY="737.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
+      <Button fx:id="contrastB" layoutX="34.0" layoutY="737.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
    </children>
 </Pane>
