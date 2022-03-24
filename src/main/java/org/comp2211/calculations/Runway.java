@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
  * @author snow6071
  */
 public class Runway {
+  private static final Logger logger = LogManager.getLogger(Runway.class);
   private final String name;
   private final int originalTora;
   private final int originalLda;
@@ -21,7 +22,6 @@ public class Runway {
   private int displacedThreshold;
   private int clearway;
   private int stopway;
-  private static final Logger logger = LogManager.getLogger(Runway.class);
   /** "blast protection". */
   private int bProtection;
 
@@ -35,8 +35,9 @@ public class Runway {
    */
   public Runway(String name, int tora, int lda, int dThreshold) {
 
-    if (tora <= 0 || lda <= 0)
+    if (tora <= 0 || lda <= 0) {
       throw new IllegalArgumentException();
+    }
 
     logger.info("Created a new Runway");
     this.name = name;

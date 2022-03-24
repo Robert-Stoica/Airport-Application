@@ -25,6 +25,7 @@ import org.comp2211.calculations.Runway;
  */
 public class RunwayVisual {
 
+  private static final Logger logger = LogManager.getLogger(Calculations.class);
   public static boolean isAwayOver;
   private final String formatAO =
       """
@@ -50,7 +51,12 @@ public class RunwayVisual {
           LDA  = Obstacle distance from threshold - RESA - Strip end
           \t = %d - %d - %d
           \t = %d""";
-
+  Color darkGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
+  Color purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
+  Color darkBlue = Color.color(51 / 255.0, 51 / 255.0, 204 / 255.0);
+  Color skyBlue = Color.color(85 / 255.0, 216 / 255.0, 255 / 255.0);
+  Color asphaltGrey = Color.color(150 / 255.0, 150 / 255.0, 150 / 255.0);
+  boolean isTakeoff;
   @FXML private Button calculation;
   @FXML private Button goback;
   @FXML private Button contrastB;
@@ -60,20 +66,11 @@ public class RunwayVisual {
   @FXML private Label lda;
   @FXML private Label threshold;
   private boolean highContrast = false;
-  private static final Logger logger = LogManager.getLogger(Calculations.class);
   @FXML private Canvas canvas;
   @FXML private MenuButton menu;
   @FXML private MenuItem landing;
   @FXML private MenuItem takeoff;
   @FXML private HBox manual;
-
-  Color DarkGreen = Color.color(51/255.0, 204/255.0, 51/255.0);
-  Color Purple = Color.color(153/255.0, 0/255.0, 255/255.0);
-  Color DarkBlue = Color.color(51/255.0, 51/255.0, 204/255.0);
-  Color SkyBlue = Color.color(85/255.0, 216/255.0, 255/255.0);
-  Color AsphaltGrey = Color.color(150/255.0, 150/255.0, 150/255.0);
-
-  boolean isTakeoff;
 
   /**
    * Wrap file handling in a safe function to avoid exceptions.
@@ -82,7 +79,7 @@ public class RunwayVisual {
    * @param data The data to write.
    */
   void safeWriteFile(String filename, String data) {
-      logger.info("Write to a file");
+    logger.info("Write to a file");
     try {
       FileWriter myWriter = new FileWriter(filename);
       myWriter.write(data);
@@ -165,7 +162,7 @@ public class RunwayVisual {
     }
 
     try {
-        logger.info("Saving the calculations to the file");
+      logger.info("Saving the calculations to the file");
       File myObj = new File("calculations.txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
@@ -184,7 +181,7 @@ public class RunwayVisual {
    */
   @FXML
   public void setLabel() {
-      logger.info("Set the new values of the Runway");
+    logger.info("Set the new values of the Runway");
     lda.setText(String.valueOf(App.runway.getLda()));
     tora.setText(String.valueOf(App.runway.getTora()));
     asda.setText(String.valueOf(App.runway.getAsda()));
@@ -211,21 +208,20 @@ public class RunwayVisual {
    * @author snow6701
    */
   public void changeContrast() {
-	  if(highContrast ) {
-		  highContrast = false;
-		  calculation.getStyleClass().clear();
-		  goback.getStyleClass().clear();
-		  contrastB.getStyleClass().clear();
-		  calculation.getStyleClass().add("button");
-		  goback.getStyleClass().add("button");
-		  contrastB.getStyleClass().add("button");
-	  }else {
-		  highContrast = true;
-		  calculation.getStyleClass().add("button2");
-		  goback.getStyleClass().add("button2");
-		  contrastB.getStyleClass().add("button2");
-	  }
-
+    if (highContrast) {
+      highContrast = false;
+      calculation.getStyleClass().clear();
+      goback.getStyleClass().clear();
+      contrastB.getStyleClass().clear();
+      calculation.getStyleClass().add("button");
+      goback.getStyleClass().add("button");
+      contrastB.getStyleClass().add("button");
+    } else {
+      highContrast = true;
+      calculation.getStyleClass().add("button2");
+      goback.getStyleClass().add("button2");
+      contrastB.getStyleClass().add("button2");
+    }
   }
 
   /**
@@ -235,47 +231,68 @@ public class RunwayVisual {
     // Drawing stuff
     GraphicsContext gc = canvas.getGraphicsContext2D();
     // Grass
-    gc.setFill(DarkGreen);
-    gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+    gc.setFill(darkGreen);
+    gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     // Purple area
     var purpleLengthPadding = 20;
     var purpleWidthPadding = 10;
-    gc.setFill(Purple);
-    gc.fillRect(purpleLengthPadding,purpleWidthPadding,canvas.getWidth()-purpleLengthPadding*2,canvas.getHeight()-purpleWidthPadding*2);
+    gc.setFill(purple);
+    gc.fillRect(purpleLengthPadding, purpleWidthPadding,
+        canvas.getWidth() - purpleLengthPadding * 2,
+        canvas.getHeight() - purpleWidthPadding * 2);
     // Blue area
-    gc.setFill(DarkBlue);
+    gc.setFill(darkBlue);
     double dist60 = 40;
     double distShort150 = 30;
-    double distShort300 = distShort150*2;
+    double distShort300 = distShort150 * 2;
     double dist75 = 50;
 
     double startPointX = purpleLengthPadding;
-    double startPointY = canvas.getHeight()/2 - dist75;
+    double startPointY = canvas.getHeight() / 2 - dist75;
     double width = canvas.getWidth();
     double height = canvas.getHeight();
 
     gc.fillPolygon(new double[]{
-            startPointX, startPointX+dist60+distShort150, startPointX+dist60+distShort300,
-            width-startPointX-dist60-distShort300, width-startPointX-dist60-distShort150,width-startPointX,
-            width-startPointX,width-startPointX-dist60-distShort150,width-startPointX-dist60-distShort300,
-            startPointX+dist60+distShort300,startPointX+dist60+distShort150,startPointX
+        startPointX,
+        startPointX + dist60 + distShort150,
+        startPointX + dist60 + distShort300,
+        width - startPointX - dist60 - distShort300,
+        width - startPointX - dist60 - distShort150,
+        width - startPointX,
+        width - startPointX,
+        width - startPointX - dist60 - distShort150,
+        width - startPointX - dist60 - distShort300,
+        startPointX + dist60 + distShort300,
+        startPointX + dist60 + distShort150,
+        startPointX
     }, new double[]{
-            startPointY, startPointY, startPointY-distShort150,
-            startPointY-distShort150, startPointY, startPointY,
-            height-startPointY, height-startPointY, height-startPointY+distShort150,
-            height-startPointY+distShort150, height-startPointY, height-startPointY
+        startPointY,
+        startPointY,
+        startPointY - distShort150,
+        startPointY - distShort150,
+        startPointY,
+        startPointY,
+        height - startPointY,
+        height - startPointY,
+        height - startPointY + distShort150,
+        height - startPointY + distShort150,
+        height - startPointY,
+        height - startPointY
     }, 12);
 
     //Runway
-    gc.setFill(AsphaltGrey);
+    gc.setFill(asphaltGrey);
     double runwayWidth = 40;
-    gc.fillRect(startPointX + dist60, startPointY+dist75 - (runwayWidth/2), (width-startPointX - dist60)-(startPointX + dist60), (startPointY+dist75 + (runwayWidth/2))-(startPointY+dist75 - (runwayWidth/2)));
+    gc.fillRect(startPointX + dist60, startPointY + dist75 - (runwayWidth / 2),
+        (width - startPointX - dist60) - (startPointX + dist60),
+        (startPointY + dist75 + (runwayWidth / 2)) - (startPointY + dist75 - (runwayWidth / 2)));
     // Everything has been drawn, now draw distances
-    drawHorizontalBar(gc,startPointX, height/2+30, dist60, 60);
-    drawHorizontalBar(gc,startPointX+dist60, height/2 + 50, distShort150, 150);
-    drawHorizontalBar(gc,startPointX+dist60, height/2 + 75, distShort300, 300);
-    drawVerticalBar(gc, startPointX+dist60+distShort150, startPointY, (height/2) - startPointY, 75);
-    drawVerticalBar(gc, width/2, (height/2), (height/2) - purpleWidthPadding, 150);
+    drawHorizontalBar(gc, startPointX, height / 2 + 30, dist60, 60);
+    drawHorizontalBar(gc, startPointX + dist60, height / 2 + 50, distShort150, 150);
+    drawHorizontalBar(gc, startPointX + dist60, height / 2 + 75, distShort300, 300);
+    drawVerticalBar(gc, startPointX + dist60 + distShort150, startPointY,
+        (height / 2) - startPointY, 75);
+    drawVerticalBar(gc, width / 2, (height / 2), (height / 2) - purpleWidthPadding, 150);
     gc.setFill(Color.WHITE);
     gc.fillText("Not to scale", 5, 9);
   }
@@ -283,13 +300,13 @@ public class RunwayVisual {
   /**
    * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
    */
-  private void drawSideView(){
+  private void drawSideView() {
     // Drawing stuff
     GraphicsContext gc = canvas.getGraphicsContext2D();
     double width = canvas.getWidth();
     double height = canvas.getHeight();
 
-    double runwayYTop = height/1.5;
+    double runwayYTop = height / 1.5;
     double runwayDepth = 10;
 
     final double runwayPadding = 30;
@@ -297,30 +314,30 @@ public class RunwayVisual {
     double runwayStartX = runwayPadding;
     double runwayEndX = width - runwayPadding;
     double originalRunwayLength = App.runway.getOriginalTora() + 60;
-    double scaleFactor = (runwayEndX-runwayStartX)/originalRunwayLength;
+    double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
 
     double verticalExtraScaleFactor = 10;
-    double obstacleHeight = App.obstruction.getHeight()*scaleFactor*verticalExtraScaleFactor;
+    double obstacleHeight = App.obstruction.getHeight() * scaleFactor * verticalExtraScaleFactor;
     // Grass
-    gc.setFill(DarkGreen);
-    gc.fillRect(0,runwayYTop, width, height-runwayYTop);
+    gc.setFill(darkGreen);
+    gc.fillRect(0, runwayYTop, width, height - runwayYTop);
 
     // Sky
-    gc.setFill(SkyBlue);
-    gc.fillRect(0,0, width, runwayYTop);
+    gc.setFill(skyBlue);
+    gc.fillRect(0, 0, width, runwayYTop);
 
     // Runway
-    gc.setFill(AsphaltGrey);
-    gc.fillRect(runwayPadding,runwayYTop, width-(runwayPadding*2), runwayDepth);
+    gc.setFill(asphaltGrey);
+    gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayDepth);
 
     String mode;
-    if (isTakeoff && isAwayOver){
+    if (isTakeoff && isAwayOver) {
       mode = "TOA";
-    } else if (isTakeoff){
+    } else if (isTakeoff) {
       mode = "TOT";
-    } else if (isAwayOver){
+    } else if (isAwayOver) {
       mode = "LO";
-    } else{
+    } else {
       mode = "LT";
     }
 
@@ -335,6 +352,9 @@ public class RunwayVisual {
     var h50 = App.obstruction.getHeight() * 50;
     double oStartX;
     switch (mode) {
+      default -> {
+
+      }
       case "TOT" -> {
         // Obstacle
         gc.setFill(Color.RED);
@@ -359,8 +379,8 @@ public class RunwayVisual {
         drawHorizontalBar(gc, runwayStartX + (tora + 60) * scaleFactor, labelYPos,
             resa * scaleFactor, resa
                 + "m (RESA)");
-        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43, h50 * scaleFactor,
-            h50 + "m (hx50)");
+        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43,
+            h50 * scaleFactor, h50 + "m (hx50)");
         gc.strokeLine(oStartX - (h50 * scaleFactor), runwayYTop, oStartX,
             runwayYTop - obstacleHeight);
         gc.strokeLine(oStartX - (h50 * scaleFactor - 60 * scaleFactor), runwayYTop,
@@ -409,8 +429,8 @@ public class RunwayVisual {
             "\n\n" + 60 + "m (60)");
         drawHorizontalBar(gc, runwayStartX + (lda + 60) * scaleFactor, labelYPos,
             resa * scaleFactor, resa + "m (RESA)");
-        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43, h50 * scaleFactor,
-            h50 + "m (hx50)");
+        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43,
+            h50 * scaleFactor, h50 + "m (hx50)");
         gc.strokeLine(oStartX - (h50 * scaleFactor), runwayYTop, oStartX,
             runwayYTop - obstacleHeight);
         gc.strokeLine(oStartX - (h50 * scaleFactor - 60 * scaleFactor), runwayYTop,
@@ -429,7 +449,7 @@ public class RunwayVisual {
    * @param l The length of the line.
    * @param dist The distance to attach to the indicator.
    */
-  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, int dist){
+  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, int dist) {
     drawHorizontalBar(gc, x,  y, l, Integer.toString(dist));
   }
 
@@ -442,14 +462,14 @@ public class RunwayVisual {
    * @param l The length of the line.
    * @param label The label to attach to the indicator.
    */
-  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label){
+  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label) {
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
-    gc.strokeLine(x,y,x+l,y);
-    gc.strokeLine(x,y-5,x,y+5);
-    gc.strokeLine(x+l,y-5,x+l,y+5);
+    gc.strokeLine(x, y, x + l, y);
+    gc.strokeLine(x, y - 5, x, y + 5);
+    gc.strokeLine(x + l, y - 5, x + l, y + 5);
     gc.setFill(Color.WHITE);
-    gc.fillText(label, x + (l/2.0) - (label.length()/2.0*5.0), y-7.0);
+    gc.fillText(label, x + (l / 2.0) - (label.length() / 2.0 * 5.0), y - 7.0);
   }
 
   /**
@@ -461,7 +481,7 @@ public class RunwayVisual {
    * @param l The length of the line.
    * @param dist The distance to attach to the indicator.
    */
-  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, int dist){
+  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, int dist) {
     drawVerticalBar(gc, x, y, l, Integer.toString(dist));
   }
 
@@ -474,14 +494,14 @@ public class RunwayVisual {
    * @param l The length of the line.
    * @param label The label to attach to the indicator.
    */
-  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label){
+  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label) {
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
-    gc.strokeLine(x,y,x,y+l);
-    gc.strokeLine(x-5,y,x+5,y);
-    gc.strokeLine(x-5,y+l,x+5,y+l);
+    gc.strokeLine(x, y, x, y + l);
+    gc.strokeLine(x - 5, y, x + 5, y);
+    gc.strokeLine(x - 5, y + l, x + 5, y + l);
     gc.setFill(Color.WHITE);
-    gc.fillText(label, x + 5, y+(l/2));
+    gc.fillText(label, x + 5, y + (l / 2));
   }
 
   /**
@@ -511,18 +531,18 @@ public class RunwayVisual {
    *
    * @author mccaw12
    */
-    @FXML
-    public void showManual(){
-        manual.setVisible(true);
-    }
+  @FXML
+  public void showManual() {
+    manual.setVisible(true);
+  }
 
   /**
    * Hides the manual.
    *
    * @author mccaw12
    */
-    @FXML
-    public void hideManual(){
-        manual.setVisible(false);
-    }
+  @FXML
+  public void hideManual() {
+    manual.setVisible(false);
+  }
 }
