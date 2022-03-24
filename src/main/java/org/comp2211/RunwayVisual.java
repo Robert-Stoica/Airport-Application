@@ -3,18 +3,22 @@ package org.comp2211;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 
@@ -25,524 +29,676 @@ import org.comp2211.calculations.Runway;
  */
 public class RunwayVisual {
 
-  private static final Logger logger = LogManager.getLogger(Calculations.class);
-  public static boolean isAwayOver;
-  private final String formatAO =
-      """
-          TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Threshold
-          \t = %d - %d - %d - %d
-          \t = %d
-          ASDA = (R)TORA + STOPWAY
-          \t = %d
-          TODA = (R)TORA + CLEARWAY
-          \t = %d
-          LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation
-          \t = %d - %d - %d - %d
-          \t = %d""";
-  private final String formatTT =
-      """
-          TORA = Obstacle distance from threshold - Slope Calculation - Strip end
-          \t = %d - %d - %d
-          \t = %d
-          ASDA = (R)TORA
-          \t = %d
-          TODA = (R)TORA
-          \t = %d
-          LDA  = Obstacle distance from threshold - RESA - Strip end
-          \t = %d - %d - %d
-          \t = %d""";
-  Color darkGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
-  Color purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
-  Color darkBlue = Color.color(51 / 255.0, 51 / 255.0, 204 / 255.0);
-  Color skyBlue = Color.color(85 / 255.0, 216 / 255.0, 255 / 255.0);
-  Color asphaltGrey = Color.color(150 / 255.0, 150 / 255.0, 150 / 255.0);
-  boolean isTakeoff;
-  @FXML private Button calculation;
-  @FXML private Button goback;
-  @FXML private Button contrastB;
-  @FXML private Label tora;
-  @FXML private Label toda;
-  @FXML private Label asda;
-  @FXML private Label lda;
-  @FXML private Label threshold;
-  private boolean highContrast = false;
-  @FXML private Canvas canvas;
-  @FXML private MenuButton menu;
-  @FXML private MenuItem landing;
-  @FXML private MenuItem takeoff;
-  @FXML private HBox manual;
+    public static boolean isAwayOver;
+    private final String formatAO =
+            """
+                    TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Threshold
+                    \t = %d - %d - %d - %d
+                    \t = %d
+                    ASDA = (R)TORA + STOPWAY
+                    \t = %d
+                    TODA = (R)TORA + CLEARWAY
+                    \t = %d
+                    LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation
+                    \t = %d - %d - %d - %d
+                    \t = %d""";
+    private final String formatTT =
+            """
+                    TORA = Obstacle distance from threshold - Slope Calculation - Strip end
+                    \t = %d - %d - %d
+                    \t = %d
+                    ASDA = (R)TORA
+                    \t = %d
+                    TODA = (R)TORA
+                    \t = %d
+                    LDA  = Obstacle distance from threshold - RESA - Strip end
+                    \t = %d - %d - %d
+                    \t = %d""";
 
-  /**
-   * Wrap file handling in a safe function to avoid exceptions.
-   *
-   * @param filename The file to write to
-   * @param data The data to write.
-   */
-  void safeWriteFile(String filename, String data) {
-    logger.info("Write to a file");
-    try {
-      FileWriter myWriter = new FileWriter(filename);
-      myWriter.write(data);
-      myWriter.close();
-      System.out.println("Successfully wrote to the file.");
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-  }
+    @FXML
+    private Button calculation;
+    @FXML
+    private Button goback;
+    @FXML
+    private Button contrastB;
+    @FXML
+    private Label tora;
+    @FXML
+    private Label toda;
+    @FXML
+    private Label asda;
+    @FXML
+    private Label lda;
+    @FXML
+    private Canvas sideViewCanvas;
+    @FXML
+    private Canvas topViewCanvas;
+    @FXML
+    private MenuButton menu;
+    @FXML
+    private MenuItem landing;
+    @FXML
+    private MenuItem takeoff;
+    @FXML
+    private HBox manual;
 
-  /**
-   * Outputs all the calculations made by the system to a file called <code>calculations.txt</code>.
-   */
-  public void createFile() {
-    Calculations calc = new Calculations();
-    var copyRunway =
-        new Runway(
-            "copy",
-            App.runway.getOriginalTora(),
-            App.runway.getOriginalLda(),
-            App.runway.getDisplacedThreshold());
-    var oTora = copyRunway.getTora();
-    var oLda = copyRunway.getLda();
-    var dThresh = copyRunway.getDisplacedThreshold();
+    Color GrassGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
+    Color Purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
+    Color DarkBlue = Color.color(51 / 255.0, 51 / 255.0, 204 / 255.0);
+    Color SkyBlue = Color.color(85 / 255.0, 216 / 255.0, 255 / 255.0);
+    Color AsphaltGrey = Color.color(150 / 255.0, 150 / 255.0, 150 / 255.0);
 
-    int tora;
-    int asda;
-    int toda;
-    int lda;
+    boolean isTakeoff;
 
-    String calculationsString;
+    private static final Logger logger = LogManager.getLogger(Calculations.class);
+    private boolean highContrast = false;
 
-    if (isAwayOver) {
-      calc.recalculateToraAwayOver(copyRunway, App.obstruction);
-      tora = copyRunway.getTora();
-      calc.recalculateAsdaAwayOver(copyRunway);
-      asda = copyRunway.getAsda();
-      calc.recalculateTodaAwayOver(copyRunway);
-      toda = copyRunway.getToda();
-      calc.recalculateLdaAwayOver(copyRunway, App.obstruction);
-      lda = copyRunway.getLda();
-      calculationsString =
-          String.format(
-              formatAO,
-              oTora,
-              copyRunway.getbProtection(),
-              App.obstruction.getDistanceFromThresh(),
-              dThresh,
-              tora,
-              asda,
-              toda,
-              oLda,
-              App.obstruction.getDistanceFromThresh(),
-              copyRunway.getStripEnd(),
-              0,
-              lda);
-    } else {
-      calc.recalculateToraTowards(copyRunway, App.obstruction);
-      tora = copyRunway.getTora();
-      calc.recalculateAsdaTowards(copyRunway);
-      asda = copyRunway.getAsda();
-      calc.recalculateTodaTowards(copyRunway);
-      toda = copyRunway.getToda();
-      calc.recalculateLdaTowards(copyRunway, App.obstruction);
-      lda = copyRunway.getLda();
-      calculationsString =
-          String.format(
-              formatTT,
-              App.obstruction.getDistanceFromThresh(),
-              0,
-              copyRunway.getStripEnd(),
-              tora,
-              asda,
-              toda,
-              App.obstruction.getDistanceFromThresh(),
-              copyRunway.getResa(),
-              copyRunway.getStripEnd(),
-              lda);
-    }
-
-    try {
-      logger.info("Saving the calculations to the file");
-      File myObj = new File("calculations.txt");
-      if (myObj.createNewFile()) {
-        System.out.println("File created: " + myObj.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-      safeWriteFile("calculations.txt", calculationsString);
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * Update the onscreen values for the runway, shown above the canvas.
-   */
-  @FXML
-  public void setLabel() {
-    logger.info("Set the new values of the Runway");
-    lda.setText(String.valueOf(App.runway.getLda()));
-    tora.setText(String.valueOf(App.runway.getTora()));
-    asda.setText(String.valueOf(App.runway.getAsda()));
-    toda.setText(String.valueOf(App.runway.getToda()));
-    threshold.setText(String.valueOf(App.runway.getDisplacedThreshold()));
-    //slopeCalculation.setText(String.valueOf(App.runway.get));
-    //threshold.setText("FxML");
-    //String.valueOf(App.runway.getDisplacedThreshold())
-    //drawSideView();
-  }
-
-  /**
-   * Return to the runway input screen.
-   *
-   * @throws IOException If the screen cannot be changed.
-   */
-  public void newRunway() throws IOException {
-    App.setRoot("Input");
-  }
-
-  /**
-   * Toggles high contrast mode.
-   *
-   * @author snow6701
-   */
-  public void changeContrast() {
-    if (highContrast) {
-      highContrast = false;
-      calculation.getStyleClass().clear();
-      goback.getStyleClass().clear();
-      contrastB.getStyleClass().clear();
-      calculation.getStyleClass().add("button");
-      goback.getStyleClass().add("button");
-      contrastB.getStyleClass().add("button");
-    } else {
-      highContrast = true;
-      calculation.getStyleClass().add("button2");
-      goback.getStyleClass().add("button2");
-      contrastB.getStyleClass().add("button2");
-    }
-  }
-
-  /**
-   * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
-   */
-  private void drawTopView() {
-    // Drawing stuff
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-    // Grass
-    gc.setFill(darkGreen);
-    gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    // Purple area
-    var purpleLengthPadding = 20;
-    var purpleWidthPadding = 10;
-    gc.setFill(purple);
-    gc.fillRect(purpleLengthPadding, purpleWidthPadding,
-        canvas.getWidth() - purpleLengthPadding * 2,
-        canvas.getHeight() - purpleWidthPadding * 2);
-    // Blue area
-    gc.setFill(darkBlue);
-    double dist60 = 40;
-    double distShort150 = 30;
-    double distShort300 = distShort150 * 2;
-    double dist75 = 50;
-
-    double startPointX = purpleLengthPadding;
-    double startPointY = canvas.getHeight() / 2 - dist75;
-    double width = canvas.getWidth();
-    double height = canvas.getHeight();
-
-    gc.fillPolygon(new double[]{
-        startPointX,
-        startPointX + dist60 + distShort150,
-        startPointX + dist60 + distShort300,
-        width - startPointX - dist60 - distShort300,
-        width - startPointX - dist60 - distShort150,
-        width - startPointX,
-        width - startPointX,
-        width - startPointX - dist60 - distShort150,
-        width - startPointX - dist60 - distShort300,
-        startPointX + dist60 + distShort300,
-        startPointX + dist60 + distShort150,
-        startPointX
-    }, new double[]{
-        startPointY,
-        startPointY,
-        startPointY - distShort150,
-        startPointY - distShort150,
-        startPointY,
-        startPointY,
-        height - startPointY,
-        height - startPointY,
-        height - startPointY + distShort150,
-        height - startPointY + distShort150,
-        height - startPointY,
-        height - startPointY
-    }, 12);
-
-    //Runway
-    gc.setFill(asphaltGrey);
-    double runwayWidth = 40;
-    gc.fillRect(startPointX + dist60, startPointY + dist75 - (runwayWidth / 2),
-        (width - startPointX - dist60) - (startPointX + dist60),
-        (startPointY + dist75 + (runwayWidth / 2)) - (startPointY + dist75 - (runwayWidth / 2)));
-    // Everything has been drawn, now draw distances
-    drawHorizontalBar(gc, startPointX, height / 2 + 30, dist60, 60);
-    drawHorizontalBar(gc, startPointX + dist60, height / 2 + 50, distShort150, 150);
-    drawHorizontalBar(gc, startPointX + dist60, height / 2 + 75, distShort300, 300);
-    drawVerticalBar(gc, startPointX + dist60 + distShort150, startPointY,
-        (height / 2) - startPointY, 75);
-    drawVerticalBar(gc, width / 2, (height / 2), (height / 2) - purpleWidthPadding, 150);
-    gc.setFill(Color.WHITE);
-    gc.fillText("Not to scale", 5, 9);
-  }
-
-  /**
-   * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
-   */
-  private void drawSideView() {
-    // Drawing stuff
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-    double width = canvas.getWidth();
-    double height = canvas.getHeight();
-
-    double runwayYTop = height / 1.5;
-    double runwayDepth = 10;
-
-    final double runwayPadding = 30;
-
-    double runwayStartX = runwayPadding;
-    double runwayEndX = width - runwayPadding;
-    double originalRunwayLength = App.runway.getOriginalTora() + 60;
-    double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
-
-    double verticalExtraScaleFactor = 10;
-    double obstacleHeight = App.obstruction.getHeight() * scaleFactor * verticalExtraScaleFactor;
-    // Grass
-    gc.setFill(darkGreen);
-    gc.fillRect(0, runwayYTop, width, height - runwayYTop);
-
-    // Sky
-    gc.setFill(skyBlue);
-    gc.fillRect(0, 0, width, runwayYTop);
-
-    // Runway
-    gc.setFill(asphaltGrey);
-    gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayDepth);
-
-    String mode;
-    if (isTakeoff && isAwayOver) {
-      mode = "TOA";
-    } else if (isTakeoff) {
-      mode = "TOT";
-    } else if (isAwayOver) {
-      mode = "LO";
-    } else {
-      mode = "LT";
-    }
-
-    var labelYPos = runwayYTop + runwayDepth + 20;
-
-    var resa = App.runway.getResa();
-    var tora = App.runway.getTora();
-    var toda = App.runway.getAsda();
-    var asda = App.runway.getAsda();
-    var lda = App.runway.getLda();
-
-    var h50 = App.obstruction.getHeight() * 50;
-    double oStartX;
-    switch (mode) {
-      default -> {
-
-      }
-      case "TOT" -> {
-        // Obstacle
-        gc.setFill(Color.RED);
-        oStartX = runwayStartX + (App.obstruction.getDistanceFromThresh() * scaleFactor);
-        gc.fillRect(oStartX, runwayYTop - obstacleHeight, 5, obstacleHeight);
-        drawVerticalBar(gc, oStartX + 15, runwayYTop - obstacleHeight, obstacleHeight,
-            " " + App.obstruction.getHeight()
-                + "m");
-        // Labels
-        if (tora == toda && tora == asda) {
-          drawHorizontalBar(gc, runwayStartX, labelYPos, tora * scaleFactor,
-              tora + "m (TORA,TODA,ASDA)");
-        } else {
-          drawHorizontalBar(gc, runwayStartX, labelYPos, tora * scaleFactor, tora + "m (TORA)");
-          drawHorizontalBar(gc, runwayStartX, labelYPos + 20, toda * scaleFactor,
-              toda + "m (TODA)");
-          drawHorizontalBar(gc, runwayStartX, labelYPos + 40, asda * scaleFactor,
-              asda + "m (ASDA)");
+    /**
+     * Wrap file handling in a safe function to avoid exceptions.
+     *
+     * @param filename The file to write to
+     * @param data     The data to write.
+     */
+    void safeWriteFile(String filename, String data) {
+        logger.info("Write to a file");
+        try {
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write(data);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
-        drawHorizontalBar(gc, runwayStartX + tora * scaleFactor, labelYPos, 60 * scaleFactor,
-            "\n\n" + 60 + "m (60)");
-        drawHorizontalBar(gc, runwayStartX + (tora + 60) * scaleFactor, labelYPos,
-            resa * scaleFactor, resa
-                + "m (RESA)");
-        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43,
-            h50 * scaleFactor, h50 + "m (hx50)");
-        gc.strokeLine(oStartX - (h50 * scaleFactor), runwayYTop, oStartX,
-            runwayYTop - obstacleHeight);
-        gc.strokeLine(oStartX - (h50 * scaleFactor - 60 * scaleFactor), runwayYTop,
-            oStartX - 60 * scaleFactor, runwayYTop - obstacleHeight);
-        gc.fillText("Takeoff from left to right", 30, 30);
-      }
-      case "LT" -> {
-        // Obstacle
-        gc.setFill(Color.RED);
-        oStartX = runwayStartX + (App.obstruction.getDistanceFromThresh() * scaleFactor);
-        gc.fillRect(oStartX, runwayYTop - obstacleHeight, 5, obstacleHeight);
-        drawVerticalBar(gc, oStartX + 15, runwayYTop - obstacleHeight, obstacleHeight,
-            " " + App.obstruction.getHeight()
-                + "m");
-        // Labels
-        drawHorizontalBar(gc, runwayStartX, labelYPos, lda * scaleFactor, lda + "m (LDA)");
-        drawHorizontalBar(gc, runwayStartX + lda * scaleFactor, labelYPos, 60 * scaleFactor,
-            "\n\n" + 60 + "m (60)");
-        drawHorizontalBar(gc, runwayStartX + (lda + 60) * scaleFactor, labelYPos,
-            resa * scaleFactor, resa + "m (RESA)");
-        gc.fillText("Landing from left to right", 30, 30);
-      }
-      case "TOA" -> {
-        // Obstacle
-        gc.setFill(Color.RED);
-        oStartX = runwayEndX - (App.obstruction.getDistanceFromThresh() * scaleFactor);
-        gc.fillRect(oStartX, runwayYTop - obstacleHeight, 5, obstacleHeight);
-        drawVerticalBar(gc, oStartX + 15, runwayYTop - obstacleHeight, obstacleHeight,
-            " " + App.obstruction.getHeight()
-                + "m");
-        // Labels
-
-        gc.fillText("Takeoff from right to left", 30, 30);
-      }
-      case "LO" -> {
-        // Obstacle
-        gc.setFill(Color.RED);
-        oStartX = runwayEndX - (App.obstruction.getDistanceFromThresh() * scaleFactor);
-        gc.fillRect(oStartX, runwayYTop - obstacleHeight, 5, obstacleHeight);
-        drawVerticalBar(gc, oStartX + 15, runwayYTop - obstacleHeight, obstacleHeight,
-            " " + App.obstruction.getHeight()
-                + "m");
-        // Labels
-        drawHorizontalBar(gc, runwayStartX, labelYPos, lda * scaleFactor, lda + "m (LDA)");
-        drawHorizontalBar(gc, runwayStartX + lda * scaleFactor, labelYPos, 60 * scaleFactor,
-            "\n\n" + 60 + "m (60)");
-        drawHorizontalBar(gc, runwayStartX + (lda + 60) * scaleFactor, labelYPos,
-            resa * scaleFactor, resa + "m (RESA)");
-        drawHorizontalBar(gc, oStartX - (h50 * scaleFactor), labelYPos + 43,
-            h50 * scaleFactor, h50 + "m (hx50)");
-        gc.strokeLine(oStartX - (h50 * scaleFactor), runwayYTop, oStartX,
-            runwayYTop - obstacleHeight);
-        gc.strokeLine(oStartX - (h50 * scaleFactor - 60 * scaleFactor), runwayYTop,
-            oStartX - 60 * scaleFactor, runwayYTop - obstacleHeight);
-        gc.fillText("Landing from right to left", 30, 30);
-      }
     }
-  }
 
-  /**
-   * Draw a white horizontal distance indicator with a distance.
-   *
-   * @param gc The GraphicsContext to write to.
-   * @param x The x coordinate of the left most point of the line.
-   * @param y The y coordinate of the entire line.
-   * @param l The length of the line.
-   * @param dist The distance to attach to the indicator.
-   */
-  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, int dist) {
-    drawHorizontalBar(gc, x,  y, l, Integer.toString(dist));
-  }
+    /**
+     * Outputs all the calculations made by the system to a file called <code>calculations.txt</code>.
+     */
+    public void createFile() {
+        Calculations calc = new Calculations();
+        var copyRunway =
+                new Runway(
+                        "copy",
+                        App.runway.getOriginalTora(),
+                        App.runway.getOriginalLda(),
+                        App.runway.getDisplacedThreshold());
+        var oTora = copyRunway.getTora();
+        var oLda = copyRunway.getLda();
+        var dThresh = copyRunway.getDisplacedThreshold();
 
-  /**
-   * Draw a white horizontal distance indicator with a label.
-   *
-   * @param gc The GraphicsContext to write to.
-   * @param x The x coordinate of the left most point of the line.
-   * @param y The y coordinate of the entire line.
-   * @param l The length of the line.
-   * @param label The label to attach to the indicator.
-   */
-  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label) {
-    gc.setStroke(Color.WHITE);
-    gc.setLineWidth(2);
-    gc.strokeLine(x, y, x + l, y);
-    gc.strokeLine(x, y - 5, x, y + 5);
-    gc.strokeLine(x + l, y - 5, x + l, y + 5);
-    gc.setFill(Color.WHITE);
-    gc.fillText(label, x + (l / 2.0) - (label.length() / 2.0 * 5.0), y - 7.0);
-  }
+        int tora;
+        int asda;
+        int toda;
+        int lda;
 
-  /**
-   * Draw a white vertical distance indicator with a distance.
-   *
-   * @param gc The GraphicsContext to write to.
-   * @param x The x coordinate of the entire line.
-   * @param y The y coordinate of the highest point of the line.
-   * @param l The length of the line.
-   * @param dist The distance to attach to the indicator.
-   */
-  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, int dist) {
-    drawVerticalBar(gc, x, y, l, Integer.toString(dist));
-  }
+        String calculationsString;
 
-  /**
-   * Draw a white vertical distance indicator with a label.
-   *
-   * @param gc The GraphicsContext to write to.
-   * @param x The x coordinate of the entire line.
-   * @param y The y coordinate of the highest point of the line.
-   * @param l The length of the line.
-   * @param label The label to attach to the indicator.
-   */
-  private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label) {
-    gc.setStroke(Color.WHITE);
-    gc.setLineWidth(2);
-    gc.strokeLine(x, y, x, y + l);
-    gc.strokeLine(x - 5, y, x + 5, y);
-    gc.strokeLine(x - 5, y + l, x + 5, y + l);
-    gc.setFill(Color.WHITE);
-    gc.fillText(label, x + 5, y + (l / 2));
-  }
+        if (isAwayOver) {
+            calc.recalculateToraAwayOver(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaAwayOver(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaAwayOver(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaAwayOver(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+            calculationsString =
+                    String.format(
+                            formatAO,
+                            oTora,
+                            copyRunway.getbProtection(),
+                            App.obstruction.getDistanceFromThresh(),
+                            dThresh,
+                            tora,
+                            asda,
+                            toda,
+                            oLda,
+                            App.obstruction.getDistanceFromThresh(),
+                            copyRunway.getStripEnd(),
+                            0,
+                            lda);
+        } else {
+            calc.recalculateToraTowards(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaTowards(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaTowards(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaTowards(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+            calculationsString =
+                    String.format(
+                            formatTT,
+                            App.obstruction.getDistanceFromThresh(),
+                            0,
+                            copyRunway.getStripEnd(),
+                            tora,
+                            asda,
+                            toda,
+                            App.obstruction.getDistanceFromThresh(),
+                            copyRunway.getResa(),
+                            copyRunway.getStripEnd(),
+                            lda);
+        }
 
-  /**
-   * Set the visualisation to be a takeoff event.
-   *
-   * @param ignoredActionEvent ignored
-   */
-  public void setTO(ActionEvent ignoredActionEvent) {
-    isTakeoff = true;
-    menu.setText(takeoff.getText());
-    drawSideView();
-  }
+        try {
+            logger.info("Saving the calculations to the file");
+            File myObj = new File("calculations.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            safeWriteFile("calculations.txt", calculationsString);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
-  /**
-   * Set the visualisation to be a landing event.
-   *
-   * @param ignoredActionEvent ignored
-   */
-  public void setL(ActionEvent ignoredActionEvent) {
-    isTakeoff = false;
-    menu.setText(landing.getText());
-    drawSideView();
-  }
+    /**
+     * Update the onscreen values for the runway, shown above the canvas.
+     */
+    @FXML
+    public void setLabel() {
+        logger.info("Set the new values of the Runway");
+        lda.setText(String.valueOf(App.runway.getLda()));
+        tora.setText(String.valueOf(App.runway.getTora()));
+        asda.setText(String.valueOf(App.runway.getAsda()));
+        toda.setText(String.valueOf(App.runway.getToda()));
+        if (menu.getText().equals("Landing/Takeoff")) {
+            drawBlankCanvases();
+        }
+    }
 
-  /**
-   * Shows the manual.
-   *
-   * @author mccaw12
-   */
-  @FXML
-  public void showManual() {
-    manual.setVisible(true);
-  }
+    /**
+     * Return to the runway input screen.
+     *
+     * @throws IOException If the screen cannot be changed.
+     */
+    public void newRunway() throws IOException {
+        App.setRoot("Input");
+    }
 
-  /**
-   * Hides the manual.
-   *
-   * @author mccaw12
-   */
-  @FXML
-  public void hideManual() {
-    manual.setVisible(false);
-  }
+    private void drawBlankCanvases() {
+        GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
+        gc.setFill(SkyBlue);
+        gc.fillRect(0, 0, sideViewCanvas.getWidth(), sideViewCanvas.getHeight());
+        gc.setFill(Color.WHITE);
+        gc.fillText("Select either landing or takeoff to continue", sideViewCanvas.getWidth() / 2 - 150, sideViewCanvas.getHeight() / 2);
+
+        gc = topViewCanvas.getGraphicsContext2D();
+        gc.setFill(GrassGreen);
+        gc.fillRect(0, 0, topViewCanvas.getWidth(), topViewCanvas.getHeight());
+        gc.setFill(Color.WHITE);
+        gc.fillText("Select either landing or takeoff to continue", topViewCanvas.getWidth() / 2 - 150, topViewCanvas.getHeight() / 2);
+    }
+
+    /**
+     * Draws both top and side view.
+     */
+    private void drawBothViews() {
+        drawTopView(45);
+        drawSideView();
+    }
+
+    /**
+     * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
+     */
+    private void drawTopView(double degrees) {
+        // Drawing stuff
+        GraphicsContext gc = topViewCanvas.getGraphicsContext2D();
+        double width = topViewCanvas.getWidth();
+        double height = topViewCanvas.getHeight();
+        gc.translate(width / 2, height / 2);
+        gc.rotate(degrees);
+        gc.translate(-width / 2, -height / 2);
+
+        // Grass
+        gc.setFill(GrassGreen);
+        gc.fillRect(0, 0, width, height);
+
+        // Some positions
+        double threshold = 0;
+        double displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+        double originalRunwayLength = App.runway.getOriginalTora() + App.runway.getStripEnd();
+        double obstacleX = displacedThreshold + App.obstruction.getDistanceFromThresh();
+        double obstacleY = App.obstruction.getDistanceFromCl();
+
+        double runwayPadding = 20;
+        double runwayWidth = 30;
+        double runwayStartX = runwayPadding;
+        double runwayEndX = width - runwayPadding;
+        double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
+        double runwayYTop = height / 2 - runwayWidth / 2;
+        var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
+
+        // Runway
+        gc.setFill(AsphaltGrey);
+        gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayWidth);
+        gc.setStroke(Color.WHITE);
+        gc.setLineDashes(7);
+        gc.strokeLine(runwayPadding, height / 2, width - runwayPadding, height / 2);
+        gc.setLineDashes(null);
+
+
+        // Thresholds
+        if (threshold == displacedThreshold) {
+            gc.setFill(Color.BLACK);
+            gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayWidth);
+        } else {
+            gc.setFill(Color.WHITE);
+            gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayWidth);
+            gc.setFill(Color.BLACK);
+            gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayWidth);
+        }
+
+        // Obstacle
+        gc.setFill(Color.RED);
+        gc.fillOval(pcc.conv(obstacleX) - 2.5, obstacleY * scaleFactor + (height / 2) - 2.5, 5.0, 5.0);
+
+        String mode = "";
+        if (isTakeoff && isAwayOver) {
+            mode = "TOA";
+        } else if (isTakeoff) {
+            mode = "TOT";
+        } else if (isAwayOver) {
+            mode = "LO";
+        } else {
+            mode = "LT";
+        }
+
+        var labelYPos = runwayYTop - 15;
+        var labelOppositeYPos = runwayYTop + runwayWidth + 15;
+        String toraString = Integer.toString(App.runway.getTora());
+        String todaString = Integer.toString(App.runway.getToda());
+        String asdaString = Integer.toString(App.runway.getAsda());
+        String ldaString = Integer.toString(App.runway.getLda());
+        String resaString = Integer.toString(App.runway.getResa());
+        String heightCalcString = Integer.toString(App.obstruction.getHeight() * 50);
+        String ebaString = "300";
+        String seString = Integer.toString(App.runway.getStripEnd());
+
+        if (mode.equals("TOA")) {
+            // Positions
+            var ebaEnd = displacedThreshold + 300; // TODO: FIGURE OUT HOW TO GET EBA
+            var toraEnd = ebaEnd + App.runway.getTora();
+            var todaEnd = ebaEnd + App.runway.getToda();
+            var asdaEnd = ebaEnd + App.runway.getAsda();
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+
+            drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelOppositeYPos, pcc.conv(displacedThreshold), "\n\n" + ebaString + "m (EBA)");
+            if (toraEnd == todaEnd && todaEnd == asdaEnd) {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA,TODA,ASDA)");
+            } else {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA)");
+                drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)");
+                drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
+            }
+        } else if (mode.equals("LO")) {
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            double heightCalcStart;
+            double resaStart;
+            double heightCalcResaEnd;
+            if (App.obstruction.getHeight() * 50 > App.runway.getResa()) {
+                heightCalcStart = obstacle;
+                heightCalcResaEnd = obstacle + App.obstruction.getHeight() * 50;
+                resaStart = heightCalcResaEnd - App.runway.getResa();
+            } else {
+                resaStart = obstacle;
+                heightCalcResaEnd = obstacle + App.runway.getResa();
+                heightCalcStart = heightCalcResaEnd - App.obstruction.getHeight() * 50;
+            }
+            var stripEndEnd = heightCalcResaEnd + App.runway.getStripEnd();
+            var ldaEnd = stripEndEnd + App.runway.getLda();
+
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelOppositeYPos, pcc.conv(heightCalcStart), "\n\n" + heightCalcString + "m (hx50)");
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelYPos, pcc.conv(resaStart), resaString + "m (RESA)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(heightCalcResaEnd), "\n\n" + seString + "m (SE)");
+            drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), ldaString + "m (LDA)");
+        }
+
+
+        gc.translate(width / 2, height / 2);
+        gc.rotate(-degrees);
+        gc.translate(-width / 2, -height / 2);
+    }
+
+    /**
+     * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
+     */
+    private void drawSideView() {
+        // Drawing stuff
+        GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
+        double width = sideViewCanvas.getWidth();
+        double height = sideViewCanvas.getHeight();
+
+        double runwayYTop = height / 2.5;
+        double runwayDepth = 10;
+
+        double runwayPadding = 30;
+
+        double runwayStartX = runwayPadding;
+        double runwayEndX = width - runwayPadding;
+        double originalRunwayLength = App.runway.getOriginalTora() + App.runway.getStripEnd();
+        double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
+
+        double verticalExtraScaleFactor = 10;
+        double obstaclePixelHeight = App.obstruction.getHeight() * scaleFactor * verticalExtraScaleFactor;
+        // Grass
+        gc.setFill(GrassGreen);
+        gc.fillRect(0, runwayYTop, width, height - runwayYTop);
+
+        // Sky
+        gc.setFill(SkyBlue);
+        gc.fillRect(0, 0, width, runwayYTop);
+
+        // Runway
+        gc.setFill(AsphaltGrey);
+        gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayDepth);
+
+        String mode = "";
+        if (isTakeoff && isAwayOver) {
+            mode = "TOA";
+        } else if (isTakeoff) {
+            mode = "TOT";
+        } else if (isAwayOver) {
+            mode = "LO";
+        } else {
+            mode = "LT";
+        }
+
+        var labelYPos = runwayYTop + runwayDepth + 20;
+        String toraString = Integer.toString(App.runway.getTora());
+        String todaString = Integer.toString(App.runway.getToda());
+        String asdaString = Integer.toString(App.runway.getAsda());
+        String ldaString = Integer.toString(App.runway.getLda());
+        String resaString = Integer.toString(App.runway.getResa());
+        String heightCalcString = Integer.toString(App.obstruction.getHeight() * 50);
+        String ebaString = "300";
+        String seString = Integer.toString(App.runway.getStripEnd());
+
+        if (mode.equals("TOT")) {
+            // Positions
+            var threshold = 0;
+            var displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+            var toraEnd = displacedThreshold + App.runway.getTora();
+            var todaEnd = displacedThreshold + App.runway.getToda();
+            var asdaEnd = displacedThreshold + App.runway.getAsda();
+            var stripEndStart = toraEnd;
+            var stripEndEnd = stripEndStart + App.runway.getStripEnd();
+            var resaEnd = stripEndEnd + App.runway.getResa();
+            var heightCalcEnd = stripEndEnd + App.obstruction.getHeight() * 50;
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            var pcc = new PixelCoordinateConverter(scaleFactor, runwayStartX);
+
+            // Thresholds
+            if (threshold == displacedThreshold) {
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+            } else {
+                gc.setFill(Color.WHITE);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
+            }
+
+            // Obstacle
+            gc.setFill(Color.RED);
+            gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+
+            // Labels
+            if (toraEnd == todaEnd && todaEnd == asdaEnd) {
+                drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos, pcc.conv(toraEnd), toraString + "m (TORA,TODA,ASDA)");
+            } else {
+                drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos, pcc.conv(toraEnd), toraString + "m (TORA)");
+                drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos + 20, pcc.conv(todaEnd), todaString + "m (TODA)");
+                drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos + 40, pcc.conv(asdaEnd), asdaString + "m (ASDA)");
+            }
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndStart), labelYPos, pcc.conv(stripEndEnd), "\n\n" + seString + "m (SE)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(resaEnd), resaString + "m (RESA)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos + 43, pcc.conv(heightCalcEnd), heightCalcString + "m (hx50)");
+            gc.fillText("Takeoff from left to right", 30, 30);
+        } else if (mode.equals("LT")) {
+            // Positions
+            var threshold = 0;
+            var displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+            var ldaEnd = displacedThreshold + App.runway.getLda();
+            var stripEndEnd = ldaEnd + App.runway.getStripEnd();
+            var resaEnd = stripEndEnd + App.runway.getResa();
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            var pcc = new PixelCoordinateConverter(scaleFactor, runwayStartX);
+
+            // Thresholds
+            if (threshold == displacedThreshold) {
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+            } else {
+                gc.setFill(Color.WHITE);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
+            }
+
+            // Obstacle
+            gc.setFill(Color.RED);
+            gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+
+            // Labels
+            drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos, pcc.conv(ldaEnd), ldaString + "m (LDA)");
+            drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), "\n\n" + seString + "m (SE)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(resaEnd), resaString + "m (RESA)");
+            gc.fillText("Landing from left to right", 30, 30);
+        } else if (mode.equals("TOA")) {
+            // Positions
+            var threshold = 0;
+            var displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+            var ebaEnd = displacedThreshold + 300; // TODO: FIGURE OUT HOW TO GET EBA
+            var toraEnd = ebaEnd + App.runway.getTora();
+            var todaEnd = ebaEnd + App.runway.getToda();
+            var asdaEnd = ebaEnd + App.runway.getAsda();
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
+
+            // Thresholds
+            if (threshold == displacedThreshold) {
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+            } else {
+                gc.setFill(Color.WHITE);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
+            }
+
+            // Obstacle
+            gc.setFill(Color.RED);
+            gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+
+            // Labels
+            drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelYPos, pcc.conv(displacedThreshold), ebaString + "m (EBA)");
+            if (toraEnd == todaEnd && todaEnd == asdaEnd) {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA,TODA,ASDA)");
+            } else {
+                drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA)");
+                drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos + 20, pcc.conv(ebaEnd), todaString + "m (TODA)");
+                drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos + 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
+            }
+            gc.fillText("Takeoff from right to left", 30, 30);
+        } else {
+            // Positions
+            var threshold = 0;
+            var displacedThreshold = threshold + App.runway.getDisplacedThreshold();
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            double heightCalcStart;
+            double resaStart;
+            double heightCalcResaEnd;
+            if (App.obstruction.getHeight() * 50 > App.runway.getResa()) {
+                heightCalcStart = obstacle;
+                heightCalcResaEnd = obstacle + App.obstruction.getHeight() * 50;
+                resaStart = heightCalcResaEnd - App.runway.getResa();
+            } else {
+                resaStart = obstacle;
+                heightCalcResaEnd = obstacle + App.runway.getResa();
+                heightCalcStart = heightCalcResaEnd - App.obstruction.getHeight() * 50;
+            }
+            var stripEndEnd = heightCalcResaEnd + App.runway.getStripEnd();
+            var ldaEnd = stripEndEnd + App.runway.getLda();
+            var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
+
+            // Thresholds
+            if (threshold == displacedThreshold) {
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+            } else {
+                gc.setFill(Color.WHITE);
+                gc.fillRect(pcc.conv(threshold) - 2, runwayYTop, 4, runwayDepth);
+                gc.setFill(Color.BLACK);
+                gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
+            }
+
+            // Obstacle
+            gc.setFill(Color.RED);
+            gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+
+            // Labels
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelYPos + 45, pcc.conv(heightCalcStart), heightCalcString + "m (hx50)");
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelYPos, pcc.conv(resaStart), resaString + "m (RESA)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(heightCalcResaEnd), "\n\n" + seString + "m (SE)");
+            drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), ldaString + "m (LDA)");
+            gc.fillText("Landing from right to left", 30, 30);
+        }
+
+    }
+
+    private void drawHorizontalBarBetween(GraphicsContext gc, double x, double y, double x2, String label) {
+        drawHorizontalBar(gc, x, y, x2 - x, label);
+    }
+
+    /**
+     * Draw a white horizontal distance indicator with a label.
+     *
+     * @param gc    The GraphicsContext to write to.
+     * @param x     The x coordinate of the left most point of the line.
+     * @param y     The y coordinate of the entire line.
+     * @param l     The length of the line.
+     * @param label The label to attach to the indicator.
+     */
+    private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label) {
+        gc.setStroke(Color.WHITE);
+        gc.setLineWidth(2);
+        gc.strokeLine(x, y, x + l, y);
+        gc.strokeLine(x, y - 5, x, y + 5);
+        gc.strokeLine(x + l, y - 5, x + l, y + 5);
+        gc.setFill(Color.WHITE);
+        gc.fillText(label, x + (l / 2) - (label.length() / 2 * 5), y - 7);
+    }
+
+    private void drawVerticalBarBetween(GraphicsContext gc, double x, double y, double y2, String label) {
+        drawVerticalBar(gc, x, y, y2 - y, label);
+    }
+
+    /**
+     * Draw a white vertical distance indicator with a label.
+     *
+     * @param gc    The GraphicsContext to write to.
+     * @param x     The x coordinate of the entire line.
+     * @param y     The y coordinate of the highest point of the line.
+     * @param l     The length of the line.
+     * @param label The label to attach to the indicator.
+     */
+    private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label) {
+        gc.setStroke(Color.WHITE);
+        gc.setLineWidth(2);
+        gc.strokeLine(x, y, x, y + l);
+        gc.strokeLine(x - 5, y, x + 5, y);
+        gc.strokeLine(x - 5, y + l, x + 5, y + l);
+        gc.setFill(Color.WHITE);
+        gc.fillText(label, x + 5, y + (l / 2));
+    }
+
+    /**
+     * Set the visualisation to be a takeoff event.
+     *
+     * @param actionEvent ignored
+     */
+    public void setTO(ActionEvent actionEvent) {
+        isTakeoff = true;
+        menu.setText(takeoff.getText());
+        drawBothViews();
+    }
+
+    /**
+     * Set the visualisation to be a landing event.
+     *
+     * @param actionEvent ignored
+     */
+    public void setL(ActionEvent actionEvent) {
+        isTakeoff = false;
+        menu.setText(landing.getText());
+        drawBothViews();
+    }
+
+    private class PixelCoordinateConverter {
+        double scaleFactor;
+        double offset;
+
+        public PixelCoordinateConverter(double scaleFactor, double offset) {
+            this.scaleFactor = scaleFactor;
+            this.offset = offset;
+        }
+
+        public double conv(double x) {
+            return x * scaleFactor + offset;
+        }
+    }
+
+    /**
+     * Toggles high contrast mode.
+     *
+     * @author snow6701
+     */
+    public void changeContrast() {
+        if (highContrast) {
+            highContrast = false;
+            calculation.getStyleClass().clear();
+            goback.getStyleClass().clear();
+            contrastB.getStyleClass().clear();
+            calculation.getStyleClass().add("button");
+            goback.getStyleClass().add("button");
+            contrastB.getStyleClass().add("button");
+        } else {
+            highContrast = true;
+            calculation.getStyleClass().add("button2");
+            goback.getStyleClass().add("button2");
+            contrastB.getStyleClass().add("button2");
+        }
+
+    }
+
+    /**
+     * Shows the manual.
+     *
+     * @author mccaw12
+     */
+    @FXML
+    public void showManual() {
+        manual.setVisible(true);
+    }
+
+    /**
+     * Hides the manual.
+     *
+     * @author mccaw12
+     */
+    @FXML
+    public void hideManual() {
+        manual.setVisible(false);
+    }
+
 }
