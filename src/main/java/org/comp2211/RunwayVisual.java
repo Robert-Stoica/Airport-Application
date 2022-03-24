@@ -307,6 +307,8 @@ public class RunwayVisual {
                 drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)");
                 drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
             }
+        } else if (mode.equals("LO")){
+
         }
 
 
