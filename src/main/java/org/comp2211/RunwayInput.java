@@ -2,7 +2,6 @@ package org.comp2211;
 
 import java.io.File;
 import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,21 +9,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
 
+/**
+ * Screen to input data related to an obstacle, or obstruction.
+ *
+ * @author MGhee
+ */
 public class RunwayInput {
 
     private final FileChooser fileChooser = new FileChooser();
@@ -43,26 +43,33 @@ public class RunwayInput {
     @FXML private Button importB;
     @FXML private Button exportB;
     @FXML private Button helpButton;
-// Calls a method where we export XML file
+  /** Calls a method where we export the XML file. */
   @FXML private Button exportXml;
+
   @FXML private Button contrastB;
   private Boolean highContrast = false;
 
-
-    @FXML
-    private void clearText() {
+  /** Clears all the text inputs. */
+  @FXML
+  private void clearText() {
         logger.info("Clear the input");
         originalTora.clear();
         originalLda.clear();
         displacedThreshold.clear();
     }
 
-    private boolean createRunway() {
+  /**
+   * Validates the user inputs and creates a new runway.
+   *
+   * @return True if the import succeeded, false otherwise.
+   */
+  private boolean createRunway() {
         try {
-            if (!(menu.getText().equals("S elect Runway")
-                    || originalTora.getText().isBlank()
-                    || originalLda.getText().isBlank()
-                    || displacedThreshold.getText().isBlank())) {
+      // TODO: fix "S elect Runway"
+      if (!(menu.getText().equals("S elect Runway")
+          || originalTora.getText().isBlank()
+          || originalLda.getText().isBlank()
+          || displacedThreshold.getText().isBlank())) {
                 logger.info("Creating the new Runway with the values inside the text field");
                 runway =
                         new Runway(
@@ -80,16 +87,22 @@ public class RunwayInput {
         return false;
     }
 
-    @FXML
-    private void openObstacle() throws IOException {
+  /**
+   * Attempts to open the obstacle screen, but first makes a runway.
+   *
+   * @throws IOException If the root cannot be changed to Obstacle.
+   */
+  @FXML
+  private void openObstacle() throws IOException {
         if (createRunway()) {
             App.runway = runway;
             App.setRoot("Obstacle");
         }
     }
 
-    @FXML
-    private void addRunway() {
+  /** Imports a runway from an XML file. */
+  @FXML
+  private void addRunway() {
         logger.info("Import the xml");
         Stage newWindow = new Stage();
         newWindow.setTitle("Open Runway");
@@ -122,8 +135,9 @@ public class RunwayInput {
         }
     }
 
-    @FXML
-    private void export() {
+  /** Exports the current runway to XML. */
+  @FXML
+  private void export() {
         if (!(originalTora.getText().isBlank()|| originalLda.getText().isBlank()|| displacedThreshold.getText().isBlank())) {
             logger.info("Export the runway to an xml file");
             Stage newWindow = new Stage();
@@ -149,9 +163,13 @@ public class RunwayInput {
         }
     }
 
-
-    @FXML
-    private void openHelp() throws IOException {
+  /**
+   * Opens the help screen.
+   *
+   * @throws IOException If the help screen cannot be opened.
+   */
+  @FXML
+  private void openHelp() throws IOException {
         logger.info("Opened the Help Page");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Help" + ".fxml"));
         root = fxmlLoader.load();
@@ -162,11 +180,13 @@ public class RunwayInput {
         stage.show();
         stage.centerOnScreen();
         App.stg = stage;
-
-
     }
 
-  
+  /**
+   * Toggles high contrast mode.
+   *
+   * @author snow6701
+   */
   public void changeContrast() {
 	  if(highContrast) {
 		  highContrast = false;

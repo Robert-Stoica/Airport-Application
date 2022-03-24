@@ -1,17 +1,15 @@
 package org.comp2211;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.comp2211.calculations.Obstruction;
-import org.comp2211.calculations.Runway;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.comp2211.calculations.Obstruction;
+import org.comp2211.calculations.Runway;
 
 /** JavaFX App. */
 public class App extends Application {
@@ -52,6 +50,11 @@ public class App extends Application {
       System.exit(0);
   }
 
+  /**
+   * Switches to the runway input screen.
+   *
+   * @throws IOException If the FXML fails to load.
+   */
   public void runwayInput() throws IOException {
 
     scene = new Scene(loadFXML("Input"));

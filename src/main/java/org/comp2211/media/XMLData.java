@@ -11,7 +11,7 @@ import org.comp2211.calculations.Runway;
  * <p>All members are public, so it acts like a struct. Simply access using <code>xmldata.runways
  * </code> to get data.
  *
- * @author molive
+ * @author Molive-0
  * @see Media
  */
 public class XMLData {

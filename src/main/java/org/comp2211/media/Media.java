@@ -22,7 +22,7 @@ import org.comp2211.calculations.Runway;
  * <p/> Media uses the StAX api to manipulate the files, as files only need to be read from
  * beginning to end and StAX is efficient at this.
  *
- * @author molive
+ * @author Molive-0
  * @see XMLData
  */
 public class Media {

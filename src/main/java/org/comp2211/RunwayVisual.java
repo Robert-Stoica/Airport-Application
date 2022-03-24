@@ -3,24 +3,25 @@ package org.comp2211;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 
+/**
+ * Displays a visual representation of the recalculated runway to the screen, using magic.
+ *
+ * @author JoshPattman
+ */
 public class RunwayVisual {
 
     public static boolean isAwayOver;
@@ -282,7 +283,8 @@ public class RunwayVisual {
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
-            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + App.obstruction.getHeight()
+                + "m");
 
             // Labels
             if (toraEnd == todaEnd && todaEnd == asdaEnd) {
@@ -320,7 +322,8 @@ public class RunwayVisual {
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
-            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + App.obstruction.getHeight()
+                + "m");
 
             // Labels
             drawHorizontalBarBetween(gc, pcc.conv(displacedThreshold), labelYPos, pcc.conv(ldaEnd), ldaString + "m (LDA)");
@@ -352,7 +355,8 @@ public class RunwayVisual {
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
-            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + App.obstruction.getHeight()
+                + "m");
 
             // Labels
             drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelYPos, pcc.conv(displacedThreshold), ebaString + "m (EBA)");
@@ -399,7 +403,8 @@ public class RunwayVisual {
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
-            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + Integer.toString(App.obstruction.getHeight()) + "m");
+            drawVerticalBar(gc, pcc.conv(obstacle) + 15, runwayYTop - obstaclePixelHeight, obstaclePixelHeight, " " + App.obstruction.getHeight()
+                + "m");
 
             // Labels
             drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelYPos + 45, pcc.conv(heightCalcStart), heightCalcString + "m (hx50)");
