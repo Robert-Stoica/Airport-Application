@@ -1,5 +1,6 @@
 package org.comp2211;
 
+import java.util.Properties;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -7,26 +8,44 @@ import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 
-
+/**
+ * Helper class to facilitate certain useful functions.
+ *
+ * @author MGhee
+ */
 public class Helper {
 
-    @FXML
-    private TextField receiver;
-    @FXML
-    private TextField subject;
-    @FXML
-    private Button sender;
-    @FXML
-    private TextArea area;
+  /** The recipient of the email. */
+  @FXML private TextField receiver;
+  /** The subject line of the email. */
+  @FXML private TextField subject;
+  /** Button to send the email. */
+  @FXML private Button sender;
+  /** The body of the email. */
+  @FXML private TextArea area;
+
     private static final Logger logger = LogManager.getLogger(Helper.class);
 
-    @FXML
-    public void sendEmail() throws MessagingException {
+  /**
+   * Sends an email using the member variables as parameters. Emails will be sent from the address
+   * "andreiesteban54@gmail.com". This is not totally secure (as is obvious from the first three
+   * lines) but is alright as long as we are closed source.
+   *
+   * @see #receiver
+   * @see #subject
+   * @see #sender
+   * @see #area
+   */
+  @FXML
+  public void sendEmail() throws MessagingException {
         final String send = "andreiesteban54@gmail.com";
         final String username = "andreiesteban54@gmail.com";
         final String password = "Comp2211-Seg";

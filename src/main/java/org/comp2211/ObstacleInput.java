@@ -20,40 +20,55 @@ import org.comp2211.calculations.Obstruction;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
 
+/**
+ * Screen to input data related to an obstacle, or obstruction.
+ *
+ * @author MGhee
+ */
 public class ObstacleInput {
 
     private final FileChooser fileChooser = new FileChooser();
-    @FXML
-    private TextField height;
-    @FXML
-    private TextField centre;
-    @FXML
-    private TextField threshold;
-    @FXML
-    private TextField sideText;
+  /** Height of the obstacle, in metres. */
+  @FXML private TextField height;
+  /** Distance along the centre line, in metres. */
+  @FXML private TextField centre;
+  /** Distance from the threshold, in metres. */
+  @FXML private TextField threshold;
+  /** Blast protection. */
+  @FXML private TextField sideText;
+
     @FXML
     private MenuButton menu;
     @FXML
     private MenuItem away;
     @FXML
     private MenuItem towards;
-    @FXML
-    private VBox vbox;
+  /** Sidebar vbox. */
+  @FXML private VBox vbox;
+
     @FXML private Button submit;
     @FXML private Button clear;
     @FXML private Button contrastB;
-    private Boolean highContrast = false;
+  /** True if the CSS should be in high contrast mode. */
+  private Boolean highContrast = false;
+
     @FXML private ToggleButton toggle;
     @FXML private Button importB;
     @FXML private Button exportB;
     private Obstruction obstacle;
     private Calculations calculator;
-    private Boolean sideBar = false;
+  /** True if the sidebar is visible. */
+  private Boolean sideBar = false;
+
     private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
     @FXML private HBox manual;
 
-    @FXML
-    public void openVisual() {
+  /**
+   * Switches to the visualisation screen. This function also checks that the user gave valid input,
+   * and recalculates the runway.
+   */
+  @FXML
+  public void openVisual() {
         logger.info("We have opened the visualization of the runway");
         try {
             if (!(menu.getText().equals("Operation Type")
@@ -109,8 +124,14 @@ public class ObstacleInput {
         }
     }
 
-    @FXML
-    public void openSidebar() {
+  /**
+   * Makes the sidebar elements visible or invisible on the screen. This also recalculates the
+   * runway.
+   *
+   * @author JoshPattman
+   */
+  @FXML
+  public void openSidebar() {
 
         App.obstruction = obstacle;
 
@@ -139,30 +160,43 @@ public class ObstacleInput {
 
     }
 
-   @FXML
-   public void showManual(){
+  /**
+   * Shows the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void showManual() {
        manual.setVisible(true);
    }
 
-   @FXML
-   public void hideManual(){
+  /**
+   * Hides the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void hideManual() {
         manual.setVisible(false);
     }
 
-    @FXML
-    public void changeT() {
+  /** Changes the menu text. */
+  @FXML
+  public void changeT() {
         logger.info("Change the menu text");
         menu.setText(away.getText());
     }
 
-    @FXML
-    public void changeTe() {
+  /** Also changes the menu text. */
+  @FXML
+  public void changeTe() {
         logger.info("Change the menu text");
         menu.setText(towards.getText());
     }
 
-    @FXML
-    private void clearText() {
+  /** Clears all the text inputs. */
+  @FXML
+  private void clearText() {
         logger.info("The input has been cleared");
         height.clear();
         centre.clear();
@@ -170,16 +204,20 @@ public class ObstacleInput {
 
     }
 
-    @FXML
-    public void deleteSide() {
+  /** Hides the sidebar. */
+  @FXML
+  public void deleteSide() {
         logger.info("Hide the sidebar");
         vbox.setVisible(false);
         sideText.clear();
 
     }
 
-    @FXML
-    public void export() {
+  /**
+   * Exports the current obstacle to XML. This function also checks that the user gave valid input.
+   */
+  @FXML
+  public void export() {
         if (!(height.getText().isBlank()
                 || centre.getText().isBlank()
                 || threshold.getText().isBlank())) {
@@ -212,8 +250,9 @@ public class ObstacleInput {
         }
     }
 
-    @FXML
-    public void create() {
+  /** Imports an obstacle from an XML file. */
+  @FXML
+  public void create() {
         logger.info("Input the xml and autofill the text fields");
         Stage newWindow = new Stage();
         newWindow.setTitle("Open Obstacle");
@@ -244,7 +283,12 @@ public class ObstacleInput {
             threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
         }
     }
-  
+
+  /**
+   * Toggles high contrast mode.
+   *
+   * @author snow6701
+   */
   public void changeContrast() {
 	  if(highContrast) {
 		  highContrast = false;
