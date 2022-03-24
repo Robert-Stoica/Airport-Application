@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="642.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
    <children>
       <Label layoutX="244.0" layoutY="54.0" styleClass="text" stylesheets="@style/runway.css" text="Obstacle Input" textAlignment="CENTER">
@@ -40,7 +39,9 @@
                   <Insets left="50.0" top="50.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="sideText" prefHeight="25.0" prefWidth="264.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" translateY="-3.0" />
+            <TextField prefHeight="25.0" prefWidth="264.0" promptText="Enter number"
+              styleClass="textbox" stylesheets="@style/runway.css" translateY="-3.0"
+              fx:id="sideText"/>
             <Button fx:id="exportB" mnemonicParsing="false" onAction="#export" prefHeight="45.0" prefWidth="275.0" text="Export Obstacle" translateY="-5.0" />
             <Button fx:id="importB" mnemonicParsing="false" onAction="#create" prefHeight="43.0" prefWidth="274.0" text="Import Obstacle" translateY="-10.0" VBox.vgrow="ALWAYS" />
          </children>
