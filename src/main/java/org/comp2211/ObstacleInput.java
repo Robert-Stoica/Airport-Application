@@ -8,6 +8,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -49,7 +51,7 @@ public class ObstacleInput {
     private Calculations calculator;
     private Boolean sideBar = false;
     private static final Logger logger = LogManager.getLogger(ObstacleInput.class);
-
+    @FXML private HBox manual;
 
     @FXML
     public void openVisual() {
@@ -136,6 +138,16 @@ public class ObstacleInput {
         }
 
 
+    }
+
+   @FXML
+   public void showManual(){
+       manual.setVisible(true);
+   }
+
+   @FXML
+   public void hideManual(){
+        manual.setVisible(false);
     }
 
     @FXML
