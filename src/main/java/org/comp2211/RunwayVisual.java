@@ -97,7 +97,7 @@ public class RunwayVisual {
      * Wrap file handling in a safe function to avoid exceptions.
      *
      * @param filename The file to write to
-     * @param data The data to write.
+     * @param data     The data to write.
      */
     void safeWriteFile(String filename, String data) {
         logger.info("Write to a file");
@@ -238,7 +238,7 @@ public class RunwayVisual {
     /**
      * Draws both top and side view.
      */
-    private void drawBothViews(){
+    private void drawBothViews() {
         drawTopView(45);
         drawSideView();
     }
@@ -246,14 +246,14 @@ public class RunwayVisual {
     /**
      * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
      */
-    private void drawTopView(double degrees){
+    private void drawTopView(double degrees) {
         // Drawing stuff
         GraphicsContext gc = topViewCanvas.getGraphicsContext2D();
         double width = topViewCanvas.getWidth();
         double height = topViewCanvas.getHeight();
-        gc.translate(width/2, height/2);
+        gc.translate(width / 2, height / 2);
         gc.rotate(degrees);
-        gc.translate(-width/2, -height/2);
+        gc.translate(-width / 2, -height / 2);
 
         // Grass
         gc.setFill(GrassGreen);
@@ -271,7 +271,7 @@ public class RunwayVisual {
         double runwayStartX = runwayPadding;
         double runwayEndX = width - runwayPadding;
         double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
-        double runwayYTop = height/2-runwayWidth/2;
+        double runwayYTop = height / 2 - runwayWidth / 2;
         var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
 
         // Runway
@@ -279,7 +279,7 @@ public class RunwayVisual {
         gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayWidth);
         gc.setStroke(Color.WHITE);
         gc.setLineDashes(7);
-        gc.strokeLine(runwayPadding, height/2, width - runwayPadding, height/2);
+        gc.strokeLine(runwayPadding, height / 2, width - runwayPadding, height / 2);
         gc.setLineDashes(null);
 
 
@@ -296,7 +296,7 @@ public class RunwayVisual {
 
         // Obstacle
         gc.setFill(Color.RED);
-        gc.fillOval(pcc.conv(obstacleX)-2.5, obstacleY*scaleFactor+(height/2)-2.5, 5.0, 5.0);
+        gc.fillOval(pcc.conv(obstacleX) - 2.5, obstacleY * scaleFactor + (height / 2) - 2.5, 5.0, 5.0);
 
         String mode = "";
         if (isTakeoff && isAwayOver) {
@@ -310,7 +310,7 @@ public class RunwayVisual {
         }
 
         var labelYPos = runwayYTop - 15;
-        var labelOppositeYPos = runwayYTop + runwayWidth+15;
+        var labelOppositeYPos = runwayYTop + runwayWidth + 15;
         String toraString = Integer.toString(App.runway.getTora());
         String todaString = Integer.toString(App.runway.getToda());
         String asdaString = Integer.toString(App.runway.getAsda());
@@ -320,7 +320,7 @@ public class RunwayVisual {
         String ebaString = "300";
         String seString = Integer.toString(App.runway.getStripEnd());
 
-        if (mode.equals("TOA")){
+        if (mode.equals("TOA")) {
             // Positions
             var ebaEnd = displacedThreshold + 300; // TODO: FIGURE OUT HOW TO GET EBA
             var toraEnd = ebaEnd + App.runway.getTora();
@@ -328,7 +328,7 @@ public class RunwayVisual {
             var asdaEnd = ebaEnd + App.runway.getAsda();
             var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
 
-            drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelOppositeYPos, pcc.conv(displacedThreshold), "\n\n"+ebaString+"m (EBA)");
+            drawHorizontalBarBetween(gc, pcc.conv(ebaEnd), labelOppositeYPos, pcc.conv(displacedThreshold), "\n\n" + ebaString + "m (EBA)");
             if (toraEnd == todaEnd && todaEnd == asdaEnd) {
                 drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(ebaEnd), toraString + "m (TORA,TODA,ASDA)");
             } else {
@@ -336,7 +336,7 @@ public class RunwayVisual {
                 drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)");
                 drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
             }
-        } else if (mode.equals("LO")){
+        } else if (mode.equals("LO")) {
             var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
             double heightCalcStart;
             double resaStart;
@@ -360,9 +360,9 @@ public class RunwayVisual {
         }
 
 
-        gc.translate(width/2, height/2);
+        gc.translate(width / 2, height / 2);
         gc.rotate(-degrees);
-        gc.translate(-width/2, -height/2);
+        gc.translate(-width / 2, -height / 2);
     }
 
     /**
@@ -583,10 +583,10 @@ public class RunwayVisual {
     /**
      * Draw a white horizontal distance indicator with a label.
      *
-     * @param gc The GraphicsContext to write to.
-     * @param x The x coordinate of the left most point of the line.
-     * @param y The y coordinate of the entire line.
-     * @param l The length of the line.
+     * @param gc    The GraphicsContext to write to.
+     * @param x     The x coordinate of the left most point of the line.
+     * @param y     The y coordinate of the entire line.
+     * @param l     The length of the line.
      * @param label The label to attach to the indicator.
      */
     private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label) {
@@ -606,10 +606,10 @@ public class RunwayVisual {
     /**
      * Draw a white vertical distance indicator with a label.
      *
-     * @param gc The GraphicsContext to write to.
-     * @param x The x coordinate of the entire line.
-     * @param y The y coordinate of the highest point of the line.
-     * @param l The length of the line.
+     * @param gc    The GraphicsContext to write to.
+     * @param x     The x coordinate of the entire line.
+     * @param y     The y coordinate of the highest point of the line.
+     * @param l     The length of the line.
      * @param label The label to attach to the indicator.
      */
     private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label) {
@@ -680,6 +680,7 @@ public class RunwayVisual {
         }
 
     }
+
     /**
      * Shows the manual.
      *
