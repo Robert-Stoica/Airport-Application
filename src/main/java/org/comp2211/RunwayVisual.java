@@ -308,7 +308,26 @@ public class RunwayVisual {
                 drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)");
             }
         } else if (mode.equals("LO")){
+            var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
+            double heightCalcStart;
+            double resaStart;
+            double heightCalcResaEnd;
+            if (App.obstruction.getHeight() * 50 > App.runway.getResa()) {
+                heightCalcStart = obstacle;
+                heightCalcResaEnd = obstacle + App.obstruction.getHeight() * 50;
+                resaStart = heightCalcResaEnd - App.runway.getResa();
+            } else {
+                resaStart = obstacle;
+                heightCalcResaEnd = obstacle + App.runway.getResa();
+                heightCalcStart = heightCalcResaEnd - App.obstruction.getHeight() * 50;
+            }
+            var stripEndEnd = heightCalcResaEnd + App.runway.getStripEnd();
+            var ldaEnd = stripEndEnd + App.runway.getLda();
 
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelOppositeYPos, pcc.conv(heightCalcStart), "\n\n" + heightCalcString + "m (hx50)");
+            drawHorizontalBarBetween(gc, pcc.conv(heightCalcResaEnd), labelYPos, pcc.conv(resaStart), resaString + "m (RESA)");
+            drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(heightCalcResaEnd), "\n\n" + seString + "m (SE)");
+            drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), ldaString + "m (LDA)");
         }
 
 
