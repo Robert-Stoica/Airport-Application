@@ -22,6 +22,11 @@ import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
 
+/**
+ * Displays a visual representation of the recalculated runway to the screen, using magic.
+ *
+ * @author JoshPattman
+ */
 public class RunwayVisual {
 
     public static boolean isAwayOver;
@@ -88,7 +93,12 @@ public class RunwayVisual {
     private static final Logger logger = LogManager.getLogger(Calculations.class);
     private boolean highContrast = false;
 
-
+    /**
+     * Wrap file handling in a safe function to avoid exceptions.
+     *
+     * @param filename The file to write to
+     * @param data The data to write.
+     */
     void safeWriteFile(String filename, String data) {
         logger.info("Write to a file");
         try {
@@ -102,6 +112,9 @@ public class RunwayVisual {
         }
     }
 
+    /**
+     * Outputs all the calculations made by the system to a file called <code>calculations.txt</code>.
+     */
     public void createFile() {
         Calculations calc = new Calculations();
         var copyRunway =
@@ -184,6 +197,9 @@ public class RunwayVisual {
         }
     }
 
+    /**
+     * Update the onscreen values for the runway, shown above the canvas.
+     */
     @FXML
     public void setLabel() {
         logger.info("Set the new values of the Runway");
@@ -196,6 +212,11 @@ public class RunwayVisual {
         }
     }
 
+    /**
+     * Return to the runway input screen.
+     *
+     * @throws IOException If the screen cannot be changed.
+     */
     public void newRunway() throws IOException {
         App.setRoot("Input");
     }
@@ -214,12 +235,17 @@ public class RunwayVisual {
         gc.fillText("Select either landing or takeoff to continue", topViewCanvas.getWidth() / 2 - 150, topViewCanvas.getHeight() / 2);
     }
 
+    /**
+     * Draws both top and side view.
+     */
     private void drawBothViews(){
         drawTopView(45);
         drawSideView();
     }
 
-    // Square canvas
+    /**
+     * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
+     */
     private void drawTopView(double degrees){
         // Drawing stuff
         GraphicsContext gc = topViewCanvas.getGraphicsContext2D();
@@ -339,7 +365,9 @@ public class RunwayVisual {
         gc.translate(-width/2, -height/2);
     }
 
-    // Long and thin canvas
+    /**
+     * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
+     */
     private void drawSideView() {
         // Drawing stuff
         GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
@@ -552,6 +580,15 @@ public class RunwayVisual {
         drawHorizontalBar(gc, x, y, x2 - x, label);
     }
 
+    /**
+     * Draw a white horizontal distance indicator with a label.
+     *
+     * @param gc The GraphicsContext to write to.
+     * @param x The x coordinate of the left most point of the line.
+     * @param y The y coordinate of the entire line.
+     * @param l The length of the line.
+     * @param label The label to attach to the indicator.
+     */
     private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label) {
         gc.setStroke(Color.WHITE);
         gc.setLineWidth(2);
@@ -566,6 +603,15 @@ public class RunwayVisual {
         drawVerticalBar(gc, x, y, y2 - y, label);
     }
 
+    /**
+     * Draw a white vertical distance indicator with a label.
+     *
+     * @param gc The GraphicsContext to write to.
+     * @param x The x coordinate of the entire line.
+     * @param y The y coordinate of the highest point of the line.
+     * @param l The length of the line.
+     * @param label The label to attach to the indicator.
+     */
     private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label) {
         gc.setStroke(Color.WHITE);
         gc.setLineWidth(2);
@@ -576,12 +622,22 @@ public class RunwayVisual {
         gc.fillText(label, x + 5, y + (l / 2));
     }
 
+    /**
+     * Set the visualisation to be a takeoff event.
+     *
+     * @param actionEvent ignored
+     */
     public void setTO(ActionEvent actionEvent) {
         isTakeoff = true;
         menu.setText(takeoff.getText());
         drawBothViews();
     }
 
+    /**
+     * Set the visualisation to be a landing event.
+     *
+     * @param actionEvent ignored
+     */
     public void setL(ActionEvent actionEvent) {
         isTakeoff = false;
         menu.setText(landing.getText());
@@ -602,6 +658,11 @@ public class RunwayVisual {
         }
     }
 
+    /**
+     * Toggles high contrast mode.
+     *
+     * @author snow6701
+     */
     public void changeContrast() {
         if (highContrast) {
             highContrast = false;
