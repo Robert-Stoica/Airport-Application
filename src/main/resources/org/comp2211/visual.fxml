@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -14,7 +15,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="calculation" layoutX="471.0" layoutY="27.0" mnemonicParsing="false" onAction="#createFile" stylesheets="@style/runway.css" text="View Calculation" />
+      <Button fx:id="calculation" layoutX="242.0" layoutY="437.0" mnemonicParsing="false" onAction="#createFile" stylesheets="@style/runway.css" text="View Calculation" />
       <Label layoutX="144.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Tora" />
       <Label layoutX="142.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="Toda" />
       <Label layoutX="404.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="Asda" />
@@ -23,12 +24,14 @@
       <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
+       <MenuButton fx:id="menu" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" text="Landing/Takeoff">
+           <items>
+               <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
+               <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
+           </items>
+       </MenuButton>
       <Button fx:id="goback" layoutX="428.0" layoutY="437.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
-      <ImageView fitHeight="300.0" fitWidth="600.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Capture.PNG" />
-         </image>
-      </ImageView>
+       <Canvas fx:id="canvas" height="150.0" layoutX="10.0" layoutY="218.0" pickOnBounds="true" width="600.0" />
       <Button fx:id="contrastB" layoutX="34.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
    </children>
 </Pane>

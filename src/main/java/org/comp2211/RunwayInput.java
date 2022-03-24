@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -30,16 +33,18 @@ public class RunwayInput {
     @FXML private TextField originalLda;
     @FXML private TextField displacedThreshold;
     @FXML private MenuButton menu;
+    Scene scene = null;
+    Parent root = null;
+    private Stage stage ;
     private static final Logger logger = LogManager.getLogger(RunwayInput.class);
     @FXML private Button submit;
     @FXML private Button clear;
     @FXML private ToggleButton toggle;
     @FXML private Button importB;
     @FXML private Button exportB;
-
-  // Calls a method where we export XML file
+    @FXML private Button helpButton;
+// Calls a method where we export XML file
   @FXML private Button exportXml;
-  
   @FXML private Button contrastB;
   private Boolean highContrast = false;
 
@@ -144,6 +149,23 @@ public class RunwayInput {
         }
     }
 
+
+    @FXML
+    private void openHelp() throws IOException {
+        logger.info("Opened the Help Page");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Help" + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+        stage = new Stage();
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        App.stg = stage;
+
+
+    }
+
   
   public void changeContrast() {
 	  if(highContrast) {
@@ -152,16 +174,19 @@ public class RunwayInput {
 		  submit.getStyleClass().clear();
 		  exportXml.getStyleClass().clear();
 		  contrastB.getStyleClass().clear();
+		  helpButton.getStyleClass().clear();
 		  clear.getStyleClass().add("button");
 		  submit.getStyleClass().add("button");
 		  exportXml.getStyleClass().add("button");
 		  contrastB.getStyleClass().add("button");
+		  helpButton.getStyleClass().add("button");
 	  }else {
 		  highContrast = true;
 		  clear.getStyleClass().add("button2");
 		  submit.getStyleClass().add("button2");
 		  exportXml.getStyleClass().add("button2");
 		  contrastB.getStyleClass().add("button2");
+		  helpButton.getStyleClass().add("button2");
 	  }
 	  
   }

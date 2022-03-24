@@ -111,6 +111,21 @@ public class ObstacleInput {
     @FXML
     public void openSidebar() {
 
+        App.obstruction = obstacle;
+
+        if (menu.getText().equals(away.getText())) {
+          calculator.recalculateToraAwayOver(App.runway, obstacle);
+          calculator.recalculateTodaAwayOver(App.runway);
+          calculator.recalculateAsdaAwayOver(App.runway);
+          calculator.recalculateLdaAwayOver(App.runway, obstacle);
+          RunwayVisual.isAwayOver = true;
+        } else if (menu.getText().equals(towards.getText())) {
+            calculator.recalculateToraTowards(App.runway, obstacle);
+            calculator.recalculateTodaTowards(App.runway);
+            calculator.recalculateAsdaTowards(App.runway);
+            calculator.recalculateLdaTowards(App.runway, obstacle);
+            RunwayVisual.isAwayOver = false;
+        }
         if (sideBar) {
             sideBar = false;
             deleteSide();
