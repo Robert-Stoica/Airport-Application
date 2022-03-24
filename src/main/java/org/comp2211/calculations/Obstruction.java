@@ -59,5 +59,4 @@ public class Obstruction {
   public int getHeight() {
     return height;
   }
-
 }

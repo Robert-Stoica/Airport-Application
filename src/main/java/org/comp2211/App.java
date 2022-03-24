@@ -14,15 +14,15 @@ import org.comp2211.calculations.Runway;
 /** JavaFX App. */
 public class App extends Application {
 
+  private static final Logger logger = LogManager.getLogger(App.class);
   public static Runway runway;
   public static Stage stg;
   public static Obstruction obstruction;
   private static Scene scene;
   private Stage stage;
-  private static final Logger logger = LogManager.getLogger(App.class);
 
   static void setRoot(String fxml) throws IOException {
-      logger.info("We have loaded a new Scene");
+    logger.info("We have loaded a new Scene");
     scene.setRoot(loadFXML(fxml));
   }
 
@@ -32,8 +32,8 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
-      logger.info("The app has launched");
-      launch();
+    logger.info("The app has launched");
+    launch();
   }
 
   @Override
@@ -46,8 +46,8 @@ public class App extends Application {
   }
 
   private void shutdown() {
-      logger.info("The app has closed");
-      System.exit(0);
+    logger.info("The app has closed");
+    System.exit(0);
   }
 
   /**
@@ -63,6 +63,4 @@ public class App extends Application {
     stage.show();
     stage.centerOnScreen();
   }
-
-
 }
