@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="198.0" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.Helper">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="198.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.Helper">
    <children>
-      <TextField fx:id="receiver" layoutX="25.0" layoutY="47.0" promptText="To" styleClass="textbox" stylesheets="@style/runway.css" />
-      <TextField fx:id="subject" layoutX="25.0" layoutY="110.0" promptText="Subject" />
-      <TextArea fx:id="area" layoutX="24.0" layoutY="174.0" prefHeight="200.0" prefWidth="149.0" promptText="Input your problem" styleClass="textbox" stylesheets="@style/runway.css" />
-      <Button fx:id="sender" layoutX="64.0" layoutY="385.0" mnemonicParsing="false" onAction="#sendEmail" text="Send" />
-      <Label layoutX="92.0" layoutY="23.0" text="To" />
-      <Label layoutX="79.0" layoutY="85.0" text="Subject" />
-      <Label layoutX="77.0" layoutY="148.0" text="Problem" />
+      <TextField fx:id="receiver" layoutX="25.0" layoutY="56.0" prefHeight="25.0" prefWidth="149.0" promptText="To" styleClass="textbox" stylesheets="@style/runway.css" />
+      <TextField fx:id="subject" layoutX="25.0" layoutY="119.0" prefHeight="25.0" prefWidth="149.0" promptText="Subject" styleClass="textbox" stylesheets="@style/runway.css" />
+      <TextArea fx:id="area" layoutX="24.0" layoutY="183.0" prefHeight="200.0" prefWidth="149.0" promptText="Input your problem" styleClass="textbox" stylesheets="@style/runway.css" />
+      <Button fx:id="sender" layoutX="66.0" layoutY="385.0" mnemonicParsing="false" onAction="#sendEmail" text="Send" />
+      <Label layoutX="92.0" layoutY="32.0" text="To" />
+      <Label layoutX="79.0" layoutY="94.0" text="Subject" />
+      <Label layoutX="77.0" layoutY="157.0" text="Problem" />
    </children>
-   <styleClass>
-      <String fx:value="background" />
-      <String fx:value="textbox" />
-   </styleClass>
 </Pane>

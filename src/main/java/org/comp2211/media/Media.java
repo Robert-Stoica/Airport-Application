@@ -22,7 +22,7 @@ import org.comp2211.calculations.Runway;
  * <p/> Media uses the StAX api to manipulate the files, as files only need to be read from
  * beginning to end and StAX is efficient at this.
  *
- * @author molive
+ * @author Molive-0
  * @see XMLData
  */
 public class Media {
@@ -218,13 +218,15 @@ public class Media {
                     if (obstructionNext == XMLStreamConstants.START_ELEMENT) {
                       switch (xml.getLocalName()) {
                         case "distanceFromCl" -> distanceFromCl = getInt(xml, "distanceFromCl");
-                        case "distanceFromThresh" -> distanceFromThresh = getInt(xml, "distanceFromThresh");
+                        case "distanceFromThresh" -> distanceFromThresh = getInt(xml,
+                            "distanceFromThresh");
                         case "height" -> height = getInt(xml, "height");
                         default -> { }
                       }
                     }
                   }
-                  data.obstructions.add(new Obstruction(distanceFromCl, height, distanceFromThresh));
+                  data.obstructions.add(new Obstruction(distanceFromCl, height,
+                      distanceFromThresh));
                 }
               }
               if (next == XMLStreamConstants.END_ELEMENT) {

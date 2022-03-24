@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import org.apache.logging.log4j.LogManager;
@@ -73,6 +74,8 @@ public class RunwayVisual {
     private MenuItem landing;
     @FXML
     private MenuItem takeoff;
+    @FXML
+    private HBox manual;
 
     Color GrassGreen = Color.color(51 / 255.0, 204 / 255.0, 51 / 255.0);
     Color Purple = Color.color(153 / 255.0, 0 / 255.0, 255 / 255.0);
@@ -616,4 +619,24 @@ public class RunwayVisual {
         }
 
     }
+    /**
+     * Shows the manual.
+     *
+     * @author mccaw12
+     */
+    @FXML
+    public void showManual() {
+        manual.setVisible(true);
+    }
+
+    /**
+     * Hides the manual.
+     *
+     * @author mccaw12
+     */
+    @FXML
+    public void hideManual() {
+        manual.setVisible(false);
+    }
+
 }
