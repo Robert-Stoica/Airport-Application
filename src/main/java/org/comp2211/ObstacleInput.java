@@ -160,13 +160,23 @@ public class ObstacleInput {
 
     }
 
-   @FXML
-   public void showManual(){
+  /**
+   * Shows the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void showManual() {
        manual.setVisible(true);
    }
 
-   @FXML
-   public void hideManual(){
+  /**
+   * Hides the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void hideManual() {
         manual.setVisible(false);
     }
 

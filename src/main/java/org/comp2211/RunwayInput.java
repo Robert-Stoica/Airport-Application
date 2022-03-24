@@ -12,7 +12,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
@@ -186,13 +185,23 @@ public class RunwayInput {
 
     }
 
-    @FXML
-    public void showManual(){
+  /**
+   * Shows the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void showManual() {
         manual.setVisible(true);
     }
 
-    @FXML
-    public void hideManual(){
+  /**
+   * Hides the manual.
+   *
+   * @author mccaw12
+   */
+  @FXML
+  public void hideManual() {
         manual.setVisible(false);
     }
 
