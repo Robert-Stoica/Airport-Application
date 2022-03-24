@@ -4,8 +4,9 @@ module org.comp2211 {
   requires java.xml;
   requires javafx.graphics;
   requires org.apache.logging.log4j;
+  requires java.mail;
 
-    opens org.comp2211 to
+  opens org.comp2211 to
       javafx.fxml;
 
   exports org.comp2211;
