@@ -14,12 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Obstruction;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ObstacleInput {
 
@@ -66,28 +66,30 @@ public class ObstacleInput {
                                 Integer.parseInt(centre.getText()),
                                 Integer.parseInt(height.getText()),
                                 Integer.parseInt(threshold.getText()));
-                System.out.println(Integer.parseInt(centre.getText()));
-                System.out.println(Integer.parseInt(height.getText()));
-                System.out.println(Integer.parseInt(threshold.getText()));
+        logger.info("Centre: {}", centre.getText());
+        logger.info("Height: {}", height.getText());
+        logger.info("Threshold: {}", threshold.getText());
                 calculator = new Calculations();
-                if (!sideText.getText().isBlank()) {
+        try {
                     App.runway.setbProtection(Integer.parseInt(sideText.getText()));
-                    System.out.println(App.runway.getbProtection());
-                }
+          logger.info("Blast Protection set to {}", sideText.getText());
+        } catch (NumberFormatException ignored) {
+        }
 
                 App.obstruction = obstacle;
 
                 if (menu.getText().equals(away.getText())) {
                     logger.info("Doing calculations for the Away and Over landing");
-                    System.out.println(App.runway.getTora());
-                    System.out.println(App.runway.getbProtection());
-                    System.out.println(App.runway.getDisplacedThreshold());
-                    System.out.println(obstacle.getDistanceFromThresh());
+          logger.info("TORA: {}", App.runway.getTora());
+          logger.info("Blast protection: {}", App.runway.getbProtection());
+          logger.info("Displaced threshold: {}", App.runway.getDisplacedThreshold());
+          logger.info("Distance from threshold: {}", App.obstruction.getDistanceFromThresh());
                     calculator.recalculateToraAwayOver(App.runway, obstacle);
                     calculator.recalculateTodaAwayOver(App.runway);
                     calculator.recalculateAsdaAwayOver(App.runway);
                     calculator.recalculateLdaAwayOver(App.runway, obstacle);
-                    System.out.println(calculator.recalculateToraAwayOver(App.runway, obstacle).getLda());
+          logger.info(
+              "New TORA: {}", calculator.recalculateToraAwayOver(App.runway, obstacle).getTora());
                     RunwayVisual.isAwayOver = true;
                 } else if (menu.getText().equals(towards.getText())) {
                     logger.info("Doing calculations for the Towards landing");
@@ -95,12 +97,13 @@ public class ObstacleInput {
                     calculator.recalculateTodaTowards(App.runway);
                     calculator.recalculateAsdaTowards(App.runway);
                     calculator.recalculateLdaTowards(App.runway, obstacle);
-                    System.out.println(calculator.recalculateToraTowards(App.runway, obstacle).getTora());
+          logger.info(
+              "New TORA: {}", calculator.recalculateToraTowards(App.runway, obstacle).getTora());
                     RunwayVisual.isAwayOver = false;
                 }
                 App.setRoot("visual");
             } else {
-                System.out.println("One of the fields is empty");
+        logger.error("One of the fields is empty");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +209,7 @@ public class ObstacleInput {
                 }
             }
         } else {
-            System.out.println("One or more fields are empty, cannot export xml file");
+      logger.error("One or more fields are empty, cannot export xml file");
         }
     }
 

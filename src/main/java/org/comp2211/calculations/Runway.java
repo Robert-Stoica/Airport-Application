@@ -18,10 +18,14 @@ public class Runway {
   private int clearway;
   private int stopway;
   private int bProtection;
-    private static final Logger logger = LogManager.getLogger(Runway.class);
+  private static final Logger logger = LogManager.getLogger(Runway.class);
 
   public Runway(String name, int tora, int lda, int dThreshold) {
-      logger.info("Created a new Runway");
+
+    if (name == null || name.equals("") || tora <= 0 || lda <= 0)
+      throw new IllegalArgumentException();
+
+    logger.info("Created a new Runway");
     this.name = name;
     this.originalTora = tora;
     this.originalLda = lda;
