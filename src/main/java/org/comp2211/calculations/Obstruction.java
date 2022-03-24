@@ -11,7 +11,8 @@ public class Obstruction {
     private static final Logger logger = LogManager.getLogger(Obstruction.class);
 
   public Obstruction(int distanceFromCl, int height, int distanceFromThresh) {
-      logger.info("Created a new Obstruction");
+
+    logger.info("Created a new Obstruction");
     this.distanceFromCl = distanceFromCl;
     this.height = height;
     this.distanceFromThresh = distanceFromThresh;
@@ -28,4 +29,5 @@ public class Obstruction {
   public int getHeight() {
     return height;
   }
+
 }
