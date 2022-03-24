@@ -241,7 +241,7 @@ public class RunwayVisual {
         double runwayEndX = width - runwayPadding;
         double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
         double runwayYTop = height/2-runwayWidth/2;
-        var pcc = new PixelCoordinateConverter(scaleFactor, runwayPadding);
+        var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
 
         // Runway
         gc.setFill(AsphaltGrey);
@@ -262,6 +262,27 @@ public class RunwayVisual {
             gc.setFill(Color.BLACK);
             gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayWidth);
         }
+
+        String mode = "";
+        if (isTakeoff && isAwayOver) {
+            mode = "TOA";
+        } else if (isTakeoff) {
+            mode = "TOT";
+        } else if (isAwayOver) {
+            mode = "LO";
+        } else {
+            mode = "LT";
+        }
+
+        var labelYPos = runwayYTop + runwayWidth;
+        String toraString = Integer.toString(App.runway.getTora());
+        String todaString = Integer.toString(App.runway.getToda());
+        String asdaString = Integer.toString(App.runway.getAsda());
+        String ldaString = Integer.toString(App.runway.getLda());
+        String resaString = Integer.toString(App.runway.getResa());
+        String heightCalcString = Integer.toString(App.obstruction.getHeight() * 50);
+        String ebaString = "300";
+        String seString = Integer.toString(App.runway.getStripEnd());
 
     }
 
