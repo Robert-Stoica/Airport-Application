@@ -203,6 +203,26 @@ public class RunwayVisual {
         gc.fillText("Select either landing or takeoff to continue", canvas.getWidth() / 2 - 150, canvas.getHeight() / 2);
     }
 
+    // Square canvas
+    private void drawTopView(double degrees){
+        // Drawing stuff
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        double width = canvas.getWidth();
+        double height = canvas.getHeight();
+        gc.translate(width/2, height/2);
+        gc.rotate(degrees);
+        gc.translate(-width/2, -height/2);
+
+        // Grass
+        gc.setFill(DarkGreen);
+        gc.fillRect(0, 0, width, height);
+
+        // Runway
+        gc.setFill(AsphaltGrey);
+        //gc.fillRect(runwayPadding, runwayYTop, width - (runwayPadding * 2), runwayDepth);
+    }
+
+    // Long and thin canvas
     private void drawSideView() {
         // Drawing stuff
         GraphicsContext gc = canvas.getGraphicsContext2D();
