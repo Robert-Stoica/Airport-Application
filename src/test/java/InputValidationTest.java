@@ -8,31 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class InputValidationTest {
 
 
-    @Test
-    public void testRunwayNullName()
-    {
-        String name = "R21";
-        int originalTora = 122;
-        int originalLda = 12;
-        int displacedThreshold = 49;
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Runway(null, originalTora,originalLda,displacedThreshold);
-        });
-    }
-
-    @Test
-    public void testRunwayEmptyName()
-    {
-        String name = "R21";
-        int originalTora = 122;
-        int originalLda = 12;
-        int displacedThreshold = 49;
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Runway("", originalTora,originalLda,displacedThreshold);
-        });
-    }
 
     @Test
     public void testNegValues()
