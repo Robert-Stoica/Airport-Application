@@ -36,6 +36,7 @@ public class RunwayInput {
   @FXML private TextField originalTora;
   @FXML private TextField originalLda;
   @FXML private TextField displacedThreshold;
+  @FXML private TextField name;
   @FXML private MenuButton menu;
   private Stage stage;
   @FXML private Button submit;
@@ -50,6 +51,7 @@ public class RunwayInput {
   @FXML private Button contrastB;
   private Boolean highContrast = false;
   @FXML private HBox manual;
+
 
   /** Clears all the text inputs. */
   @FXML
@@ -69,13 +71,14 @@ public class RunwayInput {
     try {
       // TODO: fix "S elect Runway"
       if (!(menu.getText().equals("S elect Runway")
+    	  || name.getText().isBlank()
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
           || displacedThreshold.getText().isBlank())) {
         logger.info("Creating the new Runway with the values inside the text field");
         runway =
             new Runway(
-                menu.getText(),
+                name.getText(),
                 Integer.parseInt(originalTora.getText()),
                 Integer.parseInt(originalLda.getText()),
                 Integer.parseInt(displacedThreshold.getText()));
@@ -142,7 +145,8 @@ public class RunwayInput {
   private void export() {
     if (!(originalTora.getText().isBlank()
         || originalLda.getText().isBlank()
-        || displacedThreshold.getText().isBlank())) {
+        || displacedThreshold.getText().isBlank())
+    	|| name.getText().isBlank()) {
       logger.info("Export the runway to an xml file");
       Stage newWindow = new Stage();
       newWindow.setTitle("Save Runway");
