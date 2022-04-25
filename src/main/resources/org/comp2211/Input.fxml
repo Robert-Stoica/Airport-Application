@@ -40,5 +40,6 @@
          <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
       </children>
    </HBox>
-   <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
+   <Button layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
+   <Button fx:id="helpButton" layoutX="481.0" layoutY="120.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
 </Pane>
