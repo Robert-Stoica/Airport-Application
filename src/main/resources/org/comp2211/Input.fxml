@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
-   <MenuButton fx:id="menu" layoutX="249.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" styleClass="text" stylesheets="@style/runway.css" text="Choose preset">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
+   <MenuButton fx:id="menu" layoutX="249.0" layoutY="127.0" mnemonicParsing="false" onAction="#keyListener" prefHeight="25.0" prefWidth="159.0" styleClass="text" stylesheets="@style/runway.css" text="Choose preset">
       <items>
          <MenuItem fx:id="addRunway" mnemonicParsing="false" onAction="#addRunway" text="Add Runway" />
       </items>
