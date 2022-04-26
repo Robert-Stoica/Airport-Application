@@ -53,8 +53,6 @@
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
            </items>
        </MenuButton>
-       <Slider fx:id="headingSlider" layoutX="410" layoutY="600" />
-       <Label fx:id="headingLabel" layoutX="465" layoutY="625" text="0°" />
        <Button fx:id="toggleToraButton" onAction="#toggleTora" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="TORA" layoutX="320" layoutY="430" />
        <Button fx:id="toggleTodaButton" onAction="#toggleToda" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="TODA" layoutX="320" layoutY="470" />
        <Button fx:id="toggleAsdaButton" onAction="#toggleAsda" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="ASDA" layoutX="320" layoutY="510" />

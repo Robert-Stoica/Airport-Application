@@ -253,16 +253,6 @@ public class RunwayVisual {
             toggleHButton.setDisable(true);
             toggleLdaButton.setDisable(true);
             drawBlankCanvases();
-            headingSlider.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                    var roundedDouble = Math.round(headingSlider.getValue()*3.6);
-                    headingLabel.setText(Double.toString(roundedDouble)+"°");
-                    if (!menu.getText().equals("Landing/Takeoff")) {
-                        drawBothViews((float) roundedDouble);
-                    }
-                }
-            });
         }
     }
 
@@ -295,10 +285,6 @@ public class RunwayVisual {
      * Draws both top and side view.
      */
     private void drawBothViews() {
-        var roundedDouble = Math.round(headingSlider.getValue()*3.6);
-        drawBothViews((float) roundedDouble);
-    }
-    private void drawBothViews(float deg) {
         if (isTakeoff && isAwayOver) {
             // TOA
             toggleToraButton.setDisable(false);
@@ -344,14 +330,17 @@ public class RunwayVisual {
             toggleHButton.setDisable(false);
             toggleLdaButton.setDisable(false);
         }
-        drawTopView(deg);
-        drawSideView();
+        var rName = new RunwayName("09L");
+        System.out.println(rName.getName());
+        System.out.println(rName.getReverseName());
+        drawTopView(rName.getHeading(), rName);
+        drawSideView(rName);
     }
 
     /**
      * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
      */
-    private void drawTopView(double degrees) {
+    private void drawTopView(double degrees, RunwayName name) {
         var textUpsideDown = !(degrees < 90 || degrees > 270);
         // Drawing stuff
         GraphicsContext gc = topViewCanvas.getGraphicsContext2D();
@@ -372,7 +361,7 @@ public class RunwayVisual {
         double obstacleX = displacedThreshold + App.obstruction.getDistanceFromThresh();
         double obstacleY = App.obstruction.getDistanceFromCl();
 
-        double runwayPadding = 20;
+        double runwayPadding = 30;
         double runwayWidth = 30;
         double runwayStartX = runwayPadding;
         double runwayEndX = width - runwayPadding;
@@ -387,6 +376,29 @@ public class RunwayVisual {
         gc.setLineDashes(7);
         gc.strokeLine(runwayPadding, height / 2, width - runwayPadding, height / 2);
         gc.setLineDashes(null);
+        gc.setFill(Color.WHITE);
+        {
+            // This runway text
+            var xpos = runwayEndX;
+            var ypos = height / 2;
+            gc.translate(xpos, ypos);
+            gc.rotate(-90);
+            gc.fillText(name.getName(), -10, 15);
+            gc.rotate(90);
+            gc.translate(-xpos, -ypos);
+        }
+        {
+            // Opposing runway text
+            var xpos = runwayStartX;
+            var ypos = height / 2;
+            gc.translate(xpos, ypos);
+            gc.rotate(90);
+            gc.fillText(name.getReverseName(), -10, 15);
+            gc.rotate(-90);
+            gc.translate(-xpos, -ypos);
+
+        }
+        drawArrow(gc, runwayEndX-150, height - 70, true);
 
 
         // Thresholds
@@ -505,7 +517,7 @@ public class RunwayVisual {
     /**
      * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
      */
-    private void drawSideView() {
+    private void drawSideView(RunwayName name) {
         // Drawing stuff
         GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
         double width = sideViewCanvas.getWidth();
@@ -606,6 +618,7 @@ public class RunwayVisual {
                 gc.strokeLine(pcc.conv(stripEndEnd)+xd, runwayYTop, pcc.conv(heightCalcEnd)+xd, runwayYTop-obstaclePixelHeight);
             }
             gc.fillText("Takeoff from left to right", 30, 30);
+            drawArrow(gc, 30, 35, false);
         } else if (mode.equals("LT")) {
             // Positions
             var threshold = 0;
@@ -637,6 +650,7 @@ public class RunwayVisual {
             if (showSe) drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), seString + "m (SE)", false, false);
             if (showResa) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(resaEnd), resaString + "m (RESA)", true, false);
             gc.fillText("Landing from left to right", 30, 30);
+            drawArrow(gc, 30, 35, false);
         } else if (mode.equals("TOA")) {
             // Positions
             var threshold = 0;
@@ -674,6 +688,7 @@ public class RunwayVisual {
                 if (showAsda) drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos + 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)", true, false);
             }
             gc.fillText("Takeoff from right to left", 30, 30);
+            drawArrow(gc, 30, 35, true);
         } else {
             // Positions
             var threshold = 0;
@@ -725,6 +740,7 @@ public class RunwayVisual {
             if (showSe) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(heightCalcResaEnd), seString + "m (SE)", false, false);
             if (showLDA) drawHorizontalBarBetween(gc, pcc.conv(ldaEnd), labelYPos, pcc.conv(stripEndEnd), ldaString + "m (LDA)", true, false);
             gc.fillText("Landing from right to left", 30, 30);
+            drawArrow(gc, 30, 35, true);
         }
 
     }
@@ -797,6 +813,19 @@ public class RunwayVisual {
         gc.strokeLine(x - 5, y + l, x + 5, y + l);
         gc.setFill(Color.WHITE);
         gc.fillText(label, x + 5, y + (l / 2));
+    }
+
+    private void drawArrow(GraphicsContext gc, double x, double y, boolean rToL){
+        gc.setStroke(Color.WHITE);
+        gc.setLineWidth(2);
+        var x1 = x+70;
+        gc.strokeLine(x, y, x1, y);
+        if (!rToL){
+            gc.fillPolygon(new double[]{x1, x1-5, x1-5}, new double[]{y, y+5, y-5}, 3);
+        } else{
+            gc.fillPolygon(new double[]{x, x+5, x+5}, new double[]{y, y+5, y-5}, 3);
+        }
+
     }
 
     /**
@@ -966,6 +995,58 @@ public class RunwayVisual {
     @FXML
     public void hideManual() {
         manual.setVisible(false);
+    }
+
+    private class RunwayName{
+        private String des;
+        private int points;
+        public RunwayName(String s){
+            var pointsS = "";
+            if (s.length() == 2){
+                pointsS = s;
+                des = "";
+            } else{
+                pointsS = s.substring(0, 2);
+                des = s.substring(2);
+            }
+            try {
+                points = Integer.parseInt(pointsS);
+            } catch (Exception e){
+                points = 0;
+            }
+
+        }
+        public float getHeading(){
+            return ((float)points*10)%360;
+        }
+        public String getName(){
+            var ps = Integer.toString(points);
+            if (ps.length() < 2){
+                ps = "0" + ps;
+            }
+            return ps + des;
+        }
+        public float getReverseHeading(){
+            return ((float)points*10+180)%360;
+        }
+        public String getReverseName(){
+            var ps = Integer.toString((points+18)%36);
+            if (ps.length() < 2){
+                ps = "0" + ps;
+            }
+            return ps + flipDes(des);
+        }
+
+        private String flipDes(String des){
+            switch (des){
+                case "L":
+                    return "R";
+                case "R":
+                    return "L";
+                default:
+                    return des;
+            }
+        }
     }
 
 }
