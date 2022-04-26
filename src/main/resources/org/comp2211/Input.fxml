@@ -15,10 +15,10 @@
          <MenuItem fx:id="addRunway" mnemonicParsing="false" onAction="#addRunway" text="Add Runway" />
       </items>
    </MenuButton>
-   <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="originalLda" layoutX="251.0" layoutY="284.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="341.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="83.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
+   <Label layoutX="81.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
    <Label layoutX="81.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
    <Label layoutX="81.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
    <Button fx:id="clear" layoutX="278.0" layoutY="418.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
@@ -42,6 +42,6 @@
    </HBox>
    <Button layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
    <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
-   <TextField fx:id="name" layoutX="251.0" layoutY="173.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
    <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
 </Pane>
