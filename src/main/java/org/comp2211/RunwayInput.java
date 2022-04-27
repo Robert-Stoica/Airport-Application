@@ -79,6 +79,9 @@ public class RunwayInput {
                 Integer.parseInt(originalTora.getText()),
                 Integer.parseInt(originalLda.getText()),
                 Integer.parseInt(displacedThreshold.getText()));
+          if (runway.getDisplacedThreshold() > 300){
+              errorboard(String.valueOf(runway.getDisplacedThreshold()));
+          }
         return true;
       } else {
         System.out.println("One of the fields is empty");
@@ -185,6 +188,18 @@ public class RunwayInput {
     stage.centerOnScreen();
     App.stg = stage;
   }
+
+    /** Throws and error screen if the threshold is above a certain value. */
+    public void errorboard(String text){
+        logger.info("Send an error message");
+
+        Alert error2 = new Alert(Alert.AlertType.ERROR);
+        error2.setTitle("Error Alert");
+        error2.setHeaderText("High Threshold!");
+        error2.setContentText("Check that you introduced the correct amount of displace threshold " + text);
+        error2.showAndWait();
+
+    }
 
   /**
    * Shows the manual.
