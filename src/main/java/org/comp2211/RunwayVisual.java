@@ -96,6 +96,10 @@ public class RunwayVisual {
     private Slider headingSlider;
     @FXML
     private Label headingLabel;
+    @FXML
+    private Label slopeCalculation;
+    @FXML
+    private Label threshold;
 
     private double origHeight=-1;
 
@@ -236,6 +240,8 @@ public class RunwayVisual {
         tora.setText(String.valueOf(App.runway.getTora()));
         asda.setText(String.valueOf(App.runway.getAsda()));
         toda.setText(String.valueOf(App.runway.getToda()));
+        threshold.setText(String.valueOf(App.runway.getDisplacedThreshold()));
+        slopeCalculation.setText(String.valueOf(App.obstruction.getHeight()*50));
         if (menu.getText().equals("Landing/Takeoff")) {
             // This is only run on startup on this page
             var stage = (Stage)toggleToraButton.getScene().getWindow();
@@ -965,14 +971,41 @@ public class RunwayVisual {
             calculation.getStyleClass().clear();
             goback.getStyleClass().clear();
             contrastB.getStyleClass().clear();
+            toggleToraButton.getStyleClass().clear();
+            toggleTodaButton.getStyleClass().clear();
+            toggleAsdaButton.getStyleClass().clear();
+            toggleResaButton.getStyleClass().clear();
+            toggleSeButton.getStyleClass().clear();
+            toggleH50Button.getStyleClass().clear();
+            toggleEbaButton.getStyleClass().clear();
+            toggleHButton.getStyleClass().clear();
             calculation.getStyleClass().add("button");
             goback.getStyleClass().add("button");
             contrastB.getStyleClass().add("button");
+            toggleToraButton.getStyleClass().add("button");
+            toggleTodaButton.getStyleClass().add("button");
+            toggleAsdaButton.getStyleClass().add("button");
+            toggleResaButton.getStyleClass().add("button");
+            toggleSeButton.getStyleClass().add("button");
+            toggleH50Button.getStyleClass().add("button");
+            toggleEbaButton.getStyleClass().add("button");
+            toggleHButton.getStyleClass().add("button");
+            toggleLdaButton.getStyleClass().add("button");
+            
         } else {
             highContrast = true;
             calculation.getStyleClass().add("button2");
             goback.getStyleClass().add("button2");
             contrastB.getStyleClass().add("button2");
+            toggleToraButton.getStyleClass().add("button2");
+            toggleTodaButton.getStyleClass().add("button2");
+            toggleAsdaButton.getStyleClass().add("button2");
+            toggleResaButton.getStyleClass().add("button2");
+            toggleSeButton.getStyleClass().add("button2");
+            toggleH50Button.getStyleClass().add("button2");
+            toggleEbaButton.getStyleClass().add("button2");
+            toggleHButton.getStyleClass().add("button2");
+            toggleLdaButton.getStyleClass().add("button2");
         }
 
     }
