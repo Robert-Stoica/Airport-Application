@@ -60,6 +60,7 @@ public class RunwayInput {
     originalTora.clear();
     originalLda.clear();
     displacedThreshold.clear();
+    name.clear();
   }
 
   /**
