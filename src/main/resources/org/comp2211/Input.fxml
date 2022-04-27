@@ -2,19 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
-   <MenuButton fx:id="menu" layoutX="251.0" layoutY="115.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" styleClass="text" stylesheets="@style/runway.css" text="Choose preset">
-      <items>
-         <MenuItem fx:id="addRunway" mnemonicParsing="false" onAction="#addRunway" text="Add Runway" />
-      </items>
-   </MenuButton>
    <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="originalLda" layoutX="251.0" layoutY="284.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="341.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
@@ -44,4 +37,5 @@
    <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
    <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
    <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
+   <Button fx:id="addpreset" layoutX="278.0" layoutY="108.0" mnemonicParsing="false" onAction="#addRunway" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Add Preset" />
 </Pane>
