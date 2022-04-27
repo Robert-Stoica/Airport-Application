@@ -5,11 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" onMouseEntered="#setLabel" prefHeight="514.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
    <children>
@@ -52,8 +50,6 @@
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
            </items>
        </MenuButton>
-       <Slider fx:id="headingSlider" layoutX="410" layoutY="600" />
-       <Label fx:id="headingLabel" layoutX="465" layoutY="625" text="0°" />
        <Button fx:id="toggleToraButton" layoutX="320" layoutY="430" mnemonicParsing="false" onAction="#toggleTora" prefHeight="40" prefWidth="100" text="TORA" />
        <Button fx:id="toggleTodaButton" layoutX="320" layoutY="470" mnemonicParsing="false" onAction="#toggleToda" prefHeight="40" prefWidth="100" text="TODA" />
        <Button fx:id="toggleAsdaButton" layoutX="320" layoutY="510" mnemonicParsing="false" onAction="#toggleAsda" prefHeight="40" prefWidth="100" text="ASDA" />
