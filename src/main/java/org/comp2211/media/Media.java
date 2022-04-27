@@ -316,6 +316,11 @@ public class Media {
           xml.writeStartElement(schema, "bProtection");
           xml.writeCharacters(Integer.toString(r.getbProtection()));
           xml.writeEndElement();
+          xml.writeStartElement(schema, "name");
+          xml.writeCharacters(r.getName().replace("&", "&1")
+              .replace("&2", "<")
+              .replace("&3", ">"));
+          xml.writeEndElement();
           xml.writeEndElement();
         }
         xml.writeEndElement();
