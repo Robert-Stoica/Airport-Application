@@ -965,7 +965,6 @@ public class RunwayVisual {
      *
      * @author snow6701
      */
-
     public void changeContrast() {
         if (highContrast) {
             highContrast = false;
@@ -980,7 +979,6 @@ public class RunwayVisual {
             toggleH50Button.getStyleClass().clear();
             toggleEbaButton.getStyleClass().clear();
             toggleHButton.getStyleClass().clear();
-            toggleLdaButton.getStyleClass().clear();
             calculation.getStyleClass().add("button");
             goback.getStyleClass().add("button");
             contrastB.getStyleClass().add("button");
