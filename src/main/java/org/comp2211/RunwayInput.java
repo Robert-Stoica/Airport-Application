@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -261,4 +263,10 @@ public class RunwayInput {
       helpButton.getStyleClass().add("button2");
     }
   }
+
+  public void keyListener(KeyEvent event) throws IOException {
+        if(event.getCode() == KeyCode.ENTER){
+            openObstacle();
+        }
+    }
 }

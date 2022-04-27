@@ -1,6 +1,8 @@
 package org.comp2211;
 
 import java.io.File;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,6 +10,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -313,4 +317,9 @@ public class ObstacleInput {
       exportB.getStyleClass().add("button2");
     }
   }
+  public void keyListener(KeyEvent event) throws IOException {
+        if(event.getCode() == KeyCode.ENTER){
+            openVisual();
+        }
+    }
 }
