@@ -226,6 +226,9 @@ public class ObstacleInput {
               Integer.parseInt(centre.getText()),
               Integer.parseInt(height.getText()),
               Integer.parseInt(threshold.getText()));
+      File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+      defaultPath.mkdirs();
+      fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
       if (file != null) {
         var data = new XMLData();
@@ -253,6 +256,9 @@ public class ObstacleInput {
     logger.info("Input the xml and autofill the text fields");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Obstacle");
+    File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+    defaultPath.mkdirs();
+    fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
     if (file != null) {
       XMLData data;

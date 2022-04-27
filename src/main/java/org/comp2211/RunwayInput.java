@@ -38,6 +38,7 @@ public class RunwayInput {
   @FXML private TextField originalTora;
   @FXML private TextField originalLda;
   @FXML private TextField displacedThreshold;
+  @FXML private TextField name;
   @FXML private MenuButton menu;
   private Stage stage;
   @FXML private Button submit;
@@ -53,6 +54,7 @@ public class RunwayInput {
   private Boolean highContrast = false;
   @FXML private HBox manual;
 
+
   /** Clears all the text inputs. */
   @FXML
   private void clearText() {
@@ -60,6 +62,7 @@ public class RunwayInput {
     originalTora.clear();
     originalLda.clear();
     displacedThreshold.clear();
+    name.clear();
   }
 
   /**
@@ -71,16 +74,20 @@ public class RunwayInput {
     try {
       // TODO: fix "S elect Runway"
       if (!(menu.getText().equals("S elect Runway")
+    	  || name.getText().isBlank()
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
           || displacedThreshold.getText().isBlank())) {
         logger.info("Creating the new Runway with the values inside the text field");
         runway =
             new Runway(
-                menu.getText(),
+                name.getText(),
                 Integer.parseInt(originalTora.getText()),
                 Integer.parseInt(originalLda.getText()),
                 Integer.parseInt(displacedThreshold.getText()));
+          if (runway.getDisplacedThreshold() > 300){
+              errorboard(String.valueOf(runway.getDisplacedThreshold()));
+          }
         return true;
       } else {
         System.out.println("One of the fields is empty");
@@ -110,6 +117,9 @@ public class RunwayInput {
     logger.info("Import the xml");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Runway");
+    File defaultPath = new File(System.getProperty("user.home")+"/runways");
+    defaultPath.mkdirs();
+    fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
     if (file != null) {
       XMLData data;
@@ -136,6 +146,7 @@ public class RunwayInput {
       originalTora.setText(String.valueOf(runway.getOriginalTora()));
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
+      name.setText(String.valueOf(runway.getName()));
     }
   }
 
@@ -144,10 +155,15 @@ public class RunwayInput {
   private void export() {
     if (!(originalTora.getText().isBlank()
         || originalLda.getText().isBlank()
-        || displacedThreshold.getText().isBlank())) {
+        || displacedThreshold.getText().isBlank())
+    	|| name.getText().isBlank()) {
       logger.info("Export the runway to an xml file");
+      createRunway();
       Stage newWindow = new Stage();
       newWindow.setTitle("Save Runway");
+      File defaultPath = new File(System.getProperty("user.home")+"/runways");
+      defaultPath.mkdirs();
+      fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
       if (file != null) {
         var data = new XMLData();
@@ -187,6 +203,18 @@ public class RunwayInput {
     stage.centerOnScreen();
     App.stg = stage;
   }
+
+    /** Throws and error screen if the threshold is above a certain value. */
+    public void errorboard(String text){
+        logger.info("Send an error message");
+
+        Alert error2 = new Alert(Alert.AlertType.ERROR);
+        error2.setTitle("Error Alert");
+        error2.setHeaderText("High Threshold!");
+        error2.setContentText("Check that you introduced the correct amount of displace threshold " + text);
+        error2.showAndWait();
+
+    }
 
   /**
    * Shows the manual.
