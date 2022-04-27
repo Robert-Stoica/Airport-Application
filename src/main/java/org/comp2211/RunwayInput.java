@@ -111,6 +111,9 @@ public class RunwayInput {
     logger.info("Import the xml");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Runway");
+    File defaultPath = new File(System.getProperty("user.home")+"/runways");
+    defaultPath.mkdirs();
+    fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
     if (file != null) {
       XMLData data;
@@ -137,6 +140,7 @@ public class RunwayInput {
       originalTora.setText(String.valueOf(runway.getOriginalTora()));
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
+      name.setText(String.valueOf(runway.getName()));
     }
   }
 
@@ -148,8 +152,12 @@ public class RunwayInput {
         || displacedThreshold.getText().isBlank())
     	|| name.getText().isBlank()) {
       logger.info("Export the runway to an xml file");
+      createRunway();
       Stage newWindow = new Stage();
       newWindow.setTitle("Save Runway");
+      File defaultPath = new File(System.getProperty("user.home")+"/runways");
+      defaultPath.mkdirs();
+      fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
       if (file != null) {
         var data = new XMLData();
