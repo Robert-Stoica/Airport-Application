@@ -375,7 +375,34 @@ public class RunwayVisual {
         double runwayEndX = width - runwayPadding;
         double scaleFactor = (runwayEndX - runwayStartX) / originalRunwayLength;
         double runwayYTop = height / 2 - runwayWidth / 2;
+        double runwayYBottom = height / 2 + runwayWidth / 2;
         var pcc = new PixelCoordinateConverter(-scaleFactor, runwayEndX);
+
+        // Cleared and graded
+
+        var cgc60 = 10;
+        var cgc150 = 10;
+        var cgc300 = 20;
+        var cgc75v = 10;
+        var cgc105v = 20;
+        var cgc150v = 40;
+        gc.setFill(Color.PURPLE);
+        {
+            var x1 = runwayStartX - cgc60;
+            var y1 = runwayYTop - cgc150v;
+            var x2 = runwayEndX + cgc60;
+            var y2 = runwayYBottom + cgc150v;
+            gc.fillRect(x1, y1, x2-x1, y2-y1);
+        }
+        gc.setFill(Color.BLUE);
+        gc.fillPolygon(
+                new double[]{
+                        runwayStartX-cgc60, runwayStartX+cgc150, runwayStartX+cgc300, runwayEndX-cgc300, runwayEndX-cgc150, runwayEndX+cgc60,
+                        runwayEndX+cgc60, runwayEndX-cgc150, runwayEndX-cgc300, runwayStartX+cgc300, runwayStartX+cgc150, runwayStartX-cgc60},
+                new double[]{
+                        runwayYTop-cgc75v, runwayYTop-cgc75v, runwayYTop-cgc105v, runwayYTop-cgc105v, runwayYTop-cgc75v, runwayYTop-cgc75v,
+                        runwayYBottom+cgc75v, runwayYBottom+cgc75v, runwayYBottom+cgc105v, runwayYBottom+cgc105v, runwayYBottom+cgc75v, runwayYBottom+cgc75v},
+                12);
 
         // Runway
         gc.setFill(AsphaltGrey);
