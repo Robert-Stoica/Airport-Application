@@ -979,6 +979,7 @@ public class RunwayVisual {
             toggleH50Button.getStyleClass().clear();
             toggleEbaButton.getStyleClass().clear();
             toggleHButton.getStyleClass().clear();
+            toggleLdaButton.getStyleClass().clear();
             calculation.getStyleClass().add("button");
             goback.getStyleClass().add("button");
             contrastB.getStyleClass().add("button");
