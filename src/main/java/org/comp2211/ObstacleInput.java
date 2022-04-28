@@ -64,6 +64,9 @@ public class ObstacleInput {
 
   @FXML private HBox manual;
 
+  @FXML private HBox invalid;
+
+
   /**
    * Switches to the visualisation screen. This function also checks that the user gave valid input,
    * and recalculates the runway.
@@ -116,7 +119,11 @@ public class ObstacleInput {
               "New TORA: {}", calculator.recalculateToraTowards(App.runway, obstacle).getTora());
           RunwayVisual.isAwayOver = false;
         }
-        App.setRoot("visual");
+        if (App.runway.getTora() < 0 || App.runway.getToda() < 0 || App.runway.getAsda() < 0 || App.runway.getLda() < 0) {
+          showInvalid();
+        } else{
+          App.setRoot("visual");
+        }
       } else {
         logger.error("One of the fields is empty");
       }
@@ -177,6 +184,15 @@ public class ObstacleInput {
   @FXML
   public void hideManual() {
     manual.setVisible(false);
+  }
+
+  @FXML
+  public void hideInvalid() {
+    invalid.setVisible(false);
+  }
+
+  public void showInvalid() {
+    invalid.setVisible(true);
   }
 
   /** Changes the menu text. */
@@ -321,5 +337,5 @@ public class ObstacleInput {
         if(event.getCode() == KeyCode.ENTER){
             openVisual();
         }
-    }
+  }
 }
