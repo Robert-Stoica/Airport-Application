@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="642.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="520.0" prefWidth="642.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
    <children>
       <Label layoutX="244.0" layoutY="54.0" styleClass="text" stylesheets="@style/runway.css" text="Obstacle Input" textAlignment="CENTER">
          <font>
@@ -21,7 +21,7 @@
       </Label>
        <TextField fx:id="height" layoutX="247.0" layoutY="187.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
        <TextField fx:id="centre" layoutX="247.0" layoutY="254.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-       <MenuButton fx:id="menu" layoutX="67.0" layoutY="118.0" mnemonicParsing="false" stylesheets="@style/runway.css" text="Operation Type">
+       <MenuButton fx:id="menu" layoutX="67.0" layoutY="118.0" mnemonicParsing="false" onKeyPressed="#keyListener" stylesheets="@style/runway.css" text="Operation Type">
            <items>
                <MenuItem fx:id="away" mnemonicParsing="false" onAction="#changeT" text="Take off Away/Over" />
                <MenuItem fx:id="towards" mnemonicParsing="false" onAction="#changeTe" text="Take off Towards/Away" />

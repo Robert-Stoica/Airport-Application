@@ -5,14 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.RadioMenuItem?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#setLabel" prefHeight="514.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" onMouseEntered="#setLabel" prefHeight="514.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
    <children>
       <Label layoutX="234.0" layoutY="47.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Visual">
          <font>
@@ -28,14 +27,14 @@
       <Label fx:id="toda" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="asda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="119.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
       <Label fx:id="lda" alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="154.0" styleClass="text" stylesheets="@style/runway.css" text="0" />
-       <Canvas fx:id="sideViewCanvas" height="150.0" width="600.0" layoutX="10.0" layoutY="268.0" pickOnBounds="true" />
-       <Canvas fx:id="topViewCanvas" height="300" width="300" layoutX="10" layoutY="420" pickOnBounds="true" />
+       <Canvas fx:id="sideViewCanvas" height="150.0" layoutX="10.0" layoutY="268.0" pickOnBounds="true" width="600.0" />
+       <Canvas fx:id="topViewCanvas" height="300" layoutX="10" layoutY="420" pickOnBounds="true" width="300" />
        <Button fx:id="goback" layoutX="428.0" layoutY="737.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
        <Button fx:id="contrastB" layoutX="34.0" layoutY="737.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
-     <Label layoutX="144.0" layoutY="190.0" text="Displaced Threshold:" />
+     <Label layoutX="144.0" layoutY="190.0" text="Displaced Threshold" />
       <Label fx:id="threshold" layoutX="267.0" layoutY="190.0" text="text" />
-      <Label layoutX="404.0" layoutY="190.0" text="Slope Calculation:" />
-      <Label layoutX="514.0" layoutY="190.0" text="1:50" />
+      <Label layoutX="404.0" layoutY="190.0" text="Slope Calculation" />
+      <Label fx:id="slopeCalculation" layoutX="514.0" layoutY="190.0" text="1:50" />
       <Button layoutX="61.0" layoutY="44.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
       <HBox fx:id="manual" layoutY="434.0" prefHeight="77.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
          <children>
@@ -47,7 +46,7 @@
             <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
          </children>
         </HBox>
-       <MenuButton fx:id="menu" layoutX="430" layoutY="565" mnemonicParsing="false" text="Landing/Takeoff">
+       <MenuButton fx:id="menu" layoutX="430" layoutY="565" mnemonicParsing="false" onKeyPressed="#keyListener" text="Landing/Takeoff">
            <items>
                <MenuItem fx:id="landing" mnemonicParsing="false" onAction="#setL" text="Landing" />
                <MenuItem fx:id="takeoff" mnemonicParsing="false" onAction="#setTO" text="Take off" />
@@ -55,14 +54,14 @@
        </MenuButton>
        <Slider fx:id="headingSlider" layoutX="410" layoutY="600" />
        <Label fx:id="headingLabel" layoutX="465" layoutY="625" text="0°" />
-       <Button fx:id="toggleToraButton" onAction="#toggleTora" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="TORA" layoutX="320" layoutY="430" />
-       <Button fx:id="toggleTodaButton" onAction="#toggleToda" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="TODA" layoutX="320" layoutY="470" />
-       <Button fx:id="toggleAsdaButton" onAction="#toggleAsda" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="ASDA" layoutX="320" layoutY="510" />
-       <Button fx:id="toggleResaButton" onAction="#toggleResa" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="RESA" layoutX="420" layoutY="430" />
-       <Button fx:id="toggleSeButton" onAction="#toggleSe" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="SE" layoutX="420" layoutY="470" />
-       <Button fx:id="toggleH50Button" onAction="#toggleH50" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="Hx50" layoutX="420" layoutY="510" />
-       <Button fx:id="toggleEbaButton" onAction="#toggleEba" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="EBA" layoutX="520" layoutY="430" />
-       <Button fx:id="toggleHButton" onAction="#toggleH" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="H" layoutX="520" layoutY="470" />
-       <Button fx:id="toggleLdaButton" onAction="#toggleLda" mnemonicParsing="false" prefHeight="40" prefWidth="100" text="LDA" layoutX="520" layoutY="510" />
+       <Button fx:id="toggleToraButton" layoutX="320" layoutY="430" mnemonicParsing="false" onAction="#toggleTora" prefHeight="40" prefWidth="100" text="TORA" />
+       <Button fx:id="toggleTodaButton" layoutX="320" layoutY="470" mnemonicParsing="false" onAction="#toggleToda" prefHeight="40" prefWidth="100" text="TODA" />
+       <Button fx:id="toggleAsdaButton" layoutX="320" layoutY="510" mnemonicParsing="false" onAction="#toggleAsda" prefHeight="40" prefWidth="100" text="ASDA" />
+       <Button fx:id="toggleResaButton" layoutX="420" layoutY="430" mnemonicParsing="false" onAction="#toggleResa" prefHeight="40" prefWidth="100" text="RESA" />
+       <Button fx:id="toggleSeButton" layoutX="420" layoutY="470" mnemonicParsing="false" onAction="#toggleSe" prefHeight="40" prefWidth="100" text="SE" />
+       <Button fx:id="toggleH50Button" layoutX="420" layoutY="510" mnemonicParsing="false" onAction="#toggleH50" prefHeight="40" prefWidth="100" text="Hx50" />
+       <Button fx:id="toggleEbaButton" layoutX="520" layoutY="430" mnemonicParsing="false" onAction="#toggleEba" prefHeight="40" prefWidth="100" text="EBA" />
+       <Button fx:id="toggleHButton" layoutX="520" layoutY="470" mnemonicParsing="false" onAction="#toggleH" prefHeight="40" prefWidth="100" text="H" />
+       <Button fx:id="toggleLdaButton" layoutX="520" layoutY="510" mnemonicParsing="false" onAction="#toggleLda" prefHeight="40" prefWidth="100" text="LDA" />
    </children>
 </Pane>
