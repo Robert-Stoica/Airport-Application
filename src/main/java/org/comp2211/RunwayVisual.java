@@ -95,10 +95,6 @@ public class RunwayVisual {
     @FXML
     private HBox manual;
     @FXML
-    private Slider headingSlider;
-    @FXML
-    private Label headingLabel;
-    @FXML
     private Label slopeCalculation;
     @FXML
     private Label threshold;
