@@ -32,6 +32,7 @@ public class RunwayInput {
 
   private static final Logger logger = LogManager.getLogger(RunwayInput.class);
   private final FileChooser fileChooser = new FileChooser();
+  @FXML private Button guideBtn;
   Scene scene = null;
   Parent root = null;
   private Runway runway;

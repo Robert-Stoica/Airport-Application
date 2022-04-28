@@ -16,9 +16,9 @@
 }
 
 .button:hover {
-    -fx-background-color: 
-        #FDDF36,
-        radial-gradient(center 50% 0%, radius 100%, rgba(234,115,141,0.9), rgba(227,71,105,0.3));
+    -fx-background-color:
+            #FDDF36,
+            radial-gradient(center 50% 0%, radius 100%, rgba(234,115,141,0.9), rgba(227,71,105,0.3));
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: black;
@@ -28,7 +28,7 @@
     -fx-border-radius: 4px;
 }
 .background {
-    -fx-background-color: white;  
+    -fx-background-color: white;
 }
 .button2 {
     -fx-background-color: #EA738DFF;
@@ -49,9 +49,9 @@
 }
 
 .button2:hover {
-    -fx-background-color: 
-        #e34769,
-        radial-gradient(center 50% 0%, radius 100%, rgba(234,115,141,0.9), rgba(227,71,105,0.3));
+    -fx-background-color:
+            #e34769,
+            radial-gradient(center 50% 0%, radius 100%, rgba(234,115,141,0.9), rgba(227,71,105,0.3));
     -fx-text-fill: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: white;
@@ -61,16 +61,18 @@
     -fx-border-radius: 4px;
 }
 .background {
-    -fx-background-color: #89ABE3FF;  
+    -fx-background-color: #89ABE3FF;
 }
 .background2 {
-    -fx-background-color: #89ABE3FF;  
+    -fx-background-color: #89ABE3FF;
 }
 .text{
     -fx-font-weight: bold;
+    -fx-font-family: arial;
 }
 
 
 .textbox{
     -fx-font-weight: bold;
+    -fx-font-family: arial;
 }

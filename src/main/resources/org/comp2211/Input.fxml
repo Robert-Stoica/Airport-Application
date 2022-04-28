@@ -40,7 +40,7 @@
          <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
       </children>
    </HBox>
-   <Button layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
+   <Button fx:id="guideBtn" layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
    <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
    <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
    <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
