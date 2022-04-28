@@ -71,6 +71,9 @@ public class ObstacleInput {
   @FXML
   public void openVisual() {
     logger.info("We have opened the visualization of the runway");
+    if(!(sideText.getText().isEmpty())) {
+    	App.runway.setbProtection(Integer.parseInt(sideText.getText()));
+    }
     try {
       if (!(menu.getText().equals("Operation Type")
           || height.getText().isBlank()
@@ -90,9 +93,7 @@ public class ObstacleInput {
           logger.info("Blast Protection set to {}", sideText.getText());
         } catch (NumberFormatException ignored) {
         }
-
         App.obstruction = obstacle;
-
         if (menu.getText().equals(away.getText())) {
           logger.info("Doing calculations for the Away and Over landing");
           logger.info("TORA: {}", App.runway.getTora());
@@ -137,16 +138,8 @@ public class ObstacleInput {
     App.obstruction = obstacle;
 
     if (menu.getText().equals(away.getText())) {
-      calculator.recalculateToraAwayOver(App.runway, obstacle);
-      calculator.recalculateTodaAwayOver(App.runway);
-      calculator.recalculateAsdaAwayOver(App.runway);
-      calculator.recalculateLdaAwayOver(App.runway, obstacle);
       RunwayVisual.isAwayOver = true;
     } else if (menu.getText().equals(towards.getText())) {
-      calculator.recalculateToraTowards(App.runway, obstacle);
-      calculator.recalculateTodaTowards(App.runway);
-      calculator.recalculateAsdaTowards(App.runway);
-      calculator.recalculateLdaTowards(App.runway, obstacle);
       RunwayVisual.isAwayOver = false;
     }
     if (sideBar) {
