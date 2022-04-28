@@ -15,7 +15,7 @@
    <Label layoutX="81.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
    <Label layoutX="81.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
    <Button fx:id="clear" layoutX="278.0" layoutY="418.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
-   <Button fx:id="exportXml" layoutX="81.0" layoutY="418.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export XML" />
+   <Button fx:id="exportXml" layoutX="77.0" layoutY="419.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export Preset" />
    <Button fx:id="submit" layoutX="478.0" layoutY="418.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
    <Label layoutX="246.0" layoutY="43.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Input" textAlignment="CENTER">
       <font>
