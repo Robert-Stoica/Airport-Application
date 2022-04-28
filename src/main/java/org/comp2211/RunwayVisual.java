@@ -329,7 +329,7 @@ public class RunwayVisual {
             toggleHButton.setDisable(false);
             toggleLdaButton.setDisable(false);
         }
-        var rName = new RunwayName("09L");
+        var rName = new RunwayName(App.runway.getName());
         System.out.println(rName.getName());
         System.out.println(rName.getReverseName());
         drawTopView(rName.getHeading(), rName);
