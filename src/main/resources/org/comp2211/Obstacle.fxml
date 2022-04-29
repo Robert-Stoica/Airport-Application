@@ -62,4 +62,14 @@
       </HBox>
       <Button layoutX="90.0" layoutY="51.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: Yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
    </children>
+    <HBox fx:id="invalid" layoutY="434.0" prefHeight="77.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+        <children>
+            <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 15px;" text="That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?" textOverrun="CLIP" wrapText="true">
+                <font>
+                    <Font name="System Bold" size="23.0" />
+                </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#hideInvalid" prefHeight="39.0" prefWidth="170.0" text="Close" />
+        </children>
+    </HBox>
 </Pane>
