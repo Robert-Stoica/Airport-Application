@@ -12,8 +12,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.service.support.ColorMatcher;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.testfx.service.query.NodeQuery;
 
 import java.awt.*;
 import java.io.IOException;
@@ -34,9 +33,11 @@ public class InputSceneTestGUI {
     app.runwayInput();
   }
 
+
+
   @Test
   void checkHasAllComponets() {
-    FxAssert.verifyThat("#menu", NodeMatchers.isNotNull());
+    FxAssert.verifyThat("#addpreset", NodeMatchers.isNotNull());
     FxAssert.verifyThat("#originalTora", NodeMatchers.isNotNull());
     FxAssert.verifyThat("#originalLda", NodeMatchers.isNotNull());
     FxAssert.verifyThat("#displacedThreshold", NodeMatchers.isNotNull());
@@ -48,15 +49,11 @@ public class InputSceneTestGUI {
     FxAssert.verifyThat("#name", NodeMatchers.isNotNull());
   }
 
-  @Test
-  void checkTextInputs(FxRobot robot){
-      robot.clickOn("#name").write("test");
-      robot.clickOn("#originalTora").write("921");
-      robot.clickOn("#originalLda").write("120");
-      robot.clickOn("#displacedThreshold").write("277");
-      FxAssert.verifyThat("#originalTora", NodeMatchers.hasChild("921"));
-      FxAssert.verifyThat("#originalLda", NodeMatchers.hasChild("120"));
-      FxAssert.verifyThat("#displacedThreshold", NodeMatchers.hasChild("277"));
+  void fillInputInputs(FxRobot robot, String name, String tora, String lda, String tresh) {
+    robot.clickOn("#name").write(name);
+    robot.clickOn("#originalTora").write(tora);
+    robot.clickOn("#originalLda").write(lda);
+    robot.clickOn("#displacedThreshold").write(tresh);
   }
 
   @Test
@@ -68,8 +65,8 @@ public class InputSceneTestGUI {
   @Test
   void checkContrastBtn(FxRobot robot){
     robot.clickOn("#contrastB");
-    Button btn = robot.lookup("#submit").queryAs(Button.class);
-    System.out.println(btn.getBackground().getFills().get(0).getFill());
+    Button btn = (Button) robot.lookup(".button").queryAll().iterator().next();
+    Assertions.assertTrue(btn.getStyleClass().contains("button2"));
   }
 
   @Test
@@ -88,12 +85,22 @@ public class InputSceneTestGUI {
     FxAssert.verifyThat("#subject", NodeMatchers.hasChild("test message"));
     FxAssert.verifyThat("#area", NodeMatchers.hasChild("test area"));
 }
+
   @Test
-  void checkObstacleSceneShowUp(FxRobot robot){
-    checkTextInputs(robot);
+  void checkInputError(FxRobot robot) {
+    fillInputInputs(robot, "test", "22", "32", "333");
+    robot.clickOn("#submit");
+    FxAssert.verifyThat(".error", NodeMatchers.isVisible());
+    robot.closeCurrentWindow();
+    if (robot.lookup(".error").tryQuery().isPresent()) {
+      Assertions.fail("Window was not closed");
+    }
+  }
+
+  @Test
+  void checkObstaclePanel(FxRobot robot) throws InterruptedException {
+    fillInputInputs(robot, "test", "22", "32", "273");
     robot.clickOn("#submit");
     FxAssert.verifyThat("#height", NodeMatchers.isVisible());
   }
-
-
 }
