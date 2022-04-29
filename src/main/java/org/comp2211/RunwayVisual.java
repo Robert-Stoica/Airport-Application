@@ -3,12 +3,7 @@ package org.comp2211;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -94,10 +89,6 @@ public class RunwayVisual {
     private MenuItem takeoff;
     @FXML
     private HBox manual;
-    @FXML
-    private Slider headingSlider;
-    @FXML
-    private Label headingLabel;
     @FXML
     private Label slopeCalculation;
     @FXML
@@ -338,7 +329,7 @@ public class RunwayVisual {
             toggleHButton.setDisable(false);
             toggleLdaButton.setDisable(false);
         }
-        var rName = new RunwayName("09L");
+        var rName = new RunwayName(App.runway.getName());
         System.out.println(rName.getName());
         System.out.println(rName.getReverseName());
         drawTopView(rName.getHeading(), rName);

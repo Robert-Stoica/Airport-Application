@@ -40,7 +40,6 @@ public class RunwayInput {
   @FXML private TextField originalLda;
   @FXML private TextField displacedThreshold;
   @FXML private TextField name;
-  @FXML private MenuButton menu;
   private Stage stage;
   @FXML private Button submit;
   @FXML private Button clear;
@@ -54,6 +53,7 @@ public class RunwayInput {
   @FXML private Button contrastB;
   private Boolean highContrast = false;
   @FXML private HBox manual;
+  @FXML private Button addpreset;
 
 
   /** Clears all the text inputs. */
@@ -73,9 +73,7 @@ public class RunwayInput {
    */
   private boolean createRunway() {
     try {
-      // TODO: fix "S elect Runway"
-      if (!(menu.getText().equals("S elect Runway")
-    	  || name.getText().isBlank()
+      if (!(name.getText().isBlank()
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
           || displacedThreshold.getText().isBlank())) {
@@ -250,11 +248,13 @@ public class RunwayInput {
       exportXml.getStyleClass().clear();
       contrastB.getStyleClass().clear();
       helpButton.getStyleClass().clear();
+      addpreset.getStyleClass().clear();
       clear.getStyleClass().add("button");
       submit.getStyleClass().add("button");
       exportXml.getStyleClass().add("button");
       contrastB.getStyleClass().add("button");
       helpButton.getStyleClass().add("button");
+      addpreset.getStyleClass().add("button");
     } else {
       highContrast = true;
       clear.getStyleClass().add("button2");
@@ -262,6 +262,7 @@ public class RunwayInput {
       exportXml.getStyleClass().add("button2");
       contrastB.getStyleClass().add("button2");
       helpButton.getStyleClass().add("button2");
+      addpreset.getStyleClass().add("button2");
     }
   }
 
