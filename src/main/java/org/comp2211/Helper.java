@@ -12,6 +12,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -81,7 +83,13 @@ public class Helper {
     msg.setText(text2);
 
     Transport.send(msg);
+    infoBox("You just sent an email","Email");
     logger.info("Sent message successfully.");
     App.stg.close();
   }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
 }

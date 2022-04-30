@@ -16,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,6 +77,7 @@ public class ObstacleInput {
   public void openVisual() {
     logger.info("We have opened the visualization of the runway");
     if(!(sideText.getText().isEmpty())) {
+        infoBox("You have changed the blast protection","BProtection");
     	App.runway.setbProtection(Integer.parseInt(sideText.getText()));
     }
     try {
@@ -123,6 +126,7 @@ public class ObstacleInput {
         if (App.runway.getTora() < 0 || App.runway.getToda() < 0 || App.runway.getAsda() < 0 || App.runway.getLda() < 0) {
           showInvalid();
         } else{
+            infoBox("You created and object, opening Runway Visual with the updated values","Object");
           App.setRoot("visual");
         }
       } else {
@@ -159,6 +163,12 @@ public class ObstacleInput {
     }
   }
 
+
+  public static void infoBox(String infoMessage, String titleBar)
+  {
+      JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+  }
+
   /**
    * Shows the manual.
    *
@@ -166,7 +176,7 @@ public class ObstacleInput {
    */
   @FXML
   public void showManual() {
-    manual.setVisible(true);
+    infoBox("Obstacle Input: Type details about the runway into the boxes above then press submit... You can edit additional variables and import an XML obstacle in the sidebar menu " , "Help");
   }
 
   /**
@@ -185,7 +195,7 @@ public class ObstacleInput {
   }
 
   public void showInvalid() {
-    invalid.setVisible(true);
+    infoBox("That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?","Invalid");
   }
 
   /** Changes the menu text. */
@@ -246,6 +256,7 @@ public class ObstacleInput {
         }
         try {
           Media.exportXML(data, file);
+          infoBox("You have exported your obstacle","Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -290,6 +301,7 @@ public class ObstacleInput {
         return;
       }
       obstacle = data.obstructions.get(0);
+      infoBox("You have imported your obstacle","Import");
       height.setText(String.valueOf(obstacle.getHeight()));
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
