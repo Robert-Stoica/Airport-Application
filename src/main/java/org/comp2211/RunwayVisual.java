@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -891,9 +893,9 @@ public class RunwayVisual {
         showToda = !showToda;
         if (showToda){
             toggleTodaButton.setText("TODA");
-            toggleTodaButton.setOpacity(20);
+            toggleTodaButton.setStyle("button");
         } else{
-            toggleTodaButton.setOpacity(0.4);
+            toggleTodaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -902,9 +904,9 @@ public class RunwayVisual {
         showTora = !showTora;
         if (showTora){
             toggleToraButton.setText("TORA");
-            toggleToraButton.setOpacity(20);
+            toggleToraButton.setStyle("button");
         } else{
-            toggleToraButton.setOpacity(0.4);
+            toggleToraButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -913,9 +915,9 @@ public class RunwayVisual {
         showAsda = !showAsda;
         if (showAsda){
             toggleAsdaButton.setText("ASDA");
-            toggleAsdaButton.setOpacity(20);
+            toggleAsdaButton.setStyle("button");
         } else{
-            toggleAsdaButton.setOpacity(0.4);
+            toggleAsdaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -924,9 +926,9 @@ public class RunwayVisual {
         showResa = !showResa;
         if (showResa){
             toggleResaButton.setText("RESA");
-            toggleResaButton.setOpacity(20);
+            toggleResaButton.setStyle("button");
         } else{
-            toggleResaButton.setOpacity(0.4);
+            toggleResaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -935,9 +937,9 @@ public class RunwayVisual {
         showSe = !showSe;
         if (showSe){
             toggleSeButton.setText("SE");
-            toggleSeButton.setOpacity(20);
+            toggleSeButton.setStyle("button");
         } else{
-            toggleSeButton.setOpacity(0.4);
+            toggleSeButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -946,9 +948,9 @@ public class RunwayVisual {
         showH50 = !showH50;
         if (showH50){
             toggleH50Button.setText("H50");
-            toggleH50Button.setOpacity(20);
+            toggleH50Button.setStyle("button");
         } else{
-            toggleH50Button.setOpacity(0.4);
+            toggleH50Button.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -957,9 +959,9 @@ public class RunwayVisual {
         showEba = !showEba;
         if (showEba){
             toggleEbaButton.setText("EBA");
-            toggleEbaButton.setOpacity(20);
+            toggleEbaButton.setStyle("button");
         } else{
-            toggleEbaButton.setOpacity(0.4);
+            toggleEbaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -968,9 +970,9 @@ public class RunwayVisual {
         showH = !showH;
         if (showH){
             toggleHButton.setText("H");
-            toggleHButton.setOpacity(20);
+            toggleHButton.setStyle("button");
         } else{
-            toggleHButton.setOpacity(0.4);
+            toggleHButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -979,9 +981,9 @@ public class RunwayVisual {
         showLDA = !showLDA;
         if (showLDA){
             toggleLdaButton.setText("LDA");
-            toggleLdaButton.setOpacity(20);
+            toggleLdaButton.setStyle("button");
         } else{
-            toggleLdaButton.setOpacity(0.4);
+            toggleLdaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
