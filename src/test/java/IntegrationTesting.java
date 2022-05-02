@@ -63,14 +63,15 @@ public class IntegrationTesting {
   @Test
   void checkManualPanelPopUp(FxRobot robot) {
     robot.clickOn("#guideBtn");
-    FxAssert.verifyThat("#manual", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#manual", NodeMatchers.isEnabled());
+    robot.closeCurrentWindow();
   }
 
   @Test
   void checkContrastBtn(FxRobot robot) {
     robot.clickOn("#contrastB");
     Button btn = (Button) robot.lookup(".button").queryAll().iterator().next();
-    Assertions.assertTrue(btn.getStyleClass().contains("button2"));
+    Assertions.assertEquals(btn.getStyleClass().toString(), ("button button2"));
   }
 
   @Test
@@ -114,18 +115,15 @@ public class IntegrationTesting {
     FxAssert.verifyThat("#contrastB", NodeMatchers.isVisible());
     FxAssert.verifyThat("#toggle", NodeMatchers.isVisible());
     FxAssert.verifyThat("#clear", NodeMatchers.isVisible());
-
-  }
-
-  @Test
-  void checkInvalidationError(FxRobot robot) throws IOException {
-    rootNode = FXMLLoader.load(getClass().getResource("Input.fxml"));
-    start(PrimaryStage);
     fillObstacleInputs(robot, "22", "-12", "31");
     robot.clickOn("#menu");
     robot.clickOn("#away");
     robot.clickOn("#submit");
     FxAssert.verifyThat("#invalid", NodeMatchers.isVisible());
+  }
+
+  @Test
+  void checkInvalidationError(FxRobot robot){
   }
 
 }
