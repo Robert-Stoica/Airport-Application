@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
+import javax.swing.JOptionPane;
 
 /**
  * Screen to input data related to an obstacle, or obstruction.
@@ -106,6 +107,7 @@ public class RunwayInput {
     if (createRunway()) {
       App.runway = runway;
       App.setRoot("Obstacle");
+      infoBox("You created a runway, opening Obstacle Input","Runway");
     }
   }
 
@@ -141,6 +143,7 @@ public class RunwayInput {
       }
       runway = data.runways.get(0);
       logger.info("Imput the actual values inside the text fields");
+      infoBox("You have imported your runway","Import");
       originalTora.setText(String.valueOf(runway.getOriginalTora()));
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
@@ -170,6 +173,7 @@ public class RunwayInput {
         }
         try {
           Media.exportXML(data, file);
+          infoBox("You have exported your Runway","Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -209,9 +213,14 @@ public class RunwayInput {
         Alert error2 = new Alert(Alert.AlertType.ERROR);
         error2.setTitle("Error Alert");
         error2.setHeaderText("High Threshold!");
-        error2.setContentText("Check that you introduced the correct amount of displace threshold " + text);
+        error2.setContentText("Check the  amount of displace threshold " + text);
         error2.showAndWait();
 
+    }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
   /**
@@ -221,7 +230,7 @@ public class RunwayInput {
    */
   @FXML
   public void showManual() {
-    manual.setVisible(true);
+    infoBox("Runway Input: Type details about the runway into the boxes above then press submit... Alternatively you can choose a preset XML file using the 'choose preset' menu ","Help");
   }
 
   /**

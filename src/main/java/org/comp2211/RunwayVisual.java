@@ -8,12 +8,16 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -23,6 +27,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.comp2211.calculations.Calculations;
 import org.comp2211.calculations.Runway;
+
+import javax.swing.*;
 
 /**
  * Displays a visual representation of the recalculated runway to the screen, using magic.
@@ -139,6 +145,7 @@ public class RunwayVisual {
         }
     }
 
+
     void safeAppendFile(String filename, String data) {
         logger.info("Append to a file");
         try {
@@ -171,6 +178,11 @@ public class RunwayVisual {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -253,6 +265,7 @@ public class RunwayVisual {
             } else {
                 System.out.println("File already exists.");
             }
+            infoBox("You created a file with all the calculations", "Calculations");
             safeWriteFile("calculations.txt", calculationsString);
 
 
@@ -395,6 +408,7 @@ public class RunwayVisual {
         var stage = (Stage)toggleToraButton.getScene().getWindow();
         stage.setHeight(origHeight);
         App.setRoot("Input");
+        infoBox("You have finished working on this runway going back to the begining", "Going back");
     }
 
     private void drawBlankCanvases() {
@@ -611,6 +625,7 @@ public class RunwayVisual {
                 if (showToda)drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)", true, textUpsideDown);
                 if (showAsda)drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)", true, textUpsideDown);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString((int)(asdaEnd-toraEnd)) + "m (STP/CLR)", false, false);
         } else if (mode.equals("LO")) {
             var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
             double heightCalcStart;
@@ -653,6 +668,7 @@ public class RunwayVisual {
             if (showSe) drawHorizontalBarBetween(gc, pcc.conv(stripEndStart), labelYPos, pcc.conv(stripEndEnd), seString + "m (SE)", false, textUpsideDown);
             if (showResa) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(resaEnd), resaString + "m (RESA)", true, textUpsideDown);
             if (showH50) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos + 43, pcc.conv(heightCalcEnd), heightCalcString + "m (hx50)", false, textUpsideDown);
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString((int)(asdaEnd-toraEnd)) + "m (STOP/CLEAR)", false, false);
         } else{
             // Positions
             var ldaEnd = displacedThreshold + App.runway.getLda();
@@ -774,6 +790,7 @@ public class RunwayVisual {
                 gc.setStroke(Color.BLACK);
                 gc.strokeLine(pcc.conv(stripEndEnd)+xd, runwayYTop, pcc.conv(heightCalcEnd)+xd, runwayYTop-obstaclePixelHeight);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString(asdaEnd-toraEnd) + "m (STOP/CLEAR)", true, false);
             gc.fillText("Takeoff from left to right", 30, 30);
             drawArrow(gc, 30, 35, false);
         } else if (mode.equals("LT")) {
@@ -844,6 +861,7 @@ public class RunwayVisual {
                 if (showToda) drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos + 20, pcc.conv(ebaEnd), todaString + "m (TODA)", true, false);
                 if (showAsda) drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos + 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)", true, false);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString(asdaEnd-toraEnd) + "m (STOP/CLEAR)", true, false);
             gc.fillText("Takeoff from right to left", 30, 30);
             drawArrow(gc, 30, 35, true);
         } else {
@@ -877,7 +895,6 @@ public class RunwayVisual {
                 gc.setFill(Color.BLACK);
                 gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
             }
-
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
@@ -1011,8 +1028,9 @@ public class RunwayVisual {
         showToda = !showToda;
         if (showToda){
             toggleTodaButton.setText("TODA");
+            toggleTodaButton.setStyle("button");
         } else{
-            toggleTodaButton.setText("(TODA)");
+            toggleTodaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1021,8 +1039,9 @@ public class RunwayVisual {
         showTora = !showTora;
         if (showTora){
             toggleToraButton.setText("TORA");
+            toggleToraButton.setStyle("button");
         } else{
-            toggleToraButton.setText("(TORA)");
+            toggleToraButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1031,8 +1050,9 @@ public class RunwayVisual {
         showAsda = !showAsda;
         if (showAsda){
             toggleAsdaButton.setText("ASDA");
+            toggleAsdaButton.setStyle("button");
         } else{
-            toggleAsdaButton.setText("(ASDA)");
+            toggleAsdaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1041,8 +1061,9 @@ public class RunwayVisual {
         showResa = !showResa;
         if (showResa){
             toggleResaButton.setText("RESA");
+            toggleResaButton.setStyle("button");
         } else{
-            toggleResaButton.setText("(RESA)");
+            toggleResaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1051,8 +1072,9 @@ public class RunwayVisual {
         showSe = !showSe;
         if (showSe){
             toggleSeButton.setText("SE");
+            toggleSeButton.setStyle("button");
         } else{
-            toggleSeButton.setText("(SE)");
+            toggleSeButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1061,8 +1083,9 @@ public class RunwayVisual {
         showH50 = !showH50;
         if (showH50){
             toggleH50Button.setText("H50");
+            toggleH50Button.setStyle("button");
         } else{
-            toggleH50Button.setText("(H50)");
+            toggleH50Button.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1071,8 +1094,9 @@ public class RunwayVisual {
         showEba = !showEba;
         if (showEba){
             toggleEbaButton.setText("EBA");
+            toggleEbaButton.setStyle("button");
         } else{
-            toggleEbaButton.setText("(EBA)");
+            toggleEbaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1081,8 +1105,9 @@ public class RunwayVisual {
         showH = !showH;
         if (showH){
             toggleHButton.setText("H");
+            toggleHButton.setStyle("button");
         } else{
-            toggleHButton.setText("(H)");
+            toggleHButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1091,8 +1116,9 @@ public class RunwayVisual {
         showLDA = !showLDA;
         if (showLDA){
             toggleLdaButton.setText("LDA");
+            toggleLdaButton.setStyle("button");
         } else{
-            toggleLdaButton.setText("(LDA)");
+            toggleLdaButton.setStyle("-fx-background-color: #ff0000; ");
         }
         drawBothViews();
     }
@@ -1169,7 +1195,7 @@ public class RunwayVisual {
      */
     @FXML
     public void showManual() {
-        manual.setVisible(true);
+        infoBox("The numbers displayed are the results of the calculation... Press 'View Calculation' to see the calculation steps in a text file","Help");
     }
 
     /**
