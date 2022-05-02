@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
    <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="originalLda" layoutX="251.0" layoutY="284.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
    <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="341.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="81.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
-   <Label layoutX="81.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
-   <Label layoutX="81.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
+   <Label layoutX="108.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
+   <Label layoutX="120.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
+   <Label layoutX="63.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
    <Button fx:id="clear" layoutX="278.0" layoutY="418.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
    <Button fx:id="exportXml" layoutX="77.0" layoutY="419.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export Preset" />
    <Button fx:id="submit" layoutX="478.0" layoutY="418.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
@@ -36,6 +36,6 @@
    <Button layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
    <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
    <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
+   <Label layoutX="198.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
    <Button fx:id="addpreset" layoutX="278.0" layoutY="108.0" mnemonicParsing="false" onAction="#addRunway" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Add Preset" />
 </Pane>
