@@ -480,6 +480,7 @@ public class RunwayVisual {
                 if (showToda)drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos - 20, pcc.conv(ebaEnd), todaString + "m (TODA)", true, textUpsideDown);
                 if (showAsda)drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos - 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)", true, textUpsideDown);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString((int)(asdaEnd-toraEnd)) + "m (STP/CLR)", false, false);
         } else if (mode.equals("LO")) {
             var obstacle = App.obstruction.getDistanceFromThresh() + displacedThreshold;
             double heightCalcStart;
@@ -522,6 +523,7 @@ public class RunwayVisual {
             if (showSe) drawHorizontalBarBetween(gc, pcc.conv(stripEndStart), labelYPos, pcc.conv(stripEndEnd), seString + "m (SE)", false, textUpsideDown);
             if (showResa) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos, pcc.conv(resaEnd), resaString + "m (RESA)", true, textUpsideDown);
             if (showH50) drawHorizontalBarBetween(gc, pcc.conv(stripEndEnd), labelYPos + 43, pcc.conv(heightCalcEnd), heightCalcString + "m (hx50)", false, textUpsideDown);
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString((int)(asdaEnd-toraEnd)) + "m (STOP/CLEAR)", false, false);
         } else{
             // Positions
             var ldaEnd = displacedThreshold + App.runway.getLda();
@@ -643,6 +645,7 @@ public class RunwayVisual {
                 gc.setStroke(Color.BLACK);
                 gc.strokeLine(pcc.conv(stripEndEnd)+xd, runwayYTop, pcc.conv(heightCalcEnd)+xd, runwayYTop-obstaclePixelHeight);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString(asdaEnd-toraEnd) + "m (STOP/CLEAR)", true, false);
             gc.fillText("Takeoff from left to right", 30, 30);
             drawArrow(gc, 30, 35, false);
         } else if (mode.equals("LT")) {
@@ -713,6 +716,7 @@ public class RunwayVisual {
                 if (showToda) drawHorizontalBarBetween(gc, pcc.conv(todaEnd), labelYPos + 20, pcc.conv(ebaEnd), todaString + "m (TODA)", true, false);
                 if (showAsda) drawHorizontalBarBetween(gc, pcc.conv(asdaEnd), labelYPos + 40, pcc.conv(ebaEnd), asdaString + "m (ASDA)", true, false);
             }
+            if (asdaEnd != toraEnd) drawHorizontalBarBetween(gc, pcc.conv(toraEnd), labelYPos, pcc.conv(asdaEnd), Integer.toString(asdaEnd-toraEnd) + "m (STOP/CLEAR)", true, false);
             gc.fillText("Takeoff from right to left", 30, 30);
             drawArrow(gc, 30, 35, true);
         } else {
@@ -746,7 +750,6 @@ public class RunwayVisual {
                 gc.setFill(Color.BLACK);
                 gc.fillRect(pcc.conv(displacedThreshold) - 2, runwayYTop, 4, runwayDepth);
             }
-
             // Obstacle
             gc.setFill(Color.RED);
             gc.fillRect(pcc.conv(obstacle) - 2.5, runwayYTop - obstaclePixelHeight, 5, obstaclePixelHeight);
