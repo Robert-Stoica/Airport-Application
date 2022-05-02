@@ -3,6 +3,9 @@ package org.comp2211;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -142,9 +145,44 @@ public class RunwayVisual {
         }
     }
 
+
+    void safeAppendFile(String filename, String data) {
+        logger.info("Append to a file");
+        try {
+            FileWriter myWriter = new FileWriter(filename,true);
+            String runwayName = App.runway.getName();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            myWriter.append("RUNWAY NAME:").append(runwayName).append(" TIME:").append(dtf.format(now));
+            if(isTakeoff){
+                myWriter.append(" TAKEOFF ");
+            }
+            else{
+                myWriter.append(" LANDING ");
+            }
+
+            if(isAwayOver){
+                myWriter.append("AWAY/OVER");
+            }
+            else{
+                myWriter.append("TOWARD/AWAY");
+            }
+            myWriter.append(String.valueOf('\n'));
+            myWriter.append(data);
+            myWriter.append('\n');
+            myWriter.append('\n');
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
     public static void infoBox(String infoMessage, String titleBar)
     {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -229,6 +267,99 @@ public class RunwayVisual {
             }
             infoBox("You created a file with all the calculations", "Calculations");
             safeWriteFile("calculations.txt", calculationsString);
+
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Automatically outputs all the calculations made by the system to a file called <code>calculationhistory.txt</code>.
+     */
+    public void recordFile() {
+        Calculations calc = new Calculations();
+        var copyRunway =
+                new Runway(
+                        "copy",
+                        App.runway.getOriginalTora(),
+                        App.runway.getOriginalLda(),
+                        App.runway.getDisplacedThreshold());
+        var oTora = copyRunway.getTora();
+        var oLda = copyRunway.getLda();
+        var dThresh = copyRunway.getDisplacedThreshold();
+
+        int tora;
+        int asda;
+        int toda;
+        int lda;
+
+        int slopeCalc = App.obstruction.getHeight()*50;
+
+        String calculationsString;
+
+        if (isAwayOver) {
+            calc.recalculateToraAwayOver(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaAwayOver(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaAwayOver(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaAwayOver(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+            calculationsString =
+                    String.format(
+                            formatAO,
+                            oTora,
+                            copyRunway.getbProtection(),
+                            App.obstruction.getDistanceFromThresh(),
+                            dThresh,
+                            tora,
+                            asda,
+                            toda,
+                            oLda,
+                            App.obstruction.getDistanceFromThresh(),
+                            copyRunway.getStripEnd(),
+                            slopeCalc,
+                            lda);
+        } else {
+            calc.recalculateToraTowards(copyRunway, App.obstruction);
+            tora = copyRunway.getTora();
+            calc.recalculateAsdaTowards(copyRunway);
+            asda = copyRunway.getAsda();
+            calc.recalculateTodaTowards(copyRunway);
+            toda = copyRunway.getToda();
+            calc.recalculateLdaTowards(copyRunway, App.obstruction);
+            lda = copyRunway.getLda();
+            calculationsString =
+                    String.format(
+                            formatTT,
+                            App.obstruction.getDistanceFromThresh(),
+                            slopeCalc,
+                            copyRunway.getStripEnd(),
+                            tora,
+                            asda,
+                            toda,
+                            App.obstruction.getDistanceFromThresh(),
+                            copyRunway.getResa(),
+                            copyRunway.getStripEnd(),
+                            lda);
+        }
+
+        try {
+            logger.info("Saving the calculations to the file");
+            File myObj = new File("calculationhistory.txt");
+            if (myObj.exists()) {
+                System.out.println("File exists: " + myObj.getName());
+            } else {
+                System.out.println("File does not exist.");
+                myObj.createNewFile();
+            }
+            safeAppendFile("calculationhistory.txt", calculationsString);
+
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -273,6 +404,7 @@ public class RunwayVisual {
      * @throws IOException If the screen cannot be changed.
      */
     public void newRunway() throws IOException {
+        recordFile();
         var stage = (Stage)toggleToraButton.getScene().getWindow();
         stage.setHeight(origHeight);
         App.setRoot("Input");
