@@ -28,12 +28,12 @@
            </items>
        </MenuButton>
        <Button fx:id="submit" layoutX="492.0" layoutY="402.0" mnemonicParsing="false" onAction="#openVisual" stylesheets="@style/runway.css" text="Submit" />
-       <Label layoutX="112.0" layoutY="191.0" styleClass="text" stylesheets="@style/runway.css" text="Object Height (m)" />
-       <Label layoutX="30.0" layoutY="258.0" stylesheets="@style/runway.css" text="Distance from Centerline (m)" />
+       <Label layoutX="250.0" layoutY="169.0" styleClass="text" stylesheets="@style/runway.css" text="Object Height (m)" />
+       <Label layoutX="250.0" layoutY="235.0" stylesheets="@style/runway.css" text="Distance from Centerline (m)" />
        <ToggleButton fx:id="toggle" layoutX="68.0" layoutY="402.0" mnemonicParsing="false" onAction="#openSidebar" styleClass="button" stylesheets="@style/runway.css" text="SideBar" />
        <Button fx:id="clear" layoutX="270.0" layoutY="402.0" mnemonicParsing="false" onAction="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
        <TextField fx:id="threshold" layoutX="247.0" layoutY="324.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-       <Label layoutX="30.0" layoutY="328.0" stylesheets="@style/runway.css" text="Distance from Threshold (m)" />
+       <Label layoutX="250.0" layoutY="304.0" stylesheets="@style/runway.css" text="Distance from Threshold (m)" />
       <VBox fx:id="vbox" layoutX="416.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="218.0" spacing="30.0" visible="false">
          <children>
             <Label alignment="CENTER" prefHeight="9.0" prefWidth="162.0" text="Change Blast Protection (m)" translateX="-20.0">
