@@ -12,28 +12,26 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.service.query.NodeQuery;
 
-import java.awt.*;
 import java.io.IOException;
 
 @ExtendWith(ApplicationExtension.class)
-public class InputSceneTestGUI {
+public class IntegrationTesting {
 
   App app = new App();
+  Parent rootNode;
+  Stage PrimaryStage;
 
   @Start
-  void start(Stage stage) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("Input.fxml"));
+  public void start(Stage stage) throws IOException {
+    Parent rootNode = FXMLLoader.load(getClass().getResource("Input.fxml"));
     stage.setTitle("InputScene Test");
-    stage.setScene(new Scene(root));
+    stage.setScene(new Scene(rootNode));
     stage.show();
     stage.toFront();
     app.start(stage);
     app.runwayInput();
   }
-
-
 
   @Test
   void checkHasAllComponets() {
@@ -56,14 +54,20 @@ public class InputSceneTestGUI {
     robot.clickOn("#displacedThreshold").write(tresh);
   }
 
-  @Test
-  void checkManualPanelPopUp(FxRobot robot){
-      robot.clickOn("#guideBtn");
-      FxAssert.verifyThat("#manual", NodeMatchers.isVisible());
+  void fillObstacleInputs(FxRobot robot, String height, String center, String tresh) {
+    robot.clickOn("#height").write(height);
+    robot.clickOn("#centre").write(center);
+    robot.clickOn("#threshold").write(tresh);
   }
 
   @Test
-  void checkContrastBtn(FxRobot robot){
+  void checkManualPanelPopUp(FxRobot robot) {
+    robot.clickOn("#guideBtn");
+    FxAssert.verifyThat("#manual", NodeMatchers.isVisible());
+  }
+
+  @Test
+  void checkContrastBtn(FxRobot robot) {
     robot.clickOn("#contrastB");
     Button btn = (Button) robot.lookup(".button").queryAll().iterator().next();
     Assertions.assertTrue(btn.getStyleClass().contains("button2"));
@@ -84,7 +88,9 @@ public class InputSceneTestGUI {
     FxAssert.verifyThat("#receiver", NodeMatchers.hasChild("emailTest@domain.com"));
     FxAssert.verifyThat("#subject", NodeMatchers.hasChild("test message"));
     FxAssert.verifyThat("#area", NodeMatchers.hasChild("test area"));
-}
+
+    robot.closeCurrentWindow();
+  }
 
   @Test
   void checkInputError(FxRobot robot) {
@@ -98,9 +104,28 @@ public class InputSceneTestGUI {
   }
 
   @Test
-  void checkObstaclePanel(FxRobot robot) throws InterruptedException {
+  void checkObstaclePanelComponets(FxRobot robot) {
     fillInputInputs(robot, "test", "22", "32", "273");
     robot.clickOn("#submit");
     FxAssert.verifyThat("#height", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#centre", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#menu", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#submit", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#contrastB", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#toggle", NodeMatchers.isVisible());
+    FxAssert.verifyThat("#clear", NodeMatchers.isVisible());
+
   }
+
+  @Test
+  void checkInvalidationError(FxRobot robot) throws IOException {
+    rootNode = FXMLLoader.load(getClass().getResource("Input.fxml"));
+    start(PrimaryStage);
+    fillObstacleInputs(robot, "22", "-12", "31");
+    robot.clickOn("#menu");
+    robot.clickOn("#away");
+    robot.clickOn("#submit");
+    FxAssert.verifyThat("#invalid", NodeMatchers.isVisible());
+  }
+
 }
