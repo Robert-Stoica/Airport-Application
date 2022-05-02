@@ -2,34 +2,27 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
-   <MenuButton fx:id="menu" layoutX="249.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" styleClass="text" stylesheets="@style/runway.css" text="Choose preset">
-      <items>
-         <MenuItem fx:id="addRunway" mnemonicParsing="false" onAction="#addRunway" text="Add Runway" />
-      </items>
-   </MenuButton>
-   <TextField fx:id="originalTora" layoutX="249.0" layoutY="192.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <TextField fx:id="originalLda" layoutX="249.0" layoutY="249.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <TextField fx:id="displacedThreshold" layoutX="249.0" layoutY="306.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="81.0" layoutY="196.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
-   <Label layoutX="79.0" layoutY="253.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
-   <Label layoutX="79.0" layoutY="310.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
-   <Button fx:id="clear" layoutX="276.0" layoutY="395.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
-   <Button fx:id="exportXml" layoutX="79.0" layoutY="395.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export XML" />
-   <Button fx:id="submit" layoutX="476.0" layoutY="395.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
+   <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="originalLda" layoutX="251.0" layoutY="284.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="341.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <Label layoutX="81.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
+   <Label layoutX="81.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
+   <Label layoutX="81.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
+   <Button fx:id="clear" layoutX="278.0" layoutY="418.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
+   <Button fx:id="exportXml" layoutX="77.0" layoutY="419.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export Preset" />
+   <Button fx:id="submit" layoutX="478.0" layoutY="418.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
    <Label layoutX="246.0" layoutY="43.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Input" textAlignment="CENTER">
       <font>
          <Font size="25.0" />
       </font>
    </Label>
-   <Button fx:id="contrastB" layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
+   <Button fx:id="contrastB" layoutX="68.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
    <HBox fx:id="manual" layoutY="438.0" prefHeight="66.0" prefWidth="641.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
       <children>
          <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 11px;" text="Runway Input: Type details about the runway into the boxes above then press submit... Alternatively you can choose a preset XML file using the 'choose preset' menu " textOverrun="CLIP" wrapText="true">
@@ -41,5 +34,8 @@
       </children>
    </HBox>
    <Button layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
-   <Button fx:id="helpButton" layoutX="481.0" layoutY="120.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
+   <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
+   <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
+   <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
+   <Button fx:id="addpreset" layoutX="278.0" layoutY="108.0" mnemonicParsing="false" onAction="#addRunway" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Add Preset" />
 </Pane>

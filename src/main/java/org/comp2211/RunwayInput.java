@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
+import javax.swing.JOptionPane;
 
 /**
  * Screen to input data related to an obstacle, or obstruction.
@@ -36,7 +39,7 @@ public class RunwayInput {
   @FXML private TextField originalTora;
   @FXML private TextField originalLda;
   @FXML private TextField displacedThreshold;
-  @FXML private MenuButton menu;
+  @FXML private TextField name;
   private Stage stage;
   @FXML private Button submit;
   @FXML private Button clear;
@@ -50,6 +53,8 @@ public class RunwayInput {
   @FXML private Button contrastB;
   private Boolean highContrast = false;
   @FXML private HBox manual;
+  @FXML private Button addpreset;
+
 
   /** Clears all the text inputs. */
   @FXML
@@ -58,6 +63,7 @@ public class RunwayInput {
     originalTora.clear();
     originalLda.clear();
     displacedThreshold.clear();
+    name.clear();
   }
 
   /**
@@ -67,18 +73,20 @@ public class RunwayInput {
    */
   private boolean createRunway() {
     try {
-      // TODO: fix "S elect Runway"
-      if (!(menu.getText().equals("S elect Runway")
+      if (!(name.getText().isBlank()
           || originalTora.getText().isBlank()
           || originalLda.getText().isBlank()
           || displacedThreshold.getText().isBlank())) {
         logger.info("Creating the new Runway with the values inside the text field");
         runway =
             new Runway(
-                menu.getText(),
+                name.getText(),
                 Integer.parseInt(originalTora.getText()),
                 Integer.parseInt(originalLda.getText()),
                 Integer.parseInt(displacedThreshold.getText()));
+          if (runway.getDisplacedThreshold() > 300){
+              errorboard(String.valueOf(runway.getDisplacedThreshold()));
+          }
         return true;
       } else {
         System.out.println("One of the fields is empty");
@@ -99,6 +107,7 @@ public class RunwayInput {
     if (createRunway()) {
       App.runway = runway;
       App.setRoot("Obstacle");
+      infoBox("You created a runway, opening Obstacle Input","Runway");
     }
   }
 
@@ -108,6 +117,9 @@ public class RunwayInput {
     logger.info("Import the xml");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Runway");
+    File defaultPath = new File(System.getProperty("user.home")+"/runways");
+    defaultPath.mkdirs();
+    fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
     if (file != null) {
       XMLData data;
@@ -131,9 +143,11 @@ public class RunwayInput {
       }
       runway = data.runways.get(0);
       logger.info("Imput the actual values inside the text fields");
+      infoBox("You have imported your runway","Import");
       originalTora.setText(String.valueOf(runway.getOriginalTora()));
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));
+      name.setText(String.valueOf(runway.getName()));
     }
   }
 
@@ -142,10 +156,15 @@ public class RunwayInput {
   private void export() {
     if (!(originalTora.getText().isBlank()
         || originalLda.getText().isBlank()
-        || displacedThreshold.getText().isBlank())) {
+        || displacedThreshold.getText().isBlank())
+    	|| name.getText().isBlank()) {
       logger.info("Export the runway to an xml file");
+      createRunway();
       Stage newWindow = new Stage();
       newWindow.setTitle("Save Runway");
+      File defaultPath = new File(System.getProperty("user.home")+"/runways");
+      defaultPath.mkdirs();
+      fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
       if (file != null) {
         var data = new XMLData();
@@ -154,6 +173,7 @@ public class RunwayInput {
         }
         try {
           Media.exportXML(data, file);
+          infoBox("You have exported your Runway","Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -186,6 +206,23 @@ public class RunwayInput {
     App.stg = stage;
   }
 
+    /** Throws and error screen if the threshold is above a certain value. */
+    public void errorboard(String text){
+        logger.info("Send an error message");
+
+        Alert error2 = new Alert(Alert.AlertType.ERROR);
+        error2.setTitle("Error Alert");
+        error2.setHeaderText("High Threshold!");
+        error2.setContentText("Check the  amount of displace threshold " + text);
+        error2.showAndWait();
+
+    }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+
   /**
    * Shows the manual.
    *
@@ -193,7 +230,7 @@ public class RunwayInput {
    */
   @FXML
   public void showManual() {
-    manual.setVisible(true);
+    infoBox("Runway Input: Type details about the runway into the boxes above then press submit... Alternatively you can choose a preset XML file using the 'choose preset' menu ","Help");
   }
 
   /**
@@ -219,11 +256,13 @@ public class RunwayInput {
       exportXml.getStyleClass().clear();
       contrastB.getStyleClass().clear();
       helpButton.getStyleClass().clear();
+      addpreset.getStyleClass().clear();
       clear.getStyleClass().add("button");
       submit.getStyleClass().add("button");
       exportXml.getStyleClass().add("button");
       contrastB.getStyleClass().add("button");
       helpButton.getStyleClass().add("button");
+      addpreset.getStyleClass().add("button");
     } else {
       highContrast = true;
       clear.getStyleClass().add("button2");
@@ -231,6 +270,13 @@ public class RunwayInput {
       exportXml.getStyleClass().add("button2");
       contrastB.getStyleClass().add("button2");
       helpButton.getStyleClass().add("button2");
+      addpreset.getStyleClass().add("button2");
     }
   }
+
+  public void keyListener(KeyEvent event) throws IOException {
+        if(event.getCode() == KeyCode.ENTER){
+            openObstacle();
+        }
+    }
 }

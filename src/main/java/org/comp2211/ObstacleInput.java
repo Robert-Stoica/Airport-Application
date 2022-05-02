@@ -1,6 +1,8 @@
 package org.comp2211;
 
 import java.io.File;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,10 +10,14 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,6 +66,9 @@ public class ObstacleInput {
 
   @FXML private HBox manual;
 
+  @FXML private HBox invalid;
+
+
   /**
    * Switches to the visualisation screen. This function also checks that the user gave valid input,
    * and recalculates the runway.
@@ -67,6 +76,10 @@ public class ObstacleInput {
   @FXML
   public void openVisual() {
     logger.info("We have opened the visualization of the runway");
+    if(!(sideText.getText().isEmpty())) {
+        infoBox("You have changed the blast protection","BProtection");
+    	App.runway.setbProtection(Integer.parseInt(sideText.getText()));
+    }
     try {
       if (!(menu.getText().equals("Operation Type")
           || height.getText().isBlank()
@@ -86,9 +99,7 @@ public class ObstacleInput {
           logger.info("Blast Protection set to {}", sideText.getText());
         } catch (NumberFormatException ignored) {
         }
-
         App.obstruction = obstacle;
-
         if (menu.getText().equals(away.getText())) {
           logger.info("Doing calculations for the Away and Over landing");
           logger.info("TORA: {}", App.runway.getTora());
@@ -112,7 +123,12 @@ public class ObstacleInput {
               "New TORA: {}", calculator.recalculateToraTowards(App.runway, obstacle).getTora());
           RunwayVisual.isAwayOver = false;
         }
-        App.setRoot("visual");
+        if (App.runway.getTora() < 0 || App.runway.getToda() < 0 || App.runway.getAsda() < 0 || App.runway.getLda() < 0) {
+          showInvalid();
+        } else{
+            infoBox("You created and object, opening Runway Visual with the updated values","Object");
+          App.setRoot("visual");
+        }
       } else {
         logger.error("One of the fields is empty");
       }
@@ -133,16 +149,8 @@ public class ObstacleInput {
     App.obstruction = obstacle;
 
     if (menu.getText().equals(away.getText())) {
-      calculator.recalculateToraAwayOver(App.runway, obstacle);
-      calculator.recalculateTodaAwayOver(App.runway);
-      calculator.recalculateAsdaAwayOver(App.runway);
-      calculator.recalculateLdaAwayOver(App.runway, obstacle);
       RunwayVisual.isAwayOver = true;
     } else if (menu.getText().equals(towards.getText())) {
-      calculator.recalculateToraTowards(App.runway, obstacle);
-      calculator.recalculateTodaTowards(App.runway);
-      calculator.recalculateAsdaTowards(App.runway);
-      calculator.recalculateLdaTowards(App.runway, obstacle);
       RunwayVisual.isAwayOver = false;
     }
     if (sideBar) {
@@ -155,6 +163,12 @@ public class ObstacleInput {
     }
   }
 
+
+  public static void infoBox(String infoMessage, String titleBar)
+  {
+      JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+  }
+
   /**
    * Shows the manual.
    *
@@ -162,7 +176,7 @@ public class ObstacleInput {
    */
   @FXML
   public void showManual() {
-    manual.setVisible(true);
+    infoBox("Obstacle Input: Type details about the runway into the boxes above then press submit... You can edit additional variables and import an XML obstacle in the sidebar menu " , "Help");
   }
 
   /**
@@ -173,6 +187,15 @@ public class ObstacleInput {
   @FXML
   public void hideManual() {
     manual.setVisible(false);
+  }
+
+  @FXML
+  public void hideInvalid() {
+    invalid.setVisible(false);
+  }
+
+  public void showInvalid() {
+    infoBox("That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?","Invalid");
   }
 
   /** Changes the menu text. */
@@ -222,6 +245,9 @@ public class ObstacleInput {
               Integer.parseInt(centre.getText()),
               Integer.parseInt(height.getText()),
               Integer.parseInt(threshold.getText()));
+      File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+      defaultPath.mkdirs();
+      fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
       if (file != null) {
         var data = new XMLData();
@@ -230,6 +256,7 @@ public class ObstacleInput {
         }
         try {
           Media.exportXML(data, file);
+          infoBox("You have exported your obstacle","Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -249,6 +276,9 @@ public class ObstacleInput {
     logger.info("Input the xml and autofill the text fields");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Obstacle");
+    File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+    defaultPath.mkdirs();
+    fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
     if (file != null) {
       XMLData data;
@@ -271,6 +301,7 @@ public class ObstacleInput {
         return;
       }
       obstacle = data.obstructions.get(0);
+      infoBox("You have imported your obstacle","Import");
       height.setText(String.valueOf(obstacle.getHeight()));
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
@@ -306,5 +337,10 @@ public class ObstacleInput {
       importB.getStyleClass().add("button2");
       exportB.getStyleClass().add("button2");
     }
+  }
+  public void keyListener(KeyEvent event) throws IOException {
+        if(event.getCode() == KeyCode.ENTER){
+            openVisual();
+        }
   }
 }
