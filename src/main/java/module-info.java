@@ -5,6 +5,7 @@ module org.comp2211 {
   requires javafx.graphics;
   requires org.apache.logging.log4j;
     requires java.mail;
+    requires java.desktop;
 
 
   opens org.comp2211 to
