@@ -7,22 +7,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
-   <TextField fx:id="originalTora" layoutX="251.0" layoutY="227.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <TextField fx:id="originalLda" layoutX="251.0" layoutY="284.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="341.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="81.0" layoutY="231.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
-   <Label layoutX="81.0" layoutY="288.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
-   <Label layoutX="81.0" layoutY="345.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="504.0" prefWidth="641.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayInput">
+   <TextField fx:id="originalTora" layoutX="251.0" layoutY="237.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="originalLda" layoutX="251.0" layoutY="300.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <TextField fx:id="displacedThreshold" layoutX="251.0" layoutY="362.0" prefHeight="25.0" prefWidth="159.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+   <Label layoutX="252.0" layoutY="219.0" styleClass="text" stylesheets="@style/runway.css" text="Original TORA (m)" />
+   <Label layoutX="252.0" layoutY="282.0" styleClass="text" stylesheets="@style/runway.css" text="Original LDA (m)" />
+   <Label layoutX="252.0" layoutY="344.0" styleClass="text" stylesheets="@style/runway.css" text="Displaced Threshold (m)" />
    <Button fx:id="clear" layoutX="278.0" layoutY="418.0" mnemonicParsing="false" onAction="#clearText" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
    <Button fx:id="exportXml" layoutX="77.0" layoutY="419.0" mnemonicParsing="false" onAction="#export" stylesheets="@style/runway.css" text="Export Preset" />
    <Button fx:id="submit" layoutX="478.0" layoutY="418.0" mnemonicParsing="false" onAction="#openObstacle" stylesheets="@style/runway.css" text="Submit" />
-   <Label layoutX="246.0" layoutY="43.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Input" textAlignment="CENTER">
+   <Label layoutX="246.0" layoutY="36.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Input" textAlignment="CENTER">
       <font>
          <Font size="25.0" />
       </font>
    </Label>
-   <Button fx:id="contrastB" layoutX="68.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
+   <Button fx:id="contrastB" layoutX="68.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#changeContrast" stylesheets="@style/runway.css" text="Change Contrast" />
    <HBox fx:id="manual" layoutY="438.0" prefHeight="66.0" prefWidth="641.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
       <children>
          <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 11px;" text="Runway Input: Type details about the runway into the boxes above then press submit... Alternatively you can choose a preset XML file using the 'choose preset' menu " textOverrun="CLIP" wrapText="true">
@@ -33,9 +33,9 @@
          <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="170.0" text="Close" />
       </children>
    </HBox>
-   <Button fx:id="guideBtn" layoutX="98.0" layoutY="41.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
-   <Button fx:id="helpButton" layoutX="479.0" layoutY="108.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
-   <TextField fx:id="name" layoutX="251.0" layoutY="173.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
-   <Label layoutX="83.0" layoutY="177.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
-   <Button fx:id="addpreset" layoutX="278.0" layoutY="108.0" mnemonicParsing="false" onAction="#addRunway" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Add Preset" />
+   <Button layoutX="98.0" layoutY="34.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" stylesheets="@style/runway.css" text="Help" />
+   <Button fx:id="helpButton" layoutX="479.0" layoutY="100.0" mnemonicParsing="false" onAction="#openHelp" text="Email" />
+   <TextField fx:id="name" layoutX="251.0" layoutY="176.0" prefHeight="23.0" prefWidth="159.0" promptText="Enter name" styleClass="textbox" stylesheets="@style/runway.css" />
+   <Label layoutX="253.0" layoutY="159.0" styleClass="text" stylesheets="@style/runway.css" text="Name" />
+   <Button fx:id="addpreset" layoutX="278.0" layoutY="100.0" mnemonicParsing="false" onAction="#addRunway" onMouseClicked="#clearText" stylesheets="@style/runway.css" text="Add Preset" />
 </Pane>

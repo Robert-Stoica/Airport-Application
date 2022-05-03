@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" onMouseEntered="#setLabel" prefHeight="514.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" onMouseEntered="#setLabel" prefHeight="514.0" prefWidth="620.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.RunwayVisual">
    <children>
       <Label layoutX="234.0" layoutY="47.0" styleClass="text" stylesheets="@style/runway.css" text="Runway Visual">
          <font>
@@ -29,9 +29,9 @@
        <Canvas fx:id="topViewCanvas" height="300" layoutX="10" layoutY="420" pickOnBounds="true" width="300" />
        <Button fx:id="goback" layoutX="428.0" layoutY="737.0" mnemonicParsing="false" onAction="#newRunway" stylesheets="@style/runway.css" text="Return to Runway Input" />
        <Button fx:id="contrastB" layoutX="34.0" layoutY="737.0" mnemonicParsing="false" onMouseClicked="#changeContrast" text="Change Contrast" />
-     <Label layoutX="144.0" layoutY="190.0" text="Displaced Threshold" />
+     <Label layoutX="108.0" layoutY="190.0" text="Displaced Threshold" />
       <Label fx:id="threshold" layoutX="267.0" layoutY="190.0" text="text" />
-      <Label layoutX="404.0" layoutY="190.0" text="Slope Calculation" />
+      <Label layoutX="377.0" layoutY="190.0" text="Slope Calculation" />
       <Label fx:id="slopeCalculation" layoutX="514.0" layoutY="190.0" text="1:50" />
       <Button layoutX="61.0" layoutY="44.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
       <HBox fx:id="manual" layoutY="434.0" prefHeight="77.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">

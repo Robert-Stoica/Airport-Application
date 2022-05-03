@@ -181,7 +181,11 @@ public class RunwayVisual {
     }
     public static void infoBox(String infoMessage, String titleBar)
     {
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+        error2.setTitle("Noticeboard");
+        error2.setHeaderText(titleBar);
+        error2.setContentText(infoMessage);
+        error2.showAndWait();
 
     }
 
@@ -408,7 +412,7 @@ public class RunwayVisual {
         var stage = (Stage)toggleToraButton.getScene().getWindow();
         stage.setHeight(origHeight);
         App.setRoot("Input");
-        infoBox("You have finished working on this runway going back to the begining", "Going back");
+        infoBox("You have finished working on this runway going back to the beginning", "Going back");
     }
 
     private void drawBlankCanvases() {
