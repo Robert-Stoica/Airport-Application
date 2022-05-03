@@ -182,7 +182,7 @@ public class RunwayVisual {
     public static void infoBox(String infoMessage, String titleBar)
     {
         Alert error2 = new Alert(Alert.AlertType.INFORMATION);
-        error2.setTitle("Notice Board");
+        error2.setTitle("Noticeboard");
         error2.setHeaderText(titleBar);
         error2.setContentText(infoMessage);
         error2.showAndWait();
