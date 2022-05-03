@@ -1,0 +1,12 @@
+RUNWAY NAME:r5 TIME:03/05/2022 12:25:47 LANDING AWAY/OVER
+TORA = Original TORA - Blast Protection - Obstacle distance from threshold - Displaced Threshold
+	 = 2000 - 300 - -50 - 123
+	 = 1627
+ASDA = (R)TORA + STOPWAY
+	 = 1627
+TODA = (R)TORA + CLEARWAY
+	 = 1627
+LDA  = (O)LDA - Obstacle distance from threshold - Strip end - Slope calculation
+	 = 2000 - -50 - 60 - 600
+	 = 1390
+
