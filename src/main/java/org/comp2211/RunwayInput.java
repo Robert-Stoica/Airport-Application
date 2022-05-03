@@ -107,7 +107,7 @@ public class RunwayInput {
     if (createRunway()) {
       App.runway = runway;
       App.setRoot("Obstacle");
-      infoBox("You created a runway, opening Obstacle Input","Runway");
+      infoBox("You created a Runway, opening Obstacle Input","Runway");
     }
   }
 
@@ -143,7 +143,7 @@ public class RunwayInput {
       }
       runway = data.runways.get(0);
       logger.info("Imput the actual values inside the text fields");
-      infoBox("You have imported your runway","Import");
+      infoBox("You have imported your Runway","Import");
       originalTora.setText(String.valueOf(runway.getOriginalTora()));
       originalLda.setText(String.valueOf(runway.getOriginalLda()));
       displacedThreshold.setText(String.valueOf(runway.getDisplacedThreshold()));

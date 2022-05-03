@@ -412,7 +412,7 @@ public class RunwayVisual {
         var stage = (Stage)toggleToraButton.getScene().getWindow();
         stage.setHeight(origHeight);
         App.setRoot("Input");
-        infoBox("You have finished working on this runway going back to the begining", "Going back");
+        infoBox("You have finished working on this runway going back to the beginning", "Going back");
     }
 
     private void drawBlankCanvases() {
