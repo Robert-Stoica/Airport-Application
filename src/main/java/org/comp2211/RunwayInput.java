@@ -56,7 +56,6 @@ public class RunwayInput {
   @FXML private HBox manual;
   @FXML private Button addpreset;
 
-
   /** Clears all the text inputs. */
   @FXML
   private void clearText() {
