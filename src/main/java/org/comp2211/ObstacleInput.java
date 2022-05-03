@@ -126,7 +126,7 @@ public class ObstacleInput {
         if (App.runway.getTora() < 0 || App.runway.getToda() < 0 || App.runway.getAsda() < 0 || App.runway.getLda() < 0) {
           showInvalid();
         } else{
-            infoBox("You created and object, opening Runway Visual with the updated values","Object");
+            infoBox("You created and Obstacle, opening Runway Visual with the updated values","Object");
           App.setRoot("visual");
         }
       } else {
@@ -166,7 +166,11 @@ public class ObstacleInput {
 
   public static void infoBox(String infoMessage, String titleBar)
   {
-      JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+      Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+      error2.setTitle("Noticeboard");
+      error2.setHeaderText(titleBar);
+      error2.setContentText(infoMessage);
+      error2.showAndWait();
   }
 
   /**
@@ -256,7 +260,7 @@ public class ObstacleInput {
         }
         try {
           Media.exportXML(data, file);
-          infoBox("You have exported your obstacle","Export");
+          infoBox("You have exported your Obstacle","Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -301,7 +305,7 @@ public class ObstacleInput {
         return;
       }
       obstacle = data.obstructions.get(0);
-      infoBox("You have imported your obstacle","Import");
+      infoBox("You have imported your Obstacle","Import");
       height.setText(String.valueOf(obstacle.getHeight()));
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
