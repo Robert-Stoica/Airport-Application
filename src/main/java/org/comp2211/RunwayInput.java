@@ -180,6 +180,7 @@ public class RunwayInput {
           alert.setHeaderText("Error on writing file");
           alert.setContentText("File could not be written");
           alert.showAndWait();
+
         }
       }
     } else {

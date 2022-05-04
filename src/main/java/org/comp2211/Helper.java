@@ -2,6 +2,7 @@ package org.comp2211;
 
 import java.util.Properties;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -90,6 +91,10 @@ public class Helper {
 
     public static void infoBox(String infoMessage, String titleBar)
     {
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+        error2.setTitle("Noticeboard");
+        error2.setHeaderText(titleBar);
+        error2.setContentText(infoMessage);
+        error2.showAndWait();
     }
 }
