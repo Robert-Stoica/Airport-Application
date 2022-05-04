@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 class CalculationsS1ATest {
 
-  ScenarioTester scenario = createScenario();
+  final ScenarioTester scenario = createScenario();
 
   ScenarioTester createScenario() {
     var s = new ScenarioTester();

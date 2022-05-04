@@ -12,8 +12,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.*;
-
+import javax.swing.JOptionPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +32,11 @@ public class Helper {
   @FXML private Button sender;
   /** The body of the email. */
   @FXML private TextArea area;
+
+  public static void infoBox(String infoMessage, String titleBar) {
+    JOptionPane.showMessageDialog(
+        null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+  }
 
   /**
    * Sends an email using the member variables as parameters. Emails will be sent from the address
@@ -83,13 +87,8 @@ public class Helper {
     msg.setText(text2);
 
     Transport.send(msg);
-    infoBox("You just sent an email","Email");
+    infoBox("You just sent an email", "Email");
     logger.info("Sent message successfully.");
     App.stg.close();
   }
-
-    public static void infoBox(String infoMessage, String titleBar)
-    {
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-    }
 }
