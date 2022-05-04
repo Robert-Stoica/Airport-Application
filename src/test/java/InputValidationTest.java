@@ -7,7 +7,6 @@ class InputValidationTest {
   @Test
   public void testNegValues() {
     String name = "R21";
-    int originalTora = 122;
     int originalLda = 12;
     int displacedThreshold = 49;
 
@@ -20,7 +19,6 @@ class InputValidationTest {
   public void testZeroValues() {
     String name = "R21";
     int originalTora = 122;
-    int originalLda = 12;
     int displacedThreshold = 49;
 
     Assertions.assertThrows(

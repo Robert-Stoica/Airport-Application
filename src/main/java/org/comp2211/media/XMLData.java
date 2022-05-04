@@ -16,9 +16,9 @@ import org.comp2211.calculations.Runway;
  */
 public class XMLData {
   /** The List of runways to be exported or just imported. */
-  public List<Runway> runways;
+  public final List<Runway> runways;
   /** The List of obstructions to be exported or just imported. */
-  public List<Obstruction> obstructions;
+  public final List<Obstruction> obstructions;
 
   /** Makes an empty XMLData class, with empty lists. */
   public XMLData() {

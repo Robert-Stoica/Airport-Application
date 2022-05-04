@@ -1,8 +1,6 @@
 package org.comp2211;
 
 import java.io.File;
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,8 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,7 +56,6 @@ public class ObstacleInput {
   @FXML private Button importB;
   @FXML private Button exportB;
   private Obstruction obstacle;
-  private Calculations calculator;
   /** True if the sidebar is visible. */
   private Boolean sideBar = false;
 
@@ -68,6 +63,13 @@ public class ObstacleInput {
 
   @FXML private HBox invalid;
 
+  public static void infoBox(String infoMessage, String titleBar) {
+    Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+    error2.setTitle("Noticeboard");
+    error2.setHeaderText(titleBar);
+    error2.setContentText(infoMessage);
+    error2.showAndWait();
+  }
 
   /**
    * Switches to the visualisation screen. This function also checks that the user gave valid input,
@@ -76,9 +78,9 @@ public class ObstacleInput {
   @FXML
   public void openVisual() {
     logger.info("We have opened the visualization of the runway");
-    if(!(sideText.getText().isEmpty())) {
-        infoBox("You have changed the blast protection","BProtection");
-    	App.runway.setbProtection(Integer.parseInt(sideText.getText()));
+    if (!(sideText.getText().isEmpty())) {
+      infoBox("You have changed the blast protection", "BProtection");
+      App.runway.setbProtection(Integer.parseInt(sideText.getText()));
     }
     try {
       if (!(menu.getText().equals("Operation Type")
@@ -93,7 +95,7 @@ public class ObstacleInput {
         logger.info("Centre: {}", centre.getText());
         logger.info("Height: {}", height.getText());
         logger.info("Threshold: {}", threshold.getText());
-        calculator = new Calculations();
+        Calculations calculator = new Calculations();
         try {
           App.runway.setbProtection(Integer.parseInt(sideText.getText()));
           logger.info("Blast Protection set to {}", sideText.getText());
@@ -123,10 +125,14 @@ public class ObstacleInput {
               "New TORA: {}", calculator.recalculateToraTowards(App.runway, obstacle).getTora());
           RunwayVisual.isAwayOver = false;
         }
-        if (App.runway.getTora() < 0 || App.runway.getToda() < 0 || App.runway.getAsda() < 0 || App.runway.getLda() < 0) {
+        if (App.runway.getTora() < 0
+            || App.runway.getToda() < 0
+            || App.runway.getAsda() < 0
+            || App.runway.getLda() < 0) {
           showInvalid();
-        } else{
-            infoBox("You created and Obstacle, opening Runway Visual with the updated values","Object");
+        } else {
+          infoBox(
+              "You created and Obstacle, opening Runway Visual with the updated values", "Object");
           App.setRoot("visual");
         }
       } else {
@@ -163,16 +169,6 @@ public class ObstacleInput {
     }
   }
 
-
-  public static void infoBox(String infoMessage, String titleBar)
-  {
-      Alert error2 = new Alert(Alert.AlertType.INFORMATION);
-      error2.setTitle("Noticeboard");
-      error2.setHeaderText(titleBar);
-      error2.setContentText(infoMessage);
-      error2.showAndWait();
-  }
-
   /**
    * Shows the manual.
    *
@@ -180,7 +176,9 @@ public class ObstacleInput {
    */
   @FXML
   public void showManual() {
-    infoBox("Obstacle Input: Type details about the runway into the boxes above then press submit... You can edit additional variables and import an XML obstacle in the sidebar menu " , "Help");
+    infoBox(
+        "Obstacle Input: Type details about the runway into the boxes above then press submit... You can edit additional variables and import an XML obstacle in the sidebar menu ",
+        "Help");
   }
 
   /**
@@ -199,7 +197,9 @@ public class ObstacleInput {
   }
 
   public void showInvalid() {
-    infoBox("That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?","Invalid");
+    infoBox(
+        "That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?",
+        "Invalid");
   }
 
   /** Changes the menu text. */
@@ -249,7 +249,7 @@ public class ObstacleInput {
               Integer.parseInt(centre.getText()),
               Integer.parseInt(height.getText()),
               Integer.parseInt(threshold.getText()));
-      File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+      File defaultPath = new File(System.getProperty("user.home") + "/obstacles");
       defaultPath.mkdirs();
       fileChooser.setInitialDirectory(defaultPath);
       File file = fileChooser.showSaveDialog(newWindow);
@@ -260,7 +260,7 @@ public class ObstacleInput {
         }
         try {
           Media.exportXML(data, file);
-          infoBox("You have exported your Obstacle","Export");
+          infoBox("You have exported your Obstacle", "Export");
         } catch (XMLStreamException e) {
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("XML error");
@@ -280,7 +280,7 @@ public class ObstacleInput {
     logger.info("Input the xml and autofill the text fields");
     Stage newWindow = new Stage();
     newWindow.setTitle("Open Obstacle");
-    File defaultPath = new File(System.getProperty("user.home")+"/obstacles");
+    File defaultPath = new File(System.getProperty("user.home") + "/obstacles");
     defaultPath.mkdirs();
     fileChooser.setInitialDirectory(defaultPath);
     File file = fileChooser.showOpenDialog(newWindow);
@@ -305,7 +305,7 @@ public class ObstacleInput {
         return;
       }
       obstacle = data.obstructions.get(0);
-      infoBox("You have imported your Obstacle","Import");
+      infoBox("You have imported your Obstacle", "Import");
       height.setText(String.valueOf(obstacle.getHeight()));
       centre.setText(String.valueOf(obstacle.getDistanceFromCl()));
       threshold.setText(String.valueOf(obstacle.getDistanceFromThresh()));
@@ -342,9 +342,10 @@ public class ObstacleInput {
       exportB.getStyleClass().add("button2");
     }
   }
-  public void keyListener(KeyEvent event) throws IOException {
-        if(event.getCode() == KeyCode.ENTER){
-            openVisual();
-        }
+
+  public void keyListener(KeyEvent event) {
+    if (event.getCode() == KeyCode.ENTER) {
+      openVisual();
+    }
   }
 }
