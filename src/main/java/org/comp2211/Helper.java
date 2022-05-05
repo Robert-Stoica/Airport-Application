@@ -2,6 +2,7 @@ package org.comp2211;
 
 import java.util.Properties;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,7 +13,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,11 +34,6 @@ public class Helper {
   @FXML private Button sender;
   /** The body of the email. */
   @FXML private TextArea area;
-
-  public static void infoBox(String infoMessage, String titleBar) {
-    JOptionPane.showMessageDialog(
-        null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-  }
 
   /**
    * Sends an email using the member variables as parameters. Emails will be sent from the address
@@ -87,8 +84,17 @@ public class Helper {
     msg.setText(text2);
 
     Transport.send(msg);
-    infoBox("You just sent an email", "Email");
+    infoBox("You just sent an email","Email");
     logger.info("Sent message successfully.");
     App.stg.close();
   }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+        error2.setTitle("Noticeboard");
+        error2.setHeaderText(titleBar);
+        error2.setContentText(infoMessage);
+        error2.showAndWait();
+    }
 }
