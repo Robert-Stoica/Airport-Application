@@ -7,7 +7,8 @@ module org.comp2211 {
     requires java.mail;
     requires java.desktop;
 
-    opens org.comp2211 to
+
+  opens org.comp2211 to
       javafx.fxml;
 
   exports org.comp2211;

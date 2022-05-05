@@ -27,7 +27,7 @@ public class App extends Application {
    * @param fxml The file to load
    * @throws IOException if the file could not be loaded.
    */
-  static void setRoot(String fxml) throws IOException {
+  public static void setRoot(String fxml) throws IOException {
     logger.info("We have loaded a new Scene");
     scene.setRoot(loadFXML(fxml));
   }

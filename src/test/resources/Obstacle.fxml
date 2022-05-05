@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" prefHeight="520.0" prefWidth="642.0" styleClass="background" stylesheets="@style/runway.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.comp2211.ObstacleInput">
+    <children>
+        <Label layoutX="244.0" layoutY="54.0" styleClass="text" stylesheets="@style/runway.css" text="Obstacle Input" textAlignment="CENTER">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <TextField fx:id="height" layoutX="247.0" layoutY="187.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+        <TextField fx:id="centre" layoutX="247.0" layoutY="254.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+        <MenuButton fx:id="menu" layoutX="67.0" layoutY="118.0" mnemonicParsing="false" onKeyPressed="#keyListener" stylesheets="@style/runway.css" text="Operation Type">
+            <items>
+                <MenuItem fx:id="away" mnemonicParsing="false" onAction="#changeT" text="Take off Away/Over" />
+                <MenuItem fx:id="towards" mnemonicParsing="false" onAction="#changeTe" text="Take off Towards/Away" />
+            </items>
+        </MenuButton>
+        <Button fx:id="submit" layoutX="492.0" layoutY="402.0" mnemonicParsing="false" onAction="#openVisual" stylesheets="@style/runway.css" text="Submit" />
+        <Label layoutX="250.0" layoutY="169.0" styleClass="text" stylesheets="@style/runway.css" text="Object Height (m)" />
+        <Label layoutX="250.0" layoutY="235.0" stylesheets="@style/runway.css" text="Distance from Centerline (m)" />
+        <ToggleButton fx:id="toggle" layoutX="68.0" layoutY="402.0" mnemonicParsing="false" onAction="#openSidebar" styleClass="button" stylesheets="@style/runway.css" text="SideBar" />
+        <Button fx:id="clear" layoutX="270.0" layoutY="402.0" mnemonicParsing="false" onAction="#clearText" stylesheets="@style/runway.css" text="Clear Input" />
+        <TextField fx:id="threshold" layoutX="247.0" layoutY="324.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" />
+        <Label layoutX="250.0" layoutY="304.0" stylesheets="@style/runway.css" text="Distance from Threshold (m)" />
+        <VBox fx:id="vbox" layoutX="416.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="218.0" spacing="30.0" visible="false">
+            <children>
+                <Label alignment="CENTER" prefHeight="9.0" prefWidth="162.0" text="Change Blast Protection (m)" translateX="-20.0">
+                    <VBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="sideText" prefHeight="25.0" prefWidth="264.0" promptText="Enter number" styleClass="textbox" stylesheets="@style/runway.css" translateY="-3.0" />
+                <Button fx:id="exportB" mnemonicParsing="false" onAction="#export" prefHeight="45.0" prefWidth="275.0" text="Export Obstacle" translateY="-5.0" />
+                <Button fx:id="importB" mnemonicParsing="false" onAction="#create" prefHeight="43.0" prefWidth="274.0" text="Import Obstacle" translateY="-10.0" VBox.vgrow="ALWAYS" />
+            </children>
+            <padding>
+                <Insets top="100.0" />
+            </padding>
+        </VBox>
+        <Button fx:id="contrastB" layoutX="245.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#changeContrast" prefHeight="39.0" prefWidth="159.0" text="Change Contrast" />
+        <HBox fx:id="manual" layoutY="454.0" prefHeight="66.0" prefWidth="642.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+            <children>
+                <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 11px;" text="Obstacle Input: Type details about the runway into the boxes above then press submit... You can edit additional variables and import an XML obstacle in the sidebar menu " textOverrun="CLIP" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Button mnemonicParsing="false" onAction="#hideManual" prefHeight="39.0" prefWidth="202.0" text="Close" textOverrun="CLIP" />
+            </children>
+        </HBox>
+        <Button layoutX="90.0" layoutY="51.0" mnemonicParsing="false" onAction="#showManual" style="-fx-background-color: Yellow; -fx-border-color: black; -fx-border-width: 2px;" text="Help" />
+    </children>
+    <HBox fx:id="invalid" layoutY="434.0" prefHeight="77.0" prefWidth="620.0" style="-fx-background-color: #748EE5; -fx-border-color: black;" styleClass="button2" visible="false">
+        <children>
+            <Label prefHeight="59.0" prefWidth="600.0" style="-fx-font-size: 15px;" text="That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?" textOverrun="CLIP" wrapText="true">
+                <font>
+                    <Font name="System Bold" size="23.0" />
+                </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#hideInvalid" prefHeight="39.0" prefWidth="170.0" text="Close" />
+        </children>
+    </HBox>
+</Pane>
