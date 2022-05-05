@@ -521,9 +521,9 @@ public class RunwayVisual {
     gc.fillPolygon(
         new double[] {
             runwayPadding - cgc60, runwayPadding + cgc150, runwayPadding + cgc300,
-            runwayEndX - cgc300, runwayEndX - cgc150, runwayEndX + cgc60, runwayEndX + cgc60,
-            runwayEndX - cgc150, -cgc300, runwayPadding + cgc300, runwayPadding + cgc150,
-            runwayPadding - cgc60},
+            runwayEndX - cgc300, runwayEndX - cgc150, runwayEndX + cgc60,
+            runwayEndX + cgc60, runwayEndX - cgc150, runwayEndX-cgc300,
+            runwayPadding + cgc300, runwayPadding + cgc150, runwayPadding - cgc60},
         new double[] {
             runwayYTop - cgc75v, runwayYTop - cgc75v, runwayYTop - cgc105v, runwayYTop - cgc105v,
             runwayYTop - cgc75v, runwayYTop - cgc75v, runwayYBottom + cgc75v,
