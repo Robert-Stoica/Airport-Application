@@ -39,7 +39,7 @@ public class Runway {
       throw new IllegalArgumentException();
     }
 
-    logger.info("Created a new Runway: " + name);
+    logger.info("Created a new Runway: "+name);
     this.name = name;
     this.originalTora = tora;
     this.originalLda = lda;

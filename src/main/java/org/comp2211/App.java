@@ -21,7 +21,7 @@ public class App extends Application {
   private static Scene scene;
   private Stage stage;
 
-  static void setRoot(String fxml) throws IOException {
+  public static void setRoot(String fxml) throws IOException {
     logger.info("We have loaded a new Scene");
     scene.setRoot(loadFXML(fxml));
   }
