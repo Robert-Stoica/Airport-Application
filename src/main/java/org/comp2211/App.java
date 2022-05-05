@@ -21,21 +21,45 @@ public class App extends Application {
   private static Scene scene;
   private Stage stage;
 
+  /**
+   * Sets the root of a scene to a new fxml file, loaded from the defined repo.
+   *
+   * @param fxml The file to load
+   * @throws IOException if the file could not be loaded.
+   */
   static void setRoot(String fxml) throws IOException {
     logger.info("We have loaded a new Scene");
     scene.setRoot(loadFXML(fxml));
   }
 
+  /**
+   * Loads fxml from a defined repo.
+   *
+   * @param fxml The file to load
+   * @return An FXML Parent node
+   * @throws IOException if the file could not be loaded.
+   */
   private static Parent loadFXML(String fxml) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
     return fxmlLoader.load();
   }
 
+  /**
+   * Launches the app.
+   *
+   * @param args Command line arguments.
+   */
   public static void main(String[] args) {
     logger.info("The app has launched");
     launch();
   }
 
+  /**
+   * Starts the main app.
+   *
+   * @param stage Stage to show on
+   * @throws IOException if the stage cannot be opened
+   */
   @Override
   public void start(Stage stage) throws IOException {
     this.stage = stage;
@@ -45,6 +69,7 @@ public class App extends Application {
     runwayInput();
   }
 
+  /** Closes the app. */
   private void shutdown() {
     logger.info("The app has closed");
     System.exit(0);

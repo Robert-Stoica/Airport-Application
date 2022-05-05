@@ -113,6 +113,12 @@ public class RunwayVisual {
   private boolean showH = true;
   private boolean showLDA = true;
 
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
   public static void infoBox(String infoMessage, String titleBar) {
     Alert error2 = new Alert(Alert.AlertType.INFORMATION);
     error2.setTitle("Noticeboard");
@@ -140,6 +146,12 @@ public class RunwayVisual {
     }
   }
 
+  /**
+   * Appends the name and details of runway to a file, handling all errors.
+   *
+   * @param filename File to append to
+   * @param data Data of the runway
+   */
   void safeAppendFile(String filename, String data) {
     logger.info("Append to a file");
     try {
@@ -398,6 +410,9 @@ public class RunwayVisual {
     infoBox("You have finished working on this runway going back to the beginning", "Going back");
   }
 
+  /**
+   * Draws default canvases asking the user to select either landing or takeoff.
+   */
   private void drawBlankCanvases() {
     GraphicsContext gc = sideViewCanvas.getGraphicsContext2D();
     gc.setFill(skyBlue);
@@ -470,6 +485,9 @@ public class RunwayVisual {
 
   /**
    * Draws the top, crow's eye view of the runway. Uses a JavaFX canvas and deals with the devil.
+   *
+   * @param degrees The angle of rotation of the runway in degrees.
+   * @param name The name of the runway to use as a label.
    */
   private void drawTopView(double degrees, RunwayName name) {
     degrees += 90;
@@ -743,6 +761,8 @@ public class RunwayVisual {
 
   /**
    * Draws the side view of the runway. Uses a JavaFX canvas and dark magic unknown to human beings.
+   *
+   * @param name The name of the runway to use as a label.
    */
   private void drawSideView(RunwayName name) {
     // Drawing stuff
@@ -1062,19 +1082,32 @@ public class RunwayVisual {
     }
   }
 
+  /**
+   * Draw a white horizontal distance indicator with a label between two x positions.
+   *
+   * @param gc           The GraphicsContext to write to.
+   * @param x            The x coordinate of the left most point of the line.
+   * @param y            The y coordinate of the entire line.
+   * @param x2           The x coordinate of the right most point of the line.
+   * @param label        The label to attach to the indicator.
+   * @param isAbove      Moves the text above or below the line.
+   * @param isUpsideDown Rotates the text upside down.
+   */
   private void drawHorizontalBarBetween(GraphicsContext gc, double x, double y, double x2,
       String label, boolean isAbove, boolean isUpsideDown) {
     drawHorizontalBar(gc, x, y, x2 - x, label, isAbove, isUpsideDown);
   }
 
   /**
-   * Draw a white horizontal distance indicator with a label.
+   * Draw a white horizontal distance indicator with a label and a length.
    *
-   * @param gc    The GraphicsContext to write to.
-   * @param x     The x coordinate of the left most point of the line.
-   * @param y     The y coordinate of the entire line.
-   * @param l     The length of the line.
-   * @param label The label to attach to the indicator.
+   * @param gc           The GraphicsContext to write to.
+   * @param x            The x coordinate of the left most point of the line.
+   * @param y            The y coordinate of the entire line.
+   * @param l            The length of the line.
+   * @param label        The label to attach to the indicator.
+   * @param isAbove      Moves the text above or below the line.
+   * @param isUpsideDown Rotates the text upside down.
    */
   private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label, boolean isAbove, boolean isUpsideDown) {
     gc.setStroke(Color.WHITE);
@@ -1106,19 +1139,32 @@ public class RunwayVisual {
     }
   }
 
+  /**
+   * Draw a white vertical distance indicator with a label between two y positions.
+   *
+   * @param gc           The GraphicsContext to write to.
+   * @param x            The x coordinate of the entire line.
+   * @param y            The y coordinate of the highest point of the line.
+   * @param y2           The y coordinate of the lowest point of the line.
+   * @param label        The label to attach to the indicator.
+   * @param isAbove      Moves the text above or below the line.
+   * @param isUpsideDown Rotates the text upside down.
+   */
   private void drawVerticalBarBetween(GraphicsContext gc, double x, double y, double y2,
       String label, boolean isAbove, boolean isUpsideDown) {
     drawVerticalBar(gc, x, y, y2 - y, label, isAbove, isUpsideDown);
   }
 
   /**
-   * Draw a white vertical distance indicator with a label.
+   * Draw a white vertical distance indicator with a label and a length.
    *
-   * @param gc    The GraphicsContext to write to.
-   * @param x     The x coordinate of the entire line.
-   * @param y     The y coordinate of the highest point of the line.
-   * @param l     The length of the line.
-   * @param label The label to attach to the indicator.
+   * @param gc           The GraphicsContext to write to.
+   * @param x            The x coordinate of the entire line.
+   * @param y            The y coordinate of the highest point of the line.
+   * @param l            The length of the line.
+   * @param label        The label to attach to the indicator.
+   * @param isAbove      Moves the text above or below the line.
+   * @param isUpsideDown Rotates the text upside down.
    */
   private void drawVerticalBar(GraphicsContext gc, double x, double y, double l, String label,
       boolean isAbove, boolean isUpsideDown) {
@@ -1131,6 +1177,14 @@ public class RunwayVisual {
     gc.fillText(label, x + 5, y + (l / 2));
   }
 
+  /**
+   * Draws a horizontal arrow facing either left or right.
+   *
+   * @param gc The GraphicsContext to write to.
+   * @param x X position of the point of the arrow
+   * @param y y position of the point of the arrow
+   * @param rToL True if arrow is right to left, false otherwise
+   */
   private void drawArrow(GraphicsContext gc, double x, double y, boolean rToL) {
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
@@ -1166,6 +1220,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the TODA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleToda(ActionEvent actionEvent) {
     showToda = !showToda;
     if (showToda) {
@@ -1177,6 +1236,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the TORA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleTora(ActionEvent actionEvent) {
     showTora = !showTora;
     if (showTora) {
@@ -1188,6 +1252,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the ASDA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleAsda(ActionEvent actionEvent) {
     showAsda = !showAsda;
     if (showAsda) {
@@ -1199,6 +1268,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the RESA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleResa(ActionEvent actionEvent) {
     showResa = !showResa;
     if (showResa) {
@@ -1210,6 +1284,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the SE label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleSe(ActionEvent actionEvent) {
     showSe = !showSe;
     if (showSe) {
@@ -1221,6 +1300,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the H50 label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleH50(ActionEvent actionEvent) {
     showH50 = !showH50;
     if (showH50) {
@@ -1232,6 +1316,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the EBA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleEba(ActionEvent actionEvent) {
     showEba = !showEba;
     if (showEba) {
@@ -1243,6 +1332,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the H label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleH(ActionEvent actionEvent) {
     showH = !showH;
     if (showH) {
@@ -1254,6 +1348,11 @@ public class RunwayVisual {
     drawBothViews();
   }
 
+  /**
+   * Toggles the visibility of the LDA label.
+   *
+   * @param actionEvent ignored
+   */
   public void toggleLda(ActionEvent actionEvent) {
     showLDA = !showLDA;
     if (showLDA) {
@@ -1336,12 +1435,23 @@ public class RunwayVisual {
     manual.setVisible(false);
   }
 
+  /**
+   * Listens for a return key keycode, and continues to the next panel (first panel) if found.
+   *
+   * @param event Keycode that occurred
+   * @author mccaw12
+   */
   public void keyListener(KeyEvent event) throws IOException {
     if (event.getCode() == KeyCode.ENTER) {
       newRunway();
     }
   }
 
+  /**
+   * Converts between pixel coordinates and logical coordinates.
+   *
+   * @author JoshPattman
+   */
   private static class PixelCoordinateConverter {
     final double scaleFactor;
     final double offset;
@@ -1356,10 +1466,20 @@ public class RunwayVisual {
     }
   }
 
+  /**
+   * Stores the data related to a runway name.
+   *
+   * @author JoshPattman
+   */
   private class RunwayName {
     private final String des;
     private int points;
 
+    /**
+     * Parses a runway name.
+     *
+     * @param s name to parse
+     */
     public RunwayName(String s) {
       var pointsS = "";
       if (s.length() == 2) {
@@ -1377,10 +1497,20 @@ public class RunwayVisual {
 
     }
 
+    /**
+     * Calculates and returns heading of runway.
+     *
+     * @return Heading of runway in degrees
+     */
     public float getHeading() {
       return ((float) points * 10) % 360;
     }
 
+    /**
+     * Gets the name of the runway.
+     *
+     * @return The name of the runway
+     */
     public String getName() {
       var ps = Integer.toString(points);
       if (ps.length() < 2) {
@@ -1389,10 +1519,20 @@ public class RunwayVisual {
       return ps + des;
     }
 
+    /**
+     * Calculates and returns the reverse heading of runway.
+     *
+     * @return Reverse heading of runway in degrees
+     */
     public float getReverseHeading() {
       return ((float) points * 10 + 180) % 360;
     }
 
+    /**
+     * Gets the reverse name of the runway.
+     *
+     * @return The reverse name of the runway
+     */
     public String getReverseName() {
       var ps = Integer.toString((points + 18) % 36);
       if (ps.length() < 2) {
@@ -1401,6 +1541,12 @@ public class RunwayVisual {
       return ps + flipDes(des);
     }
 
+    /**
+     * Inverts the DES of the runway.
+     *
+     * @param des the DES to flip
+     * @return the new DES
+     */
     private String flipDes(String des) {
       return switch (des) {
         case "L" -> "R";

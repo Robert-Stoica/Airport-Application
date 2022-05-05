@@ -49,6 +49,12 @@ public class RunwayInput {
   @FXML private HBox manual;
   @FXML private Button addpreset;
 
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
   public static void infoBox(String infoMessage, String titleBar) {
     Alert error2 = new Alert(Alert.AlertType.INFORMATION);
     error2.setTitle("Noticeboard");
@@ -271,6 +277,12 @@ public class RunwayInput {
     }
   }
 
+  /**
+   * Listens for a return key keycode, and continues to the next panel if found.
+   *
+   * @param event Keycode that occurred
+   * @author mccaw12
+   */
   public void keyListener(KeyEvent event) throws IOException {
     if (event.getCode() == KeyCode.ENTER) {
       openObstacle();

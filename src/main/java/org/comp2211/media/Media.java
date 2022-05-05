@@ -49,6 +49,14 @@ public class Media {
     Media.filename = filename;
   }
 
+  /**
+   * Decodes a string, using escape sequences.
+   *
+   * @param xml XML file to read from
+   * @param name Name of the string to find
+   * @return The value of the string
+   * @throws XMLStreamException if the XML file is faulty
+   */
   private static String getString(XMLStreamReader xml, String name) throws XMLStreamException {
     var text = "";
     var next = 0;
@@ -75,6 +83,14 @@ public class Media {
     return text;
   }
 
+  /**
+   * Decodes an integer.
+   *
+   * @param xml XML file to read from
+   * @param name Name of the integer to find
+   * @return The value of the integer
+   * @throws XMLStreamException if the XML file is faulty
+   */
   private static int getInt(XMLStreamReader xml, String name) throws XMLStreamException {
     var text = 0;
     var next = 0;

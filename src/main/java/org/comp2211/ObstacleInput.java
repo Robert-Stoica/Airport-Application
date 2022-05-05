@@ -63,6 +63,12 @@ public class ObstacleInput {
 
   @FXML private HBox invalid;
 
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
   public static void infoBox(String infoMessage, String titleBar) {
     Alert error2 = new Alert(Alert.AlertType.INFORMATION);
     error2.setTitle("Noticeboard");
@@ -191,11 +197,21 @@ public class ObstacleInput {
     manual.setVisible(false);
   }
 
+  /**
+   * Hides the invalid notification.
+   *
+   * @author JoshPattman
+   */
   @FXML
   public void hideInvalid() {
     invalid.setVisible(false);
   }
 
+  /**
+   * Shows the invalid notification.
+   *
+   * @author JoshPattman
+   */
   public void showInvalid() {
     infoBox(
         "That obstacle makes the runway impossible to land on. Did you ensure that the correct operation type was selected?",
@@ -343,6 +359,12 @@ public class ObstacleInput {
     }
   }
 
+  /**
+   * Listens for a return key keycode, and continues to the next panel if found.
+   *
+   * @param event Keycode that occurred
+   * @author mccaw12
+   */
   public void keyListener(KeyEvent event) {
     if (event.getCode() == KeyCode.ENTER) {
       openVisual();

@@ -33,6 +33,12 @@ public class Helper {
   /** The body of the email. */
   @FXML private TextArea area;
 
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
   public static void infoBox(String infoMessage, String titleBar) {
     JOptionPane.showMessageDialog(
         null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
