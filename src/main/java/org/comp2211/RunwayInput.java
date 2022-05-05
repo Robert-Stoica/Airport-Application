@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
@@ -22,7 +21,6 @@ import org.apache.logging.log4j.Logger;
 import org.comp2211.calculations.Runway;
 import org.comp2211.media.Media;
 import org.comp2211.media.XMLData;
-import javax.swing.JOptionPane;
 
 /**
  * Screen to input data related to an obstacle, or obstruction.
@@ -33,9 +31,9 @@ public class RunwayInput {
 
   private static final Logger logger = LogManager.getLogger(RunwayInput.class);
   private final FileChooser fileChooser = new FileChooser();
-  @FXML private Button guideBtn;
   Scene scene = null;
   Parent root = null;
+  @FXML private Button guideBtn;
   private Runway runway;
   @FXML private TextField originalTora;
   @FXML private TextField originalLda;
@@ -55,6 +53,20 @@ public class RunwayInput {
   private Boolean highContrast = false;
   @FXML private HBox manual;
   @FXML private Button addpreset;
+
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
+  public static void infoBox(String infoMessage, String titleBar) {
+    Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+    error2.setTitle("Noticeboard");
+    error2.setHeaderText(titleBar);
+    error2.setContentText(infoMessage);
+    error2.showAndWait();
+  }
 
   /** Clears all the text inputs. */
   @FXML
@@ -155,8 +167,8 @@ public class RunwayInput {
   @FXML
   private void export() {
     if (!(originalTora.getText().isBlank()
-        || originalLda.getText().isBlank()
-        || displacedThreshold.getText().isBlank())
+            || originalLda.getText().isBlank()
+            || displacedThreshold.getText().isBlank())
         || name.getText().isBlank()) {
       logger.info("Export the runway to an xml file");
       createRunway();
@@ -210,28 +222,12 @@ public class RunwayInput {
   public void errorboard(String text) {
     logger.info("Send an error message");
 
-        Alert error2 = new Alert(Alert.AlertType.ERROR);
-        error2.setTitle("Error Alert");
-        error2.setHeaderText("High Threshold!");
-        error2.setContentText("Check the  amount of displace threshold " + text);
-        error2.showAndWait();
-
-    }
-
-  /**
-   * Creates a window with a message.
-   *
-   * @param infoMessage Message to display
-   * @param titleBar Title of the window
-   */
-    public static void infoBox(String infoMessage, String titleBar)
-    {
-        Alert error2 = new Alert(Alert.AlertType.INFORMATION);
-        error2.setTitle("Noticeboard");
-        error2.setHeaderText(titleBar);
-        error2.setContentText(infoMessage);
-        error2.showAndWait();
-    }
+    Alert error2 = new Alert(Alert.AlertType.ERROR);
+    error2.setTitle("Error Alert");
+    error2.setHeaderText("High Threshold!");
+    error2.setContentText("Check the  amount of displace threshold " + text);
+    error2.showAndWait();
+  }
 
   /**
    * Shows the manual.

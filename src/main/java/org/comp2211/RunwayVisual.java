@@ -276,7 +276,8 @@ public class RunwayVisual {
 
 
   /**
-   * Automatically outputs all the calculations made by the system to a file called <code>calculationhistory.txt</code>.
+   * Automatically outputs all the calculations made by the system to a file called
+   * <code>calculationhistory.txt</code>.
    */
   public void recordFile() {
     Calculations calc = new Calculations();
@@ -418,13 +419,15 @@ public class RunwayVisual {
     gc.setFill(skyBlue);
     gc.fillRect(0, 0, sideViewCanvas.getWidth(), sideViewCanvas.getHeight());
     gc.setFill(Color.WHITE);
-    gc.fillText("Select either landing or takeoff to continue", sideViewCanvas.getWidth() / 2 - 150, sideViewCanvas.getHeight() / 2);
+    gc.fillText("Select either landing or takeoff to continue",
+        sideViewCanvas.getWidth() / 2 - 150, sideViewCanvas.getHeight() / 2);
 
     gc = topViewCanvas.getGraphicsContext2D();
     gc.setFill(grassGreen);
     gc.fillRect(0, 0, topViewCanvas.getWidth(), topViewCanvas.getHeight());
     gc.setFill(Color.WHITE);
-    gc.fillText("Select either landing or takeoff to continue", topViewCanvas.getWidth() / 2 - 150, topViewCanvas.getHeight() / 2);
+    gc.fillText("Select either landing or takeoff to continue",
+        topViewCanvas.getWidth() / 2 - 150, topViewCanvas.getHeight() / 2);
   }
 
   /**
@@ -540,7 +543,7 @@ public class RunwayVisual {
         new double[] {
             runwayPadding - cgc60, runwayPadding + cgc150, runwayPadding + cgc300,
             runwayEndX - cgc300, runwayEndX - cgc150, runwayEndX + cgc60,
-            runwayEndX + cgc60, runwayEndX - cgc150, runwayEndX-cgc300,
+            runwayEndX + cgc60, runwayEndX - cgc150, runwayEndX - cgc300,
             runwayPadding + cgc300, runwayPadding + cgc150, runwayPadding - cgc60},
         new double[] {
             runwayYTop - cgc75v, runwayYTop - cgc75v, runwayYTop - cgc105v, runwayYTop - cgc105v,
@@ -1109,7 +1112,8 @@ public class RunwayVisual {
    * @param isAbove      Moves the text above or below the line.
    * @param isUpsideDown Rotates the text upside down.
    */
-  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label, boolean isAbove, boolean isUpsideDown) {
+  private void drawHorizontalBar(GraphicsContext gc, double x, double y, double l, String label,
+      boolean isAbove, boolean isUpsideDown) {
     gc.setStroke(Color.WHITE);
     gc.setLineWidth(2);
     gc.strokeLine(x, y, x + l, y);
@@ -1422,7 +1426,8 @@ public class RunwayVisual {
    */
   @FXML
   public void showManual() {
-    infoBox("The numbers displayed are the results of the calculation... Press 'View Calculation' to see the calculation steps in a text file", "Help");
+    infoBox("The numbers displayed are the results of the calculation... Press 'View Calculation' to see the calculation steps in a text file",
+        "Help");
   }
 
   /**

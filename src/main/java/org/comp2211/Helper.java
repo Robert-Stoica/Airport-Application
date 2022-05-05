@@ -13,7 +13,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +32,20 @@ public class Helper {
   @FXML private Button sender;
   /** The body of the email. */
   @FXML private TextArea area;
+
+  /**
+   * Creates a window with a message.
+   *
+   * @param infoMessage Message to display
+   * @param titleBar Title of the window
+   */
+  public static void infoBox(String infoMessage, String titleBar) {
+    Alert error2 = new Alert(Alert.AlertType.INFORMATION);
+    error2.setTitle("Noticeboard");
+    error2.setHeaderText(titleBar);
+    error2.setContentText(infoMessage);
+    error2.showAndWait();
+  }
 
   /**
    * Sends an email using the member variables as parameters. Emails will be sent from the address
@@ -87,19 +100,4 @@ public class Helper {
     logger.info("Sent message successfully.");
     App.stg.close();
   }
-
-  /**
-   * Creates a window with a message.
-   *
-   * @param infoMessage Message to display
-   * @param titleBar Title of the window
-   */
-    public static void infoBox(String infoMessage, String titleBar)
-    {
-        Alert error2 = new Alert(Alert.AlertType.INFORMATION);
-        error2.setTitle("Noticeboard");
-        error2.setHeaderText(titleBar);
-        error2.setContentText(infoMessage);
-        error2.showAndWait();
-    }
 }
