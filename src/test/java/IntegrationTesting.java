@@ -47,8 +47,8 @@ public class IntegrationTesting {
 
   }
 
-  @AfterEach
-   void tearDown() throws TimeoutException {
+  @AfterAll
+  static void tearDown() throws TimeoutException {
     FxToolkit.hideStage();
     FxToolkit.cleanupStages();
   }
